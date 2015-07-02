@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sistema PHP</title>
+    <title>Prueba Restaurante</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -49,13 +49,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Menú</a>
+                        <a href="#">Menï¿½</a>
                     </li>
                     <li>
                         <a href="#">Ayuda</a>
                     </li>
                     <li>
-                        <a href="#">Más</a>
+                        <a href="#">Mï¿½s</a>
                     </li>
                 </ul>
             </div>
