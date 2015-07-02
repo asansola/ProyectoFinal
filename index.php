@@ -13,7 +13,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sistema PHP</title>
+    <title>Cambio PHP</title>
+    
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
