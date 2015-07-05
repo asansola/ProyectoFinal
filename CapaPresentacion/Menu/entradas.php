@@ -17,10 +17,10 @@ include ("IncluirClases.php");
 
 
 <!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="css/heroic-features.css" rel="stylesheet">
+<link href="../css/heroic-features.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +44,7 @@ include ("IncluirClases.php");
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php">Inicio</a>
+				<a class="navbar-brand" href="../index.php">Inicio</a>
 			</div>
 
 			<!-- /.navbar-collapse -->
@@ -59,7 +59,8 @@ include ("IncluirClases.php");
 			?>
 			<!-- /.navbar-collapse -->
 			
-			
+    <div class="clearfix visible-lg"></div>
+  </div>
 		</div>
 		<!-- /.container -->
 	</nav>
@@ -158,8 +159,6 @@ include ("IncluirClases.php");
 				</div>
 			</div>
 		</footer>
-		
-		
 
 	</div>
 	<!-- /.container -->
@@ -173,3 +172,4 @@ include ("IncluirClases.php");
 </body>
 
 </html>
+
