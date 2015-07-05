@@ -60,7 +60,7 @@
 				$pServidorBD='Localhost';
 				$pUsuario='root';
 				$pClave='123456';
-				$pNombreBaseDatos='Matricula';
+				$pNombreBaseDatos='prueba';
 				//Asignar los par�metros a las variables de instancia
 				$this->usuario = $pUsuario;
 				$this->clave = $pClave;
@@ -105,7 +105,7 @@
 					if($num_resultados){
 						for( $i=0; $i<$num_resultados; $i++ )
 						{
-							$fila[$i] = mysqli_fetch_array ($this->resultado,MYSQLI_NUM);
+							$fila[$i] = mysqli_fetch_object ($this->resultado);
 						}
 					}
 					$this->resultado->free();
@@ -119,6 +119,10 @@
 				return null;
 			}
 		}
+		
+		
+		
+		
 		/**
 		 * Ejecutar Sentencias SQL tipo Select o invocaci�n de 
 		 * Procedimientos Almacenados (Store Procedures) hacia la fuente de datos
