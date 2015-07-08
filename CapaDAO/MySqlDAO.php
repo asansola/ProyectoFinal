@@ -60,7 +60,7 @@
 				$pServidorBD='Localhost';
 				$pUsuario='root';
 				$pClave='123456';
-				$pNombreBaseDatos='prueba';
+				$pNombreBaseDatos='restaurantePHP';
 				//Asignar los par�metros a las variables de instancia
 				$this->usuario = $pUsuario;
 				$this->clave = $pClave;

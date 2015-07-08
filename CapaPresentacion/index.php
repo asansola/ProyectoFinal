@@ -70,7 +70,7 @@ include ("IncluirClases.php");
 		<!-- Jumbotron Header -->
 		<header class="jumbotron hero-spacer">
 			<h1>Bienvenido al Restaurante!</h1>
-			<p>Estamos a sus órdenes.</p>
+			<p>Estamos a sus ï¿½rdenes.</p>
 			<p>
 				<a class="btn btn-primary btn-large">Call to action!</a>
 			</p>
@@ -81,7 +81,7 @@ include ("IncluirClases.php");
 		<!-- Title -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h3>Menú</h3>
+				<h3>Men&uacute;</h3>
 			</div>
 		</div>
 		<!-- /.row -->
@@ -154,7 +154,7 @@ include ("IncluirClases.php");
 		<footer>
 			<div class="row">
 				<div class="col-lg-12">
-					<p>Derechos Reservados &copy; Restaurante <?php date('Y')?></p>
+					<p>Derechos Reservados &copy; <?php echo date("Y")?></p>
 				</div>
 			</div>
 		</footer>
