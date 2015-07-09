@@ -10,7 +10,8 @@ html {
 }
 
 body {
-	margin: 0
+	margin: 0;
+	
 }
 
 article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary
@@ -5270,7 +5271,9 @@ a.badge:focus,a.badge:hover {
 
 .thumbnail a>img,.thumbnail>img {
 	margin-right: auto;
-	margin-left: auto
+	margin-left: auto;
+	max-width:100%;
+	height: 200px;
 }
 
 a.thumbnail.active,a.thumbnail:focus,a.thumbnail:hover {

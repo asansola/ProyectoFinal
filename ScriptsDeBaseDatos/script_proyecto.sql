@@ -80,8 +80,9 @@ precio_unidad double
 
 DROP TABLE IF EXISTS tipo_plato;
 Create table tipo_plato(
-id_tipo_plato int not null,
+id_tipo_plato int not null ,
 descripcion varchar(30), -- entrada, fuerte, postre,bebida
+url_imagen varchar(150),
 primary key (id_tipo_plato)
 );
 

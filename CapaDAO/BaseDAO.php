@@ -76,8 +76,9 @@
 		 * Procedimientos Almacenados (Store Procedures) hacia la fuente de datos
 		 * @param String $pSQL Select/Store Procedure a ejecutar
 		 */
-		abstract protected function EjecutarSQL($pSQL);
+		abstract protected function EjecutarSQLObjetos($pSQL);
 		
+		abstract protected function EjecutarSQLIndices($pSQL);
 		/**
 		 * Ejecutar Sentencias SQL tipo Data Manipulation Lenguaje - DML
 		 * (Insert, Update, Delete) hacia la base de datos

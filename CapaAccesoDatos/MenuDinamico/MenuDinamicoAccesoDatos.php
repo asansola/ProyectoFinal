@@ -38,7 +38,7 @@ class MenuDinamicoAccesoDatos extends MantenimientoBase{
 			
 			//Invocar el Procedimiento Almacenado
 			//Se manda 0 en par�metro ya que se desea leer todas las tuplas
-			$vSql = "CALL sp_Q_Menu (0, @descripcionError);";
+			$vSql = "CALL sp_Q_Tipo_Plato (0, @descripcionError);";
 			FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 			$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQL($vSql);
 			$menuItems= array();
