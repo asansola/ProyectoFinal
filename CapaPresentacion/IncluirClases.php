@@ -1,4 +1,9 @@
 <?php
+//continuar una sesion iniciada
+if(!isset($_SESSION) ){
+	session_start();
+} 
+
 //Cargar todos los archivos PHP necesiarios para la
 //ejecuci�n de la aplicaci�n
 require_once("../CapaDAO/BaseDAO.php");

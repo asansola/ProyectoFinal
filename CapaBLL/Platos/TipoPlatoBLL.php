@@ -65,7 +65,7 @@ class TipoPlatoBLL extends LogicaNegocioMantenimientoBase{
 	}
 
 
-	public function ConsultarUno($id, $clave){
+	public function Verificar($id, $clave){
 		return $this->oTipoPlato->Consultar($id, $clave);
 	}
 	public function Listar(){

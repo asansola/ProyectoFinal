@@ -29,9 +29,7 @@ class TipoPlatoAccesoDatos extends MantenimientoBase{
 
 	}
 	
-	public function ConsultarUno($id, $clave){
-	
-	}
+	public function Verificar($id, $clave){ }
 	
 	public function Listar(){
 		//Variables Locales

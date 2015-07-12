@@ -57,9 +57,9 @@
 		 */
 		public function AbrirConexion(){
 			try{
-				$pServidorBD='Localhost';
+				$pServidorBD='localhost';
 				$pUsuario='root';
-				$pClave='123456';
+				$pClave='root';
 				$pNombreBaseDatos='restaurantePHP';
 				//Asignar los par�metros a las variables de instancia
 				$this->usuario = $pUsuario;

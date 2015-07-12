@@ -13,11 +13,11 @@ class UsuarioBLL extends LogicaNegocioMantenimientoBase{
 	
 	public function __construct(){
 		//Asignar Valores por defecto a los atributos de la instancia
-		$this->hayError = False;
+		$this->hayError = false;
 			
 		//Crear la instancia del objeto
 		
-		$this->$oUsuario = new UsuarioAccesoDatos();
+		$this->oUsuario = new UsuarioAccesoDatos();
 	}
 
 	public function getHayError(){
@@ -52,8 +52,8 @@ class UsuarioBLL extends LogicaNegocioMantenimientoBase{
 		return $this->oUsuario->Consultar($oUsuario);
 	}
 
-	public function ConsultarUno($id,$clave){ //consulta por id y clave
-		return $this->oUsuario->ConsultarUno($id,$clave);
+	public function Verificar($id,$clave){ //consulta por id y clave
+		return $this->oUsuario->Verificar($id,$clave);
 	}
 
 	public function Listar(){

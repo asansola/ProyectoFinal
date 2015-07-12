@@ -1,6 +1,3 @@
-<?php 
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,12 +12,13 @@
 
 <title><?php echo $title; ?></title>
 
-
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="css/heroic-features.css" rel="stylesheet">
+
+<link href="css/custom_styles.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,6 +34,7 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container ">
+
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -47,17 +46,9 @@
 				</button>
 				<a class="navbar-brand "  href="index.php" >Inicio</a>
 			</div>
-			
-
-			<!--Login  pendiente action-->
-			<!--  navbar-right --> 
-		<?php include ('Login.php');?>
-			
 		
-
 			<ul class="nav navbar-nav ">
-			
-				<!-- Menu principal -->
+			<!-- Menu principal -->
 			<!-- /.navbar-collapse -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle" 
 					data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -76,6 +67,9 @@
 				<li><a href="ayuda.php" >Ayuda</a></li>
 			</ul>
 	
+			<!--Login  pendiente action-->
+			<!--  navbar-right --> 
+			<?php include ('Login.php');?>
 
 
 		</div>

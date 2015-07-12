@@ -60,7 +60,15 @@
 		 */
 		abstract protected function Consultar($oEntidadBase);
 		
-		abstract protected function ConsultarUno($id,$clave);
+
+		/**
+		 * Verificar si existe registro
+		 * @param Integer $id
+		 * @param String $clave
+		 */
+		abstract protected function Verificar($id,$clave);
+
+		
 		/**
 		 * Listar todos los datos de la entidad
 		 */

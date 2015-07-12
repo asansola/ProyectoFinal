@@ -23,10 +23,9 @@ class MenuDinamicoAccesoDatos extends MantenimientoBase{
 				
 		}
 		
-		public function Consultar($oCarrera){
-			
-				
-		}
+		public function Consultar($oCarrera) { }
+
+		public function Verificar($id, $clave){ }
 
 		public function Listar(){
 			//Variables Locales
