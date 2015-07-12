@@ -1,6 +1,6 @@
 <?php 	
 
-	// el formulario se submiteo
+	// si hay submit en el form
 	if( !empty($_POST) ){	
 
 		$idUsuario = $_POST['usuario'];
@@ -12,7 +12,7 @@
 		if( $usuarioActual != "" ){		
 
 			$_SESSION['usuario'] = $usuarioActual[0][2] . " " . $usuarioActual[0][3];
-			$_SESSION['rol'] = $usuarioActual[0][5];
+			$_SESSION['rol'] = $usuarioActual[0][5]; //Rol para definir los menus a mostrar
 
 			$mensaje = 'Bienvenido ' . $_SESSION['usuario'];
 		
@@ -23,7 +23,7 @@
 		}
 		else
 		{
-			
+	
 			$mensaje='Datos Incorrectos';
 			echo "<script>";
 			echo "if(alert('$mensaje'));";
@@ -39,8 +39,9 @@
 		$usuario_logueado = true;
 
 	}	
+	
 
-	if ( $usuario_logueado ) {
+	if (isset ($usuario_logueado) ) {
 ?>	
 	<ul class="nav navbar-nav navbar-right">
 		<li style="color:white;"><span><?php echo $_SESSION['usuario']; ?><span>&nbsp;</li>

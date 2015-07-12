@@ -59,7 +59,7 @@
 			try{
 				$pServidorBD='localhost';
 				$pUsuario='root';
-				$pClave='root';
+				$pClave='123456';
 				$pNombreBaseDatos='restaurantePHP';
 				//Asignar los par�metros a las variables de instancia
 				$this->usuario = $pUsuario;
