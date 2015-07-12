@@ -63,38 +63,17 @@ class TipoPlatoBLL extends LogicaNegocioMantenimientoBase{
 	public function Consultar($oTipoPlato){
 		return $this->oTipoPlato->Consultar($oTipoPlato);
 	}
-
-
-	public function Verificar($id, $clave){
-		return $this->oTipoPlato->Consultar($id, $clave);
+	
+	public function ConsultarNombre($oTipoPlato){
+		return $this->oTipoPlato->ConsultarNombre($oTipoPlato);
 	}
+
 	public function Listar(){
 		return $this->oTipoPlato->Listar();
 	}
 
-	/* function Crear_Menu(array $arrayItem, $id_parent = 0, $level = 0) {
-		if ($id_parent == 0) {
-			echo '<ul class="nav navbar-nav">';
-		} else {
-			echo '<ul class="dropdown-menu">';
-		}
-		foreach ( $arrayItem [$id_parent] as $id_item => $item ) {
-			if ($id_parent == 0) {
-				echo  '<li class="dropdown-submenu"><a class="dropdown-toggle" data-toggle="dropdown" role="button">', $item ['texto'];
-			} else {
-				if ($item ['link'] == '#') {
-					echo  '<li  class="dropdown-submenu"><a class="dropdown-toggle"
-				data-toggle="dropdown" role="button">', $item ['texto'], '</a>';
-				} else {
-					echo '<li><a href="', $item ['link'], '">', $item ['texto'], '</a>';
-				}
-			}
-			if (isset ( $arrayItem [$id_item] )) { // Llamada recursiva
-				$this->Crear_Menu($arrayItem, $id_item, $level + 2 );
-			}
-			echo  '</li>'; // Cerramos el item de la lista
-		}
-		echo  '</ul>'; // Cerramos la lista
-	} */
+	public function Verificar($id, $clave){
+	
+	}
 
 }

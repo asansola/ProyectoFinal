@@ -9,12 +9,20 @@ if(!isset($_SESSION) ){
 require_once("../CapaDAO/BaseDAO.php");
 require_once("../CapaDAO/MySqlDAO.php");
 require_once("../CapaDAO/FactoriaDAO.php");
+
+
 require_once("../CapaEntidad/EntidadBase.php");
 require_once("../CapaEntidad/TipoPlato.php");
+require_once("../CapaEntidad/Plato.php");
+
 require_once("../CapaAccesoDatos/MantenimientoBase.php");
 require_once("../CapaAccesoDatos/Platos/TipoPlatoAccesoDatos.php");
+require_once("../CapaAccesoDatos/Platos/PlatoAccesoDatos.php");
+
 require_once("../CapaBLL/LogicaNegocioMantenimientoBase.php");
 require_once("../CapaBLL/Platos/TipoPlatoBLL.php");
+require_once("../CapaBLL/Platos/PlatoBLL.php");
+
 
 require_once("../CapaEntidad/Usuario.php");
 require_once("../CapaAccesoDatos/Usuario/UsuarioAccesoDatos.php");

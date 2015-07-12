@@ -11,7 +11,6 @@ html {
 
 body {
 	margin: 0;
-	
 }
 
 article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary
@@ -24,11 +23,27 @@ audio,canvas,progress,video {
 	vertical-align: baseline
 }
 
-audio:not ([controls] ){
-	display: none;
-	height: 0
-}
+audio
+:not
+ 
+(
+[
+controls
+]
+ 
+){
+display
+:
+ 
+none
+;
 
+	
+height
+:
+ 
+0
+}
 [hidden],template {
 	display: none
 }
@@ -86,10 +101,20 @@ img {
 	border: 0
 }
 
-svg:not (:root ){
-	overflow: hidden
-}
+svg
+:not
+ 
+(
+:root
+ 
+){
+overflow
+:
+ 
+hidden
 
+
+}
 figure {
 	margin: 1em 40px
 }
@@ -193,7 +218,7 @@ table {
 td,th {
 	padding: 0
 }
-	/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
 	*,:after,:before {
 		color: #000 !important;
@@ -3304,9 +3329,8 @@ select[multiple].form-group-lg .form-control,textarea.form-group-lg .form-contro
 	border-color: #ccc
 }
 
-.btn-default.active,.btn-default.focus,.btn-default:active,.btn-default:focus,.btn-default:hover,.open>.
--toggle.btn-default
-	{
+.btn-default.active,.btn-default.focus,.btn-default:active,.btn-default:focus,.btn-default:hover,.open>
+	. -toggle.btn-default {
 	color: #333;
 	background-color: #e6e6e6;
 	border-color: #adadad
@@ -3591,7 +3615,6 @@ tbody.collapse.in {
 
 .dropdown,.dropup {
 	position: relative;
-	
 }
 
 .dropdown-toggle:focus {
@@ -3621,8 +3644,6 @@ tbody.collapse.in {
 	box-shadow: 0 6px 12px rgba(0, 0, 0, .175)
 }
 
-
-
 .dropdown-menu.pull-right {
 	right: 0;
 	left: auto
@@ -3650,10 +3671,6 @@ tbody.collapse.in {
 	text-decoration: none;
 	background-color: #f5f5f5
 }
-
-
-
-
 
 .dropdown-menu>.active>a,.dropdown-menu>.active>a:focus,.dropdown-menu>.active>a:hover
 	{
@@ -3740,55 +3757,54 @@ tbody.collapse.in {
 	}
 }
 
-
 .dropdown-submenu {
-    position: relative;    
+	position: relative;
 }
 
 .dropdown-submenu>.dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -6px;
-    margin-left: -1px;
-    -webkit-border-radius: 0 6px 6px 6px;
-    -moz-border-radius: 0 6px 6px;
-    border-radius: 0 6px 6px 6px;
+	top: 0;
+	left: 100%;
+	margin-top: -6px;
+	margin-left: -1px;
+	-webkit-border-radius: 0 6px 6px 6px;
+	-moz-border-radius: 0 6px 6px;
+	border-radius: 0 6px 6px 6px;
 }
 
 .dropdown-submenu:hover>.dropdown-menu {
-    display: inline-block;
-   margin-top: 50px;
-    margin-left: -65px;
+	display: inline-block;
+	margin-top: 50px;
+	margin-left: -65px;
 }
 
 .dropdown-submenu>a:after {
-    display: block;
-    content: " ";
-    float: right;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 5px 0 5px 5px;
-    border-left-color: #ccc;
-    margin-top: 5px;
-    margin-right: -10px;
+	display: block;
+	content: " ";
+	float: right;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 5px 0 5px 5px;
+	border-left-color: #ccc;
+	margin-top: 5px;
+	margin-right: -10px;
 }
 
 .dropdown-submenu:hover>a:after {
-    border-left-color: #fff;
+	border-left-color: #fff;
 }
 
 .dropdown-submenu.pull-left {
-    float: none;
+	float: none;
 }
 
 .dropdown-submenu.pull-left>.dropdown-menu {
-    left: -100%;
-    margin-left: 10px;
-    -webkit-border-radius: 6px 0 6px 6px;
-    -moz-border-radius: 6px 0 6px 6px;
-    border-radius: 6px 0 6px 6px;
+	left: -100%;
+	margin-left: 10px;
+	-webkit-border-radius: 6px 0 6px 6px;
+	-moz-border-radius: 6px 0 6px 6px;
+	border-radius: 6px 0 6px 6px;
 }
 
 .btn-group,.btn-group-vertical {
@@ -3824,26 +3840,91 @@ tbody.collapse.in {
 	margin-left: 5px
 }
 
-.btn-group>.btn:not (:first-child ):not (:last-child ):not (.dropdown-toggle
-	){
-	border-radius: 0
-}
+.btn-group
+>
+.btn
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+)
+:not
+ 
+(
+.dropdown-toggle
 
+	
+){
+border-radius
+:
+ 
+0
+}
 .btn-group>.btn:first-child {
 	margin-left: 0
 }
 
-.btn-group>.btn:first-child:not (:last-child ):not (.dropdown-toggle ){
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0
+.btn-group
+>
+.btn
+:first-child
+:not
+ 
+(
+:last-child
+ 
+)
+:not
+ 
+(
+.dropdown-toggle
+ 
+){
+border-top-right-radius
+:
+ 
+0;
+border-bottom-right-radius
+:
+ 
+0
 }
+.btn-group
+>
+.btn
+:last-child
+:not
+ 
+(
+:first-child
+ 
+),
+.btn-group
+>
+.dropdown-toggle
+:not
 
-.btn-group>.btn:last-child:not (:first-child ),.btn-group>.dropdown-toggle:not
-	(:first-child ){
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0
+	
+(
+:first-child
+ 
+){
+border-top-left-radius
+:
+ 
+0;
+border-bottom-left-radius
+:
+ 
+0
 }
-
 .btn-group>.btn-group {
 	float: left
 }
@@ -3853,7 +3934,7 @@ tbody.collapse.in {
 }
 
 .btn-group>.btn-group:first-child:not (:last-child )>.btn:last-child,.btn-group>.btn-group:first-child:not
-	(:last-child )>.dropdown-toggle {
+	 (:last-child )>.dropdown-toggle {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0
 }
@@ -3918,29 +3999,86 @@ tbody.collapse.in {
 	margin-left: 0
 }
 
-.btn-group-vertical>.btn:not (:first-child ):not (:last-child ){
-	border-radius: 0
+.btn-group-vertical
+>
+.btn
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+){
+border-radius
+:
+ 
+0
 }
+.btn-group-vertical
+>
+.btn
+:first-child
+:not
+ 
+(
+:last-child
+ 
+){
+border-top-right-radius
+:
+ 
+4
+px
+;
 
-.btn-group-vertical>.btn:first-child:not (:last-child ){
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0
+	
+border-bottom-right-radius
+:
+ 
+0;
+border-bottom-left-radius
+:
+ 
+0
 }
+.btn-group-vertical
+>
+.btn
+:last-child
+:not
+ 
+(
+:first-child
+ 
+){
+border-top-left-radius
+:
+ 
+0;
+border-top-right-radius
+:
+ 
+0;
+border-bottom-left-radius
+:
+ 
+4
+px
 
-.btn-group-vertical>.btn:last-child:not (:first-child ){
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	border-bottom-left-radius: 4px
+
 }
-
 .btn-group-vertical>.btn-group:not (:first-child ):not (:last-child )>.btn
 	{
 	border-radius: 0
 }
 
 .btn-group-vertical>.btn-group:first-child:not (:last-child )>.btn:last-child,.btn-group-vertical>.btn-group:first-child:not
-	(:last-child )>.dropdown-toggle {
+	 (:last-child )>.dropdown-toggle {
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0
 }
@@ -4043,12 +4181,54 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 	display: table-cell
 }
 
-.input-group .form-control:not (:first-child ):not (:last-child ),.input-group-addon:not
-	(:first-child ):not (:last-child ),.input-group-btn:not (:first-child ):not
-	(:last-child ){
-	border-radius: 0
-}
+.input-group
+ 
+.form-control
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+),
+.input-group-addon
+:not
 
+	
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+),
+.input-group-btn
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+
+	
+(
+:last-child
+ 
+){
+border-radius
+:
+ 
+0
+}
 .input-group-addon,.input-group-btn {
 	width: 1%;
 	white-space: nowrap;
@@ -4084,20 +4264,77 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 	margin-top: 0
 }
 
-.input-group .form-control:first-child,.input-group-addon:first-child,.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group>.btn,.input-group-btn:first-child>.dropdown-toggle,.input-group-btn:last-child>.btn-group:not
-	(:last-child )>.btn,.input-group-btn:last-child>.btn:not (:last-child ):not
-	(.dropdown-toggle ){
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0
-}
+.input-group
+ 
+.form-control
+:first-child
+,
+.input-group-addon
+:first-child
+,
+.input-group-btn
+:first-child
+>
+.btn
+,
+.input-group-btn
+:first-child
+>
+.btn-group
+>
+.btn
+,
+.input-group-btn
+:first-child
+>
+.dropdown-toggle
+,
+.input-group-btn
+:last-child
+>
+.btn-group
+:not
 
+	
+(
+:last-child
+ 
+)>
+.btn
+,
+.input-group-btn
+:last-child
+>
+.btn
+:not
+ 
+(
+:last-child
+ 
+)
+:not
+
+	
+(
+.dropdown-toggle
+ 
+){
+border-top-right-radius
+:
+ 
+0;
+border-bottom-right-radius
+:
+ 
+0
+}
 .input-group-addon:first-child {
 	border-right: 0
 }
 
 .input-group .form-control:last-child,.input-group-addon:last-child,.input-group-btn:first-child>.btn-group:not
-	(:first-child )>.btn,.input-group-btn:first-child>.btn:not (:first-child
-	),.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle
+	 (:first-child )>.btn,.input-group-btn:first-child>.btn:not (:first-child
+	 ),.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle
 	{
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0
@@ -4342,6 +4579,29 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 		{
 		border-bottom-color: #fff
 	}
+}
+
+
+#top-link-block.affix-top {
+    position: absolute; /* allows it to "slide" up into view */
+    bottom: -82px; /* negative of the offset - height of link element */
+    left: 10px; /* padding from the left side of the window */
+}
+#top-link-block.affix {
+    position: fixed; /* keeps it on the bottom once in view */
+    bottom: 18px; /* height of link element */
+    left: 10px; /* padding from the left side of the window */
+}
+
+.subnav {
+	margin: 0; position : fixed;
+	left: 50%; transform : translateX( -50%);
+	z-index: 1020;
+	
+	background-color: rgb(247, 247, 247);
+	border-bottom: 1px solid #E1E1E1;
+	position: fixed; left : 50%;
+	transform: translateX(-50%);
 }
 
 .tab-content>.tab-pane {
@@ -5272,7 +5532,7 @@ a.badge:focus,a.badge:hover {
 .thumbnail a>img,.thumbnail>img {
 	margin-right: auto;
 	margin-left: auto;
-	max-width:100%;
+	max-width: 100%;
 	height: 200px;
 }
 
@@ -7095,14 +7355,3 @@ button.close {
 		display: none !important
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

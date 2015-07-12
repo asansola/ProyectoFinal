@@ -16,12 +16,6 @@ INSERT INTO menu (id_menu, id_menu_item, parent, texto, link, estado) VALUES(1,8
 
 use restaurantephp;
 
-INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (1,'Entradas','entrada.jpg');
-INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (2,'Platos Fuertes','platofuerte.jpg');
-INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (3,'Bebidas','bebida.jpg');
-INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (4,'Postres','postre.jpg');
-INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (5,'Platos Especiales','platoespecial.jpg');
-
 insert into rol(id_rol,descripcion) values(1,'Administrador');
 insert into rol(id_rol,descripcion) values(2,'Salonero');
 
@@ -33,4 +27,29 @@ insert into horario(id_horario,descripcion) values(400,'No Aplica');
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(123,123,'Administrador','P',400,1);
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(456,456,'Salonero','Prueba',100,2);
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(789,789,'Juan','Solano',400,1);
+
+
+
+
+INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (1,'Entradas','entrada.jpg');
+INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (2,'Platos Fuertes','platofuerte.jpg');
+INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (3,'Bebidas','bebida.jpg');
+INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (4,'Postres','postre.jpg');
+INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (5,'Platos Especiales','platoespecial.jpg');
+
+
+
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(1,'Bocas de atun',1500,'',1);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(2,'Bocas de frijoles',2500,'',1);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(3,'Sopa de mariscos',4500,'',2);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(4,'Arroz con camarones',4500,'',2);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(5,'Pollo a la plancha',3500,'',2);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(6,'Coca-Cola',1500,'',3);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(7,'Fresco Natural de Cas',1500,'',3);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(8,'Ginger-Ale',1500,'',3);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(9,'Flan de coco',1500,'',4);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(10,'Frutas con helado',1500,'',4);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(11,'Surtido de carnes',11500,'',5);
+
+
 

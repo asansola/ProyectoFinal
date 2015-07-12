@@ -25,12 +25,42 @@ class TipoPlatoAccesoDatos extends MantenimientoBase{
 	}
 
 	public function Consultar($oTipoPlato){
+		//Variables Locales
+		$queryResult=NULL;
+		$vResultadoCursor = null;
 			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+		//Invocar el Procedimiento Almacenado
+		$vSql = "CALL sp_Q_Tipo_Plato (" .$oTipoPlato->__get('id_tipo_plato') . ",@DescripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+			
+			
+		//Retornar el objeto
+		return $vResultadoCursor;
 
 	}
 	
-	public function Verificar($id, $clave){ }
+	public function ConsultarNombre($oTipoPlato){
+		//Variables Locales
+		$queryResult=NULL;
+		$vResultadoCursor = null;
+			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+		//Invocar el Procedimiento Almacenado
+		$nombre= $oTipoPlato->__get('descripcion');
+		$vSql = "CALL sp_Q_Tipo_Plato_Descripcion ("."'$nombre'".",@DescripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+			
+			
+		//Retornar el objeto
+		return $vResultadoCursor;
 	
+	}
+
 	public function Listar(){
 		//Variables Locales
 		$vResultadoCursor = null;
@@ -48,7 +78,9 @@ class TipoPlatoAccesoDatos extends MantenimientoBase{
 		return $vResultadoCursor;
 	}
 
-
+	public function Verificar($id, $clave){
+	
+	}
 
 
 }

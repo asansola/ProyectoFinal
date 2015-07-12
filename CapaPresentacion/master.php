@@ -45,7 +45,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand "  href="index.php" >Inicio</a>
+				<a class="navbar-brand "  href="index.php" >Inicio <i
+					class="glyphicon glyphicon-home"></i></a>
 			</div>
 			
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -54,18 +55,19 @@
 			<!-- /.navbar-collapse -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle" 
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">Menu <span class="caret"></span></a>
+					aria-expanded="false">Menu <i class="glyphicon glyphicon-cutlery"></i> </a>
 					<ul class="dropdown-menu ">
 						<li ><a href="entradas.php" >Entradas</a></li>
 						<li><a href="platos_fuertes.php" >Platos Fuertes</a></li>
 						<li><a href="bebidas.php" >Bebidas</a></li>
 						<li><a href="postres.php">Postres</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="especiales.php" >Platos Especiales</a></li>
+						<li><a href="platos_especiales.php" >Platos Especiales</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" 
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">Pedido<span class="caret"></span></a>
+					aria-expanded="false">Pedido <i
+						class="glyphicon glyphicon-shopping-cart"></i></a>
 					<ul class="dropdown-menu ">
 						<li ><a href="pedido.php" >Ordenar</a></li>
 						<?php if(isset($_SESSION['rol'])){?>  <!-- Si es admin o salonero que muestre los links -->
@@ -80,7 +82,7 @@
 					if($rol==1){?>   <!-- Si es administrador muestre los links -->
 					<li class="dropdown"><a href="#" class="dropdown-toggle" 
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Mantenimientos <span class="caret"></span></a>
+						aria-expanded="false">Mantenimientos <i class="glyphicon glyphicon-wrench"></i> </a>
 						<ul class="dropdown-menu ">
 							<li ><a href="" >Usuarios</a></li>
 							<li ><a href="" >Provedores</a></li>
@@ -90,14 +92,14 @@
 						</ul></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle" 
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Reportes<span class="caret"></span></a>
+						aria-expanded="false">Reportes <i class="glyphicon glyphicon-list-alt"></i></a>
 						<ul class="dropdown-menu ">
 							<li ><a href="" >Facturas</a></li>
 							<li ><a href="" >Comisiones Saloneros</a></li>
 						</ul></li>
 					<?php }
 					}?>
-				<li><a href="ayuda.php" >Ayuda</a></li>
+				<li><a href="ayuda.php" >Ayuda <i class="glyphicon glyphicon-wrench"></i></a></li>
 				
 				
 			</ul>
@@ -110,19 +112,22 @@
 		</div>  <!-- /.navbar-collapse -->
 		<!-- /.container -->
 	</nav>
-
-	<ul class="breadcrumb">
-		<li class="active"><a href="#">Home</a> <span class="divider">/</span></li>
+	<div class="container">
+		<div class="row">
+			<div class="btn-group btn-breadcrumb">
+				
+					<?php include 'breadcrumps.php';?>
+						<?=breadcrumbs('','');?>
 		
-	</ul>
+			
+			
+			</div>
+		</div>
+	</div>
+	
 
 	<div class="container ">
 
-		<!-- Jumbotron Header -->
-		<header class="jumbotron hero-spacer">
-			<h1>Banner o galeria</h1>
-
-		</header>
 
 		<div><?php	echo($content);?></div>
 
@@ -138,6 +143,14 @@
 
 	</div>
 	<!-- /.container -->
+	
+	<span id="top-link-block" class="hidden"> <a href="#top"
+		class="well well-sm"
+		onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+			<i class="glyphicon glyphicon-chevron-up"></i> Volver arriba
+	</a>
+	</span>
+	<!-- /top-link-block -->
 
 	<!-- jQuery -->
 	<script src="js/jquery.js"></script>

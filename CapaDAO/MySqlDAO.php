@@ -57,7 +57,7 @@
 		 */
 		public function AbrirConexion(){
 			try{
-				$pServidorBD='localhost';
+				$pServidorBD='Localhost';
 				$pUsuario='root';
 				$pClave='123456';
 				$pNombreBaseDatos='restaurantePHP';
