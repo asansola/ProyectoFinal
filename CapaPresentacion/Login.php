@@ -12,6 +12,7 @@
 		if( $usuarioActual != "" ){		
 
 			$_SESSION['usuario'] = $usuarioActual[0][2] . " " . $usuarioActual[0][3];
+			$_SESSION['rol'] = $usuarioActual[0][5];
 
 			$mensaje = 'Bienvenido ' . $_SESSION['usuario'];
 		
@@ -36,6 +37,7 @@
 	//comprobar la existencia del usuario
 	if ( isset($_SESSION['usuario']) ){
 		$usuario_logueado = true;
+
 	}	
 
 	if ( $usuario_logueado ) {
