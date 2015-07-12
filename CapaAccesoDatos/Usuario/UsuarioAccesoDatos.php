@@ -1,7 +1,6 @@
 <?php
 
-
-class TipoPlatoAccesoDatos extends MantenimientoBase{
+class UsuarioAccesoDatos extends MantenimientoBase{
 
 	/**
 	 * Constructor de la clase
@@ -12,45 +11,39 @@ class TipoPlatoAccesoDatos extends MantenimientoBase{
 		FactoriaDAO::setTipoBaseDatos("MySQL");
 	}
 
-	public function Agregar($oTipoPlato){
+	public function Agregar($oUsuario){
 
 	}
 
-	public function Modificar($oTipoPlato){
+	public function Modificar($oUsuario){
 			
 	}
 
-	public function Eliminar($oTipoPlato){
+	public function Eliminar($oUsuario){
 
 	}
 
-	public function Consultar($oTipoPlato){
-			
-
-	}
-	
-	public function ConsultarUno($id, $clave){
-	
-	}
-	
-	public function Listar(){
+	public function ConsultarUno($id,$clave){
 		//Variables Locales
-		$vResultadoCursor = null;
 		$queryResult=NULL;
+		$vResultadoCursor = null;
 			
 		//Inicializar el control de Errores
 		parent::setHayError(False);
-			
 		//Invocar el Procedimiento Almacenado
-		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
-		$vSql = "CALL sp_Q_Tipo_Plato (0, @descripcionError);";
+		$vSql = "CALL sp_Q_Usuario_login (" . $id .", '" . $clave . "', @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
-		
+		//Retornar el objeto
 		return $vResultadoCursor;
+
 	}
 
-
-
+	public function Listar(){
+	
+	}
+	
+	public  function  Consultar($oUsuario){}
 
 }
+?>

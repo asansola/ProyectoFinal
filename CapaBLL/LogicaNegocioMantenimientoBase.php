@@ -9,29 +9,29 @@
 
 		}
 
-		// Defefinción de métodos abstratos que deben implementarse
+		// Defefinciï¿½n de mï¿½todos abstratos que deben implementarse
 		// en las clases concretas
 				
 		/**
-		 * Indicador si en la última transacción ocurrio un error
+		 * Indicador si en la ï¿½ltima transacciï¿½n ocurrio un error
 		 * True  --> Si hay errores
 		 * False --> No hay errores
 		 */
 		abstract protected function getHayError();
 		
 		/**
-		 * Actualizar el estado del error de la última transacción
+		 * Actualizar el estado del error de la ï¿½ltima transacciï¿½n
 		 * @param Boolean $pHayError True/False
 		 */
 		abstract protected function setHayError($pHayError);
 		
 		/**
-		 * Leer la descripción del error de la última transacción ejecutada
+		 * Leer la descripciï¿½n del error de la ï¿½ltima transacciï¿½n ejecutada
 		 */
 		abstract protected function getDescripcionError();
 		
 		/**
-		 * Actualizar la descripcion del error de la última transacción ejecutada
+		 * Actualizar la descripcion del error de la ï¿½ltima transacciï¿½n ejecutada
 		 * @param String $pDescripcionError Mensaje de error
 		 */
 		abstract protected function setDescripcionError($pDescripcionError);
@@ -60,6 +60,7 @@
 		 */
 		abstract protected function Consultar($oEntidadBase);
 		
+		abstract protected function ConsultarUno($id,$clave);
 		/**
 		 * Listar todos los datos de la entidad
 		 */

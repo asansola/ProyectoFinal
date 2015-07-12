@@ -75,6 +75,7 @@
 		 * @param EntidadBase $oEntidadBase
 		 */
 		abstract protected function Consultar($oEntidadBase);
+		abstract protected function ConsultarUno($id,$clave);
 
 		/**
 		 * Listar todos los datos de la entidad

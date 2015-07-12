@@ -11,7 +11,9 @@ require_once("../CapaAccesoDatos/Platos/TipoPlatoAccesoDatos.php");
 require_once("../CapaBLL/LogicaNegocioMantenimientoBase.php");
 require_once("../CapaBLL/Platos/TipoPlatoBLL.php");
 
-
+require_once("../CapaEntidad/Usuario.php");
+require_once("../CapaAccesoDatos/Usuario/UsuarioAccesoDatos.php");
+require_once("../CapaBLL/Usuario/UsuarioBLL.php");
 
 //Establecer la conexi�n con la Base de Datos
 

@@ -61,3 +61,26 @@ BEGIN
 	FROM tipo_plato;
    
 END
+
+
+ -- Consulta de usuario y su clave--
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE sp_Q_Usuario_login (pid_usuario INT, pclave varchar(8),INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Usuario_login]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+   
+   -- Ejecutar la Consulta
+	SELECT * FROM usuario where id_usuario =pid_usuario and clave=pclave;
+END

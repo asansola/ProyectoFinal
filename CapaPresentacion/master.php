@@ -47,14 +47,18 @@
 				</button>
 				<a class="navbar-brand "  href="index.php" >Inicio</a>
 			</div>
+			
 
+			<!--Login  pendiente action-->
+			<!--  navbar-right --> 
+		<?php include ('Login.php');?>
+			
+		
 
+			<ul class="nav navbar-nav ">
+			
+				<!-- Menu principal -->
 			<!-- /.navbar-collapse -->
-			<!-- Collect the nav links, forms, and other content for toggling -->
-
-			<ul class="nav navbar-nav  ">
-
-
 				<li class="dropdown"><a href="#" class="dropdown-toggle" 
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">Menu <span class="caret"></span></a>
@@ -71,19 +75,7 @@
 				<li><a href="pedido.php"   >Pedido</a></li>
 				<li><a href="ayuda.php" >Ayuda</a></li>
 			</ul>
-
-
-			<!--Login  pendiente action-->
-			<form class="navbar-form navbar-right" role="search" action="">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Usuario"
-						required> <input type="password" class="form-control"
-						placeholder="Contrasena" required>
-				</div>
-				<button type="submit" class="btn btn-default">Ingresar</button>
-			</form>
-
-			<!-- /.navbar-collapse -->
+	
 
 
 		</div>

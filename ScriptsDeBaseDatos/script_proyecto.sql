@@ -168,6 +168,7 @@ id_detalle int not null,
 id_pedido int not null,
 id_plato int not null,
 cantidad int not null,
+total_linea double,  -- cantidad * precio plato
 id_estado_detalle int not null,
 primary key(id_detalle,id_pedido),
 key(id_pedido),
@@ -177,6 +178,19 @@ CONSTRAINT id_pedido_fk FOREIGN KEY (id_pedido) REFERENCES pedido_factura (id_pe
 CONSTRAINT id_plato2_fk FOREIGN KEY (id_plato) REFERENCES plato (id_plato),
 CONSTRAINT id_estado_detalle_fk FOREIGN KEY (id_estado_detalle) REFERENCES estado_detalle (id_estado_detalle)
 );
+
+DROP TABLE IF EXISTS comision_salonero;
+CREATE TABLE comision_salonero(  -- cuando se factura se selecciona un % por definir del total
+id_salonero int not null,
+id_pedido int not null,
+comision double,
+primary key(id_salonero,id_pedido),
+key(id_salonero),
+key(id_pedido),
+CONSTRAINT id_salonero2_fk FOREIGN KEY (id_salonero) REFERENCES usuario (id_usuario),
+CONSTRAINT id_pedido2_fk FOREIGN KEY (id_pedido) REFERENCES pedido_factura (id_pedido) 
+);
+
 
 
 
