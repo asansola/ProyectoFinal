@@ -29,9 +29,6 @@ BEGIN
 	FROM menu where id_menu=1 and estado=1 ORDER BY parent asc, item_order asc;
    
 END$$
-DELIMITER ;
-
-
 
 -- --------------------------------------------------------------------------------
 -- Routine DDL
@@ -60,8 +57,7 @@ BEGIN
 			url_imagen
 	FROM tipo_plato;
    
-END
-
+END$$
 
 
 -- --------------------------------------------------------------------------------
@@ -90,7 +86,7 @@ BEGIN
 	FROM tipo_plato
 	WHERE descripcion =pDescripcion;
    
-END
+END$$
 
 
 
@@ -123,7 +119,7 @@ BEGIN
 	FROM tipo_plato t , plato p
 	WHERE p.id_tipo_plato = pIdTipoPlato;
    
-END
+END$$
 
 
  -- Consulta de usuario y su clave--

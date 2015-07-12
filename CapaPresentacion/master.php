@@ -49,10 +49,10 @@
 					class="glyphicon glyphicon-home"></i></a>
 			</div>
 			
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav ">
 			<!-- Menu principal -->
 			<!-- /.navbar-collapse -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav ">
 				<li class="dropdown"><a href="#" class="dropdown-toggle" 
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">Menu <i class="glyphicon glyphicon-cutlery"></i> </a>
@@ -66,10 +66,9 @@
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" 
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">Pedido <i
-						class="glyphicon glyphicon-shopping-cart"></i></a>
+					aria-expanded="false">Pedidos <i class="glyphicon glyphicon-shopping-cart"></i></a>
 					<ul class="dropdown-menu ">
-						<li ><a href="pedido.php" >Ordenar</a></li>
+						<li ><a href="pedido.php" >Orden</a></li>
 						<?php if(isset($_SESSION['rol'])){?>  <!-- Si es admin o salonero que muestre los links -->
 						<li role="separator" class="divider"></li>
 						<li ><a href="" >Modificar Pedido</a></li>
@@ -110,17 +109,14 @@
 
 
 		</div>  <!-- /.navbar-collapse -->
-		<!-- /.container -->
+		</div> <!-- /.container -->
 	</nav>
 	<div class="container">
 		<div class="row">
 			<div class="btn-group btn-breadcrumb">
-				
+			
 					<?php include 'breadcrumps.php';?>
 						<?=breadcrumbs('','');?>
-		
-			
-			
 			</div>
 		</div>
 	</div>
