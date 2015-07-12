@@ -48,6 +48,7 @@ primary key(id_horario)
 DROP TABLE IF EXISTS usuario;
 Create table usuario(
 id_usuario int not null,
+clave varchar(8),
 nombre varchar(30),
 apellidos varchar(60),
 id_horario int not null,
