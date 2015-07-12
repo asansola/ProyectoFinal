@@ -11,13 +11,13 @@
 
 		if( $usuarioActual != "" ){		
 
-			$_SESSION['usuario'] = $usuarioActual[0][2] . " " . $usuarioActual[0][3];
+			$_SESSION['usuario'] = $usuarioActual[0][2] . " " . $usuarioActual[0][3]; //Mostar nombre y apellidos
 			$_SESSION['rol'] = $usuarioActual[0][5]; //Rol para definir los menus a mostrar
-
 			$mensaje = 'Bienvenido ' . $_SESSION['usuario'];
 		
 			echo "<script>";
 			echo "if(alert('$mensaje'));";
+			echo "window.location='index.php'";
 			echo "</script>";
 
 		}
@@ -27,7 +27,7 @@
 			$mensaje='Datos Incorrectos';
 			echo "<script>";
 			echo "if(alert('$mensaje'));";
-			echo "window.location='index.php'";
+			//echo "window.location='index.php'";
 			echo "</script>";
 
 		}
@@ -41,7 +41,7 @@
 	}	
 	
 
-	if (isset ($usuario_logueado) ) {
+	if ( isset($usuario_logueado) ) {
 ?>	
 	<ul class="nav navbar-nav navbar-right">
 		<li style="color:white;"><span><?php echo $_SESSION['usuario']; ?><span>&nbsp;</li>
@@ -52,10 +52,10 @@
 	} else {
 ?>
 	<ul class="nav navbar-nav navbar-right">
-		<form class="navbar-form" role="search" action="index.php" method="POST"> 
+		<form class="navbar-form"  action="index.php" method="POST"> 
 			<div class="form-group">
-			<input type="text" class="form-control" name="usuario" placeholder="Usuario" required> 
-			<input type="password" class="form-control" name="clave" placeholder="Contraseña" required>
+			<input type="text" class="form-control" name="usuario" placeholder="Usuario" required>
+			<input type="password" class="form-control" name="clave" value="123" placeholder="Contraseña" required> 
 			</div>
 			<button type="submit" class="btn btn-default">Ingresar</button>
 		</form>

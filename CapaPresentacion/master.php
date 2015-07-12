@@ -60,14 +60,47 @@
 						<li><a href="postres.php">Postres</a></li>
 						<li role="separator" class="divider"></li>
 						<li><a href="especiales.php" >Platos Especiales</a></li>
-
-
 					</ul></li>
-				<li><a href="pedido.php"   >Pedido</a></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle" 
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false">Pedido<span class="caret"></span></a>
+					<ul class="dropdown-menu ">
+						<li ><a href="pedido.php" >Ordenar</a></li>
+						<?php if(isset($_SESSION['rol'])){?>  <!-- Si es admin o salonero que muestre los links -->
+						<li role="separator" class="divider"></li>
+						<li ><a href="" >Modificar Pedido</a></li>
+						<li ><a href="" >Eliminar Pedido</a></li><?php }?>
+					</ul></li>
+				<?php 
+				if(isset($_SESSION['rol'])){
+				$rol=$_SESSION['rol'];
+				
+					if($rol==1){?>   <!-- Si es administrador muestre los links -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle" 
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Mantenimientos <span class="caret"></span></a>
+						<ul class="dropdown-menu ">
+							<li ><a href="" >Usuarios</a></li>
+							<li ><a href="" >Provedores</a></li>
+							<li ><a href="" >Platos</a></li>
+							<li ><a href="" >Inventario Insumos</a></li>
+							<li ><a href="" >Mesas</a></li>
+						</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" 
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Reportes<span class="caret"></span></a>
+						<ul class="dropdown-menu ">
+							<li ><a href="" >Facturas</a></li>
+							<li ><a href="" >Comisiones Saloneros</a></li>
+						</ul></li>
+					<?php }
+					}?>
 				<li><a href="ayuda.php" >Ayuda</a></li>
+				
+				
 			</ul>
 	
-			<!--Login  pendiente action-->
+			<!--Login-->
 			<!--  navbar-right --> 
 			<?php include ('Login.php');?>
 

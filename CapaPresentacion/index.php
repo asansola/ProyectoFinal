@@ -14,7 +14,7 @@ foreach ( $vTipoPlatos as $tipo ) {
 	$content .= "<img src='img/$tipo[2]' alt=''  >";
 	$content .= "<div class='caption'>";
 	$content .= "<h3>$tipo[1]</h3>";
-	$content .= "<p>$tipo[1].</p>";
+	$content .= "<p>$tipo[1]</p>";
 	$content .= "<p>";
 	$content .= "<a href='#' class='btn btn-primary'>Buy Now!</a> <a href='#'class='btn btn-default'>More Info</a>";
 	$content .= "</p>";

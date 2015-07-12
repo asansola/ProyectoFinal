@@ -4,8 +4,8 @@ if(!isset($_SESSION) ){
 	session_start();
 } 
 
-//Cargar todos los archivos PHP necesiarios para la
-//ejecuci�n de la aplicaci�n
+//Cargar todos los archivos PHP necesarios para la
+//ejecucion de la aplicacion
 require_once("../CapaDAO/BaseDAO.php");
 require_once("../CapaDAO/MySqlDAO.php");
 require_once("../CapaDAO/FactoriaDAO.php");
@@ -20,6 +20,6 @@ require_once("../CapaEntidad/Usuario.php");
 require_once("../CapaAccesoDatos/Usuario/UsuarioAccesoDatos.php");
 require_once("../CapaBLL/Usuario/UsuarioBLL.php");
 
-//Establecer la conexi�n con la Base de Datos
+
 
 ?>

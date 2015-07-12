@@ -104,6 +104,8 @@ DROP TABLE IF EXISTS receta;
 Create table receta(
 id_plato int not null,
 id_ingrediente int not null,
+nombre varchar(30),
+cantidad_ingrediente int,
 primary key(id_plato,id_ingrediente),
 key (id_plato),
 key (id_ingrediente),

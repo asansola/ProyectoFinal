@@ -30,7 +30,7 @@ insert into horario(id_horario,descripcion) values(200,'Tarde');
 insert into horario(id_horario,descripcion) values(300,'Noche');
 insert into horario(id_horario,descripcion) values(400,'No Aplica');
 
-insert into usuario(id_usuario,clave,nombre,id_horario,id_rol) values(123,123,'Admin',400,1);
-insert into usuario(id_usuario,clave,nombre,id_horario,id_rol) values(456,456,'Salonero',100,2);
+insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(123,123,'Administrador','P',400,1);
+insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(456,456,'Salonero','Prueba',100,2);
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(789,789,'Juan','Solano',400,1);
 
