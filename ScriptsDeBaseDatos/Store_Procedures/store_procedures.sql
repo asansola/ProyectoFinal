@@ -29,7 +29,7 @@ BEGIN
 	FROM menu where id_menu=1 and estado=1 ORDER BY parent asc, item_order asc;
    
 END$$
-DELIMITER ;
+
 
 
 
@@ -60,7 +60,7 @@ BEGIN
 			url_imagen
 	FROM tipo_plato;
    
-END
+END$$
 
 
  -- Consulta de usuario y su clave--
@@ -83,4 +83,4 @@ BEGIN
    
    -- Ejecutar la Consulta
 	SELECT * FROM usuario where id_usuario =pid_usuario and clave=pclave;
-END
+END$$
