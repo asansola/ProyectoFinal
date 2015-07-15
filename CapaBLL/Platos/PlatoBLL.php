@@ -63,6 +63,10 @@ class PlatoBLL extends LogicaNegocioMantenimientoBase{
 	public function Consultar($oPlato){
 		return $this->oPlato->Consultar($oPlato);
 	}
+	
+	public function ConsultarRegistro($idPlato){
+		return $this->oPlato->ConsultarRegistro($idPlato);
+	}
 
 	public function Listar(){
 		return $this->oPlato->Listar();

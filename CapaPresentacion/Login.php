@@ -44,7 +44,7 @@
 	if ( isset($usuario_logueado) ) {
 ?>	
 	<ul class="nav navbar-nav navbar-right">
-		<li style="color:white;"><span><?php echo $_SESSION['usuario']; ?><span>&nbsp;</li>
+		<li style="color:white;"><span><?php echo $_SESSION['usuario']; ?></span>&nbsp;</li>
 		<li><input type="button" class="btn btn-default" name="salir_btn" value="Salir" onclick="window.location='salir.php'" /></li>
 	</ul>	
 

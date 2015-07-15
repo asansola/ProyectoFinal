@@ -78,13 +78,30 @@ class PlatoAccesoDatos extends MantenimientoBase{
 		//Inicializar el control de Errores
 		parent::setHayError(False);
 		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_Q_Plato(" .$oPlato->__get('id_tipo_plato') . ",@DescripcionError);";
+		$vSql = "CALL sp_Q_Plato_Tipo_Plato(" .$oPlato->__get('id_tipo_plato') . ",@DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);		
 		//Retornar el objeto
 		return $vResultadoCursor;
 
 	}
+
+	public function ConsultarRegistro($idPlato){
+		//Variables Locales
+		$queryResult=NULL;
+		$vResultadoCursor = null;
+			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+		//Invocar el Procedimiento Almacenado
+		$vSql = "CALL sp_Q_Plato_Registro('$idPlato',@DescripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+		//Retornar el objeto
+		return $vResultadoCursor;
+	
+	}
+	
 
 	public function Listar(){
 		//Variables Locales
@@ -96,7 +113,7 @@ class PlatoAccesoDatos extends MantenimientoBase{
 			
 		//Invocar el Procedimiento Almacenado
 		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
-		$vSql = "CALL sp_Q_Plato (0, @descripcionError);";
+		$vSql = "CALL sp_Q_Plato_Listar(@descripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
 		

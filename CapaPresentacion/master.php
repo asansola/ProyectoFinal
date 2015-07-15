@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -85,7 +86,7 @@
 						<ul class="dropdown-menu ">
 							<li ><a href="" >Usuarios</a></li>
 							<li ><a href="" >Provedores</a></li>
-							<li ><a href="" >Platos</a></li>
+							<li ><a href="Mantenimiento_Platos.php" >Platos</a></li>
 							<li ><a href="" >Inventario Insumos</a></li>
 							<li ><a href="" >Mesas</a></li>
 						</ul></li>
