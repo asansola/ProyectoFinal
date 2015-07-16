@@ -2,7 +2,7 @@
 -- Routine DDL
 -- Note: comments before and after the routine body will not be stored by the server
 -- --------------------------------------------------------------------------------
-DELIMITER $$
+/*DELIMITER $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Menu`(pIdCliente INT, INOUT pMensajeError VARCHAR(2000))
 BEGIN
@@ -33,7 +33,7 @@ BEGIN
 			updated
 	FROM menu where id_menu=1 and estado=1 ORDER BY parent asc, item_order asc;
    
-END
+END$$*/
 
 
 
@@ -69,7 +69,8 @@ WHERE
     p.id_tipo_plato = pIdTipoPlato
         AND t.id_tipo_plato = p.id_tipo_plato;
    
-END
+END$$
+
 
 
 
@@ -103,7 +104,8 @@ FROM
 WHERE
     t.id_tipo_plato = p.id_tipo_plato;
    
-END
+END$$
+
 
 
 
@@ -138,7 +140,8 @@ WHERE
     p.id_plato = pIdPlato
         AND t.id_tipo_plato = p.id_tipo_plato;
    
-END
+END$$
+
 
 
 -- --------------------------------------------------------------------------------
@@ -168,7 +171,8 @@ BEGIN
 FROM
     tipo_plato;
    
-END
+END$$
+
 
 
 -- --------------------------------------------------------------------------------
@@ -200,7 +204,8 @@ FROM
 WHERE
     descripcion = pDescripcion;
    
-END
+END$$
+
 
 
 -- --------------------------------------------------------------------------------
@@ -232,4 +237,36 @@ FROM
 where
     id_usuario = pid_usuario
         and clave = pclave;
-END
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Usuario_Listar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Plato_Listar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_usuario, nombre, apellidos, clave, horario.descripcion, rol.descripcion, usuario.id_horario, usuario.id_rol, horario.id_horario, rol.id_rol
+	FROM
+    usuario,horario,rol
+	WHERE
+    horario.id_horario = usuario.id_horario and 
+    rol.id_rol = usuario.id_rol;
+   
+END$$

@@ -84,7 +84,7 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Mantenimientos <i class="glyphicon glyphicon-wrench"></i> </a>
 						<ul class="dropdown-menu ">
-							<li ><a href="" >Usuarios</a></li>
+							<li ><a href="Mantenimiento_Usuarios.php" >Usuarios</a></li>
 							<li ><a href="" >Provedores</a></li>
 							<li ><a href="Mantenimiento_Platos.php" >Platos</a></li>
 							<li ><a href="" >Inventario Insumos</a></li>
