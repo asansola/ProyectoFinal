@@ -37,5 +37,4 @@ require_once("../../CapaBLL/Usuario/TipoUsuarioBLL.php");
 require_once("../../CapaEntidad/Horario.php");
 require_once("../../CapaAccesoDatos/Horario/HorarioAccesoDatos.php");
 require_once("../../CapaBLL/Horario/HorarioBLL.php");
-
 ?>

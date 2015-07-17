@@ -12,23 +12,6 @@ use restaurantePHP;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Tabla de menu
-DROP TABLE IF EXISTS menu;
-CREATE TABLE menu(
-id_menu int(10) NOT NULL,
-id_menu_item int (10) NOT NULL,
-parent int (10),
-texto varchar(50),
-link varchar(50),
-alt varchar(50),
-icon varchar(50),
-item_order int(10),
-estado smallint(5),
-created timestamp,
-updated timestamp,
-CONSTRAINT pk_menu PRIMARY KEY(id_menu_item)
-);
-
 
 DROP TABLE IF EXISTS rol;
 create table rol(

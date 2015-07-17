@@ -1,7 +1,7 @@
 <?php
 
 
-class TipoUsuarioAccesoDatos extends MantenimientoBase{
+class HorarioAccesoDatos extends MantenimientoBase{
 
 	/**
 	 * Constructor de la clase
@@ -12,23 +12,23 @@ class TipoUsuarioAccesoDatos extends MantenimientoBase{
 		FactoriaDAO::setTipoBaseDatos("MySQL");
 	}
 
-	public function Agregar($oTipoUsuario){
+	public function Agregar($oHorario){
 
 	}
 
-	public function Modificar($oTipoUsuario){
+	public function Modificar($oHorario){
 			
 	}
 
-	public function Eliminar($oTipoUsuario){
+	public function Eliminar($oHorario){
 
 	}
 
-	public function Consultar($oTipoUsuario){
+	public function Consultar($oHorario){
 
 	}
 	
-	public function ConsultarNombre($oTipoUsuario){
+	public function ConsultarNombre($oHorario){
 	
 	}
 
@@ -42,7 +42,7 @@ class TipoUsuarioAccesoDatos extends MantenimientoBase{
 			
 		//Invocar el Procedimiento Almacenado
 		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
-		$vSql = "CALL sp_Q_Tipo_Usuario(0, @descripcionError);";
+		$vSql = "CALL sp_Q_Horario(0, @descripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
 		
