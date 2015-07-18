@@ -44,13 +44,13 @@ CONSTRAINT rol_fk FOREIGN KEY (id_rol) REFERENCES rol (id_rol)
 );
 
 
-DROP TABLE IF EXISTS provedor;
-Create table provedor(
-id_provedor int not null,
+DROP TABLE IF EXISTS proveedor;
+Create table proveedor(
+id_proveedor int not null,
 nombre varchar(30),
 telefono varchar(60),
 direccion varchar(60),
-primary key(id_provedor)
+primary key(id_proveedor)
 );
 
 DROP TABLE IF EXISTS ingrediente;
@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS receta;
 Create table receta(
 id_plato int not null,
 id_ingrediente int not null,
-nombre varchar(30),
+descripcion varchar(200),
 cantidad_ingrediente int,
 primary key(id_plato,id_ingrediente),
 key (id_plato),
@@ -100,13 +100,13 @@ CONSTRAINT id_ingrediente1_fk FOREIGN KEY (id_ingrediente) REFERENCES ingredient
 DROP TABLE IF EXISTS inventario;
 Create table inventario(
 id_inventario int not null,
-id_provedor int not null,
+id_proveedor int not null,
 id_ingrediente int not null,
 cantidad int,
 primary key(id_inventario),
-key(id_provedor),
+key(id_proveedor),
 key(id_ingrediente),
-CONSTRAINT id_provedor1_fk FOREIGN KEY (id_provedor) REFERENCES provedor (id_provedor),
+CONSTRAINT id_proveedor1_fk FOREIGN KEY (id_proveedor) REFERENCES proveedor (id_proveedor),
 CONSTRAINT id_ingrediente2_fk FOREIGN KEY (id_ingrediente) REFERENCES ingrediente (id_ingrediente)
 );
 
@@ -178,8 +178,12 @@ CONSTRAINT id_salonero2_fk FOREIGN KEY (id_salonero) REFERENCES usuario (id_usua
 CONSTRAINT id_pedido2_fk FOREIGN KEY (id_pedido) REFERENCES pedido_factura (id_pedido) 
 );
 
-
-
+DROP TABLE IF EXISTS parametros;
+CREATE TABLE parametros(
+tabla varchar(50) primary key not null,
+descripcion varchar(50),
+ultimoValor int
+);
 
 
 

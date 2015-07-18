@@ -37,5 +37,9 @@ require_once("../CapaAccesoDatos/Usuario/TipoUsuarioAccesoDatos.php");
 require_once("../CapaBLL/Usuario/UsuarioBLL.php");
 require_once("../CapaBLL/Usuario/TipoUsuarioBLL.php");
 
+require_once("../CapaEntidad/Receta.php");
+require_once("../CapaAccesoDatos/Receta/RecetaAccesoDatos.php");
+require_once("../CapaBLL/Receta/RecetaBLL.php");
+
 
 ?>

@@ -38,7 +38,7 @@ $content = "<br>
 <div class='tab-pane active' id='Listado'>
   				<br/>
 				
-  					<p><button type='button' class='btn btn-success'><span class='glyphicon glyphicon-plus'></span> Nuevo Plato</button></p>
+  					<p><a class='btn btn-success' data-toggle='modal' data-target='#mantenimientoModal' data-action='I' data-url='Platos/insert.php' data-id=''><i class='glyphicon glyphicon-plus'></i> Nuevo Plato</a></p>
   						<br/>
   						<div class='table-responsive'>
   					<table class='table table-hover'>
@@ -89,7 +89,7 @@ $content = "<br>
 				            <div class='modal-content'>
 				                <div class='modal-header'>
 				                    <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
-				                    <h4 class='modal-title' id='memberModalLabel'>Editar</h4>
+				                    <h4 class='modal-title' id='memberModalLabel'>Mantenimiento</h4>
 								
 				                </div>
 									<div id='loading-indicator'><img src='img/ajax-loader.gif' id='gif' /></div>

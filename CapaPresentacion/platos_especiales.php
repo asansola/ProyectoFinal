@@ -29,15 +29,25 @@ foreach ( $vPlatos as $plato ) {
 	
 	$content .= "<div class='col-md-3 col-sm-6 hero-feature'>";
 	$content .= "<div class='thumbnail'>";
-	$content .= "<img src='img/$plato[2]' alt=''  >";
+	$content .= "<img src='img/$plato[3]' alt=''  >";
 	$content .= "<div class='caption'>";
 	$content .= "<h3>$plato[1]</h3>";
 	
 	$content .= "<p>";
 	//$url= strtolower($plato[1]).".php";//pasa el nombre a minusculas.
 	//$url= preg_replace('/\s+/', '_',  $url);//sustituye el espacio en blanco del nombre por guion bajo
+	//guarda la receta de cada plato(array) para mostrarlo.
+	$RecetaBLL= new RecetaBLL();
+	$Receta= $RecetaBLL->ConsultarRegistro($plato[0]);
+	$ingredienteReceta='Receta:<br/>';
+	if (!empty($Receta)) {
+		foreach ($Receta as $ingrediente) {
+			$ingredienteReceta.=$ingrediente[0].'<br/>';
+		}	
+	}
+	
 	$content .= " <a href='' class='btn btn-primary'>A&ntildeadir al pedido <i class='glyphicon glyphicon-shopping-cart'></i></a><br><a href='#' title='$plato[1]' 
-			data-toggle='popover' role='button'  data-trigger='focus' data-placement='top' data-content='$plato[1]'>Detalles</a>";
+			data-toggle='popover' role='button'  data-trigger='focus' data-placement='top' data-content='$ingredienteReceta'>Detalles</a>";
 	$content .= "</p>";
 	$content .= "</div>";
 	$content .= "</div>";
