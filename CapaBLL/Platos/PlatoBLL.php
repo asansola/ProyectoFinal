@@ -53,7 +53,7 @@ class PlatoBLL extends LogicaNegocioMantenimientoBase{
 	}
 
 	public function Modificar($oPlato){
-		return $this->oPlato->Modificar($oPlato);
+		return $this->$oPlato->Modificar($oPlato);
 	}
 
 	public function Eliminar($oPlato){

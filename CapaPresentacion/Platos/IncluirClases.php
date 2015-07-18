@@ -24,18 +24,10 @@ require_once("../../CapaBLL/Platos/TipoPlatoBLL.php");
 require_once("../../CapaBLL/Platos/PlatoBLL.php");
 
 
-
 require_once("../../CapaEntidad/Usuario.php");
-require_once("../../CapaEntidad/TipoUsuario.php");
-
 require_once("../../CapaAccesoDatos/Usuario/UsuarioAccesoDatos.php");
-require_once("../../CapaAccesoDatos/Usuario/TipoUsuarioAccesoDatos.php");
-
 require_once("../../CapaBLL/Usuario/UsuarioBLL.php");
-require_once("../../CapaBLL/Usuario/TipoUsuarioBLL.php");
 
-require_once("../../CapaEntidad/Horario.php");
-require_once("../../CapaAccesoDatos/Horario/HorarioAccesoDatos.php");
-require_once("../../CapaBLL/Horario/HorarioBLL.php");
+
 
 ?>
