@@ -1,7 +1,6 @@
 <?php
 include ("Seguridad.php");
 include ("IncluirClases.php");
-//include ("funciones.php");
 $title = "Mantenimiento de Platos";
 
 

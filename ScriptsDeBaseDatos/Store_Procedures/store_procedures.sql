@@ -2,53 +2,13 @@
 -- Routine DDL
 -- Note: comments before and after the routine body will not be stored by the server
 -- --------------------------------------------------------------------------------
-/*DELIMITER $$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Menu`(pIdCliente INT, INOUT pMensajeError VARCHAR(2000))
-BEGIN
-     
-   -- Declaración de variables locales
-   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Menu]';
-
-   -- Declaración de bloque con Handler para manejo de SQLException
-   DECLARE EXIT HANDLER FOR SQLEXCEPTION
-   Handler_SqlException:
-   BEGIN
-      ROLLBACK;
-      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
-	  LEAVE Handler_SqlException;
-   END; 
-   
-   -- Ejecutar la Consulta
-	SELECT id_menu,
-			id_menu_item,
-			parent,
-			texto,
-			link,
-			alt,
-			icon,
-			item_order,
-			estado,
-			created,
-			updated
-	FROM menu where id_menu=1 and estado=1 ORDER BY parent asc, item_order asc;
-   
-END$$*/
-
-
-
-
--- --------------------------------------------------------------------------------
--- Routine DDL
--- Note: comments before and after the routine body will not be stored by the server
--- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Plato_Tipo_Plato`(pIdTipoPlato INT, INOUT pMensajeError VARCHAR(2000))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Horario`(pIdHorario INT, INOUT pMensajeError VARCHAR(2000))
 BEGIN
      
    -- Declaración de variables locales
-   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Plato_Tipo_Plato]';
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Horario]';
 
    -- Declaración de bloque con Handler para manejo de SQLException
    DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -61,16 +21,11 @@ BEGIN
    
    -- Ejecutar la Consulta
 	SELECT 
-    id_plato, nombre, precio, foto, p.id_tipo_plato
+    id_horario, descripcion
 FROM
-    tipo_plato t,
-    plato p
-WHERE
-    p.id_tipo_plato = pIdTipoPlato
-        AND t.id_tipo_plato = p.id_tipo_plato;
+    horario;
    
 END$$
-
 
 
 
@@ -107,8 +62,6 @@ WHERE
 END$$
 
 
-
-
 -- --------------------------------------------------------------------------------
 -- Routine DDL
 -- Note: comments before and after the routine body will not be stored by the server
@@ -143,6 +96,39 @@ WHERE
 END$$
 
 
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Plato_Tipo_Plato`(pIdTipoPlato INT, INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Plato_Tipo_Plato]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+	SELECT 
+    id_plato, nombre, precio, foto, p.id_tipo_plato
+FROM
+    tipo_plato t,
+    plato p
+WHERE
+    p.id_tipo_plato = pIdTipoPlato
+        AND t.id_tipo_plato = p.id_tipo_plato;
+   
+END$$
+
 
 -- --------------------------------------------------------------------------------
 -- Routine DDL
@@ -172,7 +158,6 @@ FROM
     tipo_plato;
    
 END$$
-
 
 
 -- --------------------------------------------------------------------------------
@@ -207,6 +192,68 @@ WHERE
 END$$
 
 
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Tipo_Usuario`(pIdTipoUsuario INT, INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Tipo_Usuario]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+	SELECT 
+    id_rol, descripcion
+FROM
+    rol;
+   
+END$$
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Usuario_Listar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Usuario_Listar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_usuario, nombre, apellidos, clave, horario.descripcion, rol.descripcion, usuario.id_horario, usuario.id_rol, horario.id_horario, rol.id_rol
+	FROM
+    usuario,horario,rol
+	WHERE
+    horario.id_horario = usuario.id_horario and 
+    rol.id_rol = usuario.id_rol;
+   
+END$$
+
 
 -- --------------------------------------------------------------------------------
 -- Routine DDL
@@ -239,17 +286,18 @@ where
         and clave = pclave;
 END$$
 
+
 -- --------------------------------------------------------------------------------
 -- Routine DDL
 -- Note: comments before and after the routine body will not be stored by the server
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Usuario_Listar`(INOUT pMensajeError VARCHAR(2000))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Usuario_Registro`(pIdUsuario INT, INOUT pMensajeError VARCHAR(2000))
 BEGIN
      
    -- Declaración de variables locales
-   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Plato_Listar]';
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Usuario_Registro]';
 
    -- Declaración de bloque con Handler para manejo de SQLException
    DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -267,6 +315,88 @@ SELECT
     usuario,horario,rol
 	WHERE
     horario.id_horario = usuario.id_horario and 
-    rol.id_rol = usuario.id_rol;
+    rol.id_rol = usuario.id_rol and
+    usuario.id_usuario =pIdUsuario;
+   
+END$$
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_U_Plato`(pIdPlato INT, pNombre VARCHAR(30), pPrecio DOUBLE, pFoto VARCHAR(40) , pIdTipoPlato INT,
+								 INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_U_Plato]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   
+   -- Verificar llaves Foráneas
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM tipo_plato
+   WHERE id_tipo_plato = pIdTipoPlato;
+
+ IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el codigo del tipo de plato. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+
+   -- Verificar que el plato exista
+   SET vCantidad_Registros = 0;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    plato
+WHERE
+    id_plato = pIdPlato;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('El plato no existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+ 
+   
+  -- Ejecutar la Consulta
+	UPDATE Plato 
+SET 
+    nombre = pNombre,
+    precio = pPrecio,
+    foto = pFoto,
+    id_tipo_plato = pIdTipoPlato
+WHERE
+    id_plato = pIdPlato;
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actualizó el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
    
 END$$
