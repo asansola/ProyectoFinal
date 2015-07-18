@@ -1,7 +1,27 @@
 <?php
 include ("Seguridad.php");
 include ("IncluirClases.php");
+//include ("funciones.php");
 $title = "Mantenimiento de Platos";
+
+
+if (isset($_SESSION['registrado'])) {
+	if ($_SESSION['registrado']=='true'){//$_GET['success']=='true') {
+	 $message="<div class='alert alert-success fade in'><button type='button' class='close close-alert' 
+	 		data-dismiss='alert' aria-hidden='true'>×</button>Registro actualizado correctamente.</div>"; 
+	 	unset($_SESSION['registrado']);
+		echo $message;
+		
+	}else{
+		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert' 
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado.</div>";
+		unset($_SESSION['registrado']);
+		echo $message;
+		
+	}
+}
+
+
 $Plato = new PlatoBLL ();
 $vPlatos = $Plato->Listar ();
 
@@ -44,7 +64,7 @@ $content = "<br>
     						<td class='text-center'>
     						
     						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Platos/edit.php' data-id='$plato[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>
-    						<a class='btn btn-danger' data-toggle='modal' data-target='#mantenimientoModal' data-action='D' data-url='Platos/delete.php' data-id='$plato[0]'><i class='glyphicon glyphicon-edit'></i> Eliminar</a>
+    						<a class='btn btn-danger' data-toggle='modal' data-target='#mantenimientoModal' data-action='D' data-url='Platos/delete.php' data-id='$plato[0]'><i class='glyphicon glyphicon-trash'></i> Eliminar</a>
     							
     										</td>
     											</tr>";
@@ -63,22 +83,26 @@ $content = "<br>
   					<li><a href='#'>&raquo;</a></li>
   					</ul>
   					</div>
-					
+				
 					<div class='modal fade' id='mantenimientoModal' tabindex='-1' role='dialog' aria-labelledby='memberModalLabel' aria-hidden='true'>
 				        <div class='modal-dialog'>
+								
 				            <div class='modal-content'>
 				                <div class='modal-header'>
 				                    <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
 				                    <h4 class='modal-title' id='memberModalLabel'>Editar</h4>
+								
 				                </div>
+									<div id='loading-indicator'><img src='img/ajax-loader.gif' id='gif' /></div>
 				                <div class='ct'>
-				              
+				              			
 				                </div>
 				
 				            </div>
 				        </div>
 				    </div>
-						
+
+					
 						
 					";
 

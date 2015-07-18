@@ -13,6 +13,13 @@ body {
 	margin: 0;
 }
 
+
+#loading-indicator {
+  position: absolute;
+  left: 250px;
+  top: 150px;
+}
+
 article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary
 	{
 	display: block

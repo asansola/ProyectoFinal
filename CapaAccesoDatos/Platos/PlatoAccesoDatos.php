@@ -37,7 +37,7 @@ class PlatoAccesoDatos extends MantenimientoBase{
 		parent::setHayError(False);
 			
 		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_U_Plato (" . $oEstudiante->getCarnet() . ", '" . $oEstudiante->getCod_Carrera() . "', '" . $oEstudiante->getNombre() . "', 'admin', @DescripcionError);";
+		$vSql = "CALL sp_U_Plato (" . $oPlato->__get('id_plato') . ", '" . $oPlato->__get('nombre') . "', " . $oPlato->__get('precio') . ", '" . $oPlato->__get('imagen') . "', " . $oPlato->__get('id_tipo_plato') . ", @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
 		
@@ -58,7 +58,7 @@ class PlatoAccesoDatos extends MantenimientoBase{
 		//Invocar el Procedimiento Almacenado
 		$vSql = "CALL sp_D_Plato (" . $oPlato->__get(TipoPlato). ", @descripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
-		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
+		FactoriaDAO::getConexionBaseDatos()->EjecutarSQL_DML($vSql);
 		
 		//Leer la variable de salida del error
 		if(FactoriaDAO::getConexionBaseDatos()->getHayError()){

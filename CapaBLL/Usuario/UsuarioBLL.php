@@ -37,7 +37,7 @@ class UsuarioBLL extends LogicaNegocioMantenimientoBase{
 	}
 
 	public function Agregar($oUsuario){
-		return $this->oTipoPlato->Agregar($oUsuario);
+		return $this->oUsuario->Agregar($oUsuario);
 	}
 
 	public function Modificar($oUsuario){
@@ -50,6 +50,10 @@ class UsuarioBLL extends LogicaNegocioMantenimientoBase{
 	
 	public function Consultar($oUsuario){
 		return $this->oUsuario->Consultar($oUsuario);
+	}
+	
+	public function ConsultarRegistro($id){  //consulta por id de usuario
+		return $this->oUsuario->ConsultarRegistro($id);
 	}
 
 	public function Verificar($id,$clave){ //consulta por id y clave
