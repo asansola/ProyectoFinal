@@ -1,80 +1,34 @@
 <?php
 include ("Seguridad.php");
 include ("IncluirClases.php");
-include ("../funciones.php");
 
-if(isset($_GET ['id'])){
-	$id=$_GET ['id'];
-}
-
-if(isset($_GET ['action'])){
-	$action=$_GET ['action'];
-}
-
-//verificar el action
-
-	if ($action==='U') {
-		$Plato = new PlatoBLL ();
-		//se guarda el registro del plato en edicion.
-		$vPlato = $Plato->ConsultarRegistro($id);
-		$imagenAlmacenada= $vPlato[0][3];
-	}
-
-
+$id = $_GET ['id'];
 
 if (isset ( $_POST ['submit'] )) {
- 	$id = $_POST ['idHidden'];
- 	$nombre = $_POST ['nombre'];
- 	$precio = $_POST ['precio'];
- 	//guardar imagen
- 	
- 	//Comprueba si han subido una nueva imagen o deja la que había almacenada.
- 	if (!empty($_FILES['foto']['name'])) {
- 		$nombreFichero= guardarImagen($_FILES);
- 	}else{
- 		$nombreFichero= $_POST['imagenHidden'];
- 	}
- 	
- 	$id_tipo_plato= $_POST['tipoPlato'];
- 	
- 	$PlatoEntidad= new Plato();
- 	$PlatoEntidad->__set('id_plato', $id);
- 	$PlatoEntidad->__set('nombre', $nombre);
- 	$PlatoEntidad->__set('precio', $precio);
- 	$PlatoEntidad->__set('imagen', $nombreFichero);
- 	$PlatoEntidad->__set('id_tipo_plato', $id_tipo_plato);
- 	
- 	$PlatoBll= new PlatoBLL();
- 	
- 	$PlatoBll->Modificar($PlatoEntidad);
- 	session_start();
- 	if ($PlatoBll->getHayError()) {
- 		//echo "error ".$PlatoBll->getDescripcionError();
- 		$_SESSION['registrado']='false';
- 		header('Location: http://localhost:80/ProyectoFinal/CapaPresentacion/Mantenimiento_Platos.php');
- 	}else{
- 		
- 		$_SESSION['registrado']='true';
- 		header('Location: http://localhost:80/ProyectoFinal/CapaPresentacion/Mantenimiento_Platos.php');
- 		
- 	}
- 	
- 	
-	}
-	
-	
-	
+// 	$id = $_POST ['id'];
+// 	$name = $_POST ['name'];
+// 	$phone = $_POST ['phone'];
+// 	$address = $_POST ['address'];
+// 	$email = $_POST ['email'];
+	// $qryUpt = "UPDATE `details` SET `name` = '$name', `phone` = '$phone', `address`='$address', `email`='$email' WHERE `sn`=$id";
+	// mysql_query($qryUpt) or die(mysql_error());
+	header ( "location:../index.php" );
+}
+
+$Plato = new PlatoBLL ();
+//se guarda el registro del plato en edicion.
+$vPlato = $Plato->ConsultarRegistro($id);
 
 ?>
 
-<form method="post" action="Platos/edit.php" role="form" data-toggle="validator" enctype="multipart/form-data">
-	
+
+
+<form method="post" action="Platos/edit.php" role="form" data-toggle="validator">
 	<div class="modal-body">
 		
 			<div class='form-group'>
 					<label for='id'>ID Plato:</label>
 					<input class='form-control' name='id' type='text' id='id' value="<?php echo $vPlato[0][0];?>" disabled>
-					<input type='hidden' name='idHidden' id='idHidden' value="<?php echo $vPlato[0][0];?>">
 			</div>
 			
 			<div class='form-group'>
@@ -87,11 +41,9 @@ if (isset ( $_POST ['submit'] )) {
 					<input class='form-control' name='precio' type='text' value="<?php echo $vPlato[0][2];?>" id='precio'>
 			</div>
 			<div class='form-group'>
-			  
 					<label for='imagen'>Imagen:</label>
-					<input type='file' id='foto' name='foto' data-filename-placement='inside' >
+					<input type='file' name='imagen' id='imagen' data-filename-placement='inside' value="<?php echo $vPlato[0][3];?>">
 					<input type="hidden" name="imagenHidden" id="imagenHidden" value="<?php echo $vPlato[0][3];?>" >
-					<input type="hidden" name="MAX_FILE_SIZE" VALUE="102400">
 			</div>
 			<div class='form-group'>
 					<label for='tipoPlato'>Tipo de Plato:</label>

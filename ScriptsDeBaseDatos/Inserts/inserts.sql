@@ -1,6 +1,6 @@
-sp_Q_Plato_Listar
+
 -- Bloque de insercion para el menu dinamico
-sp_Q_Plato_Registro
+
 
 /*delete from menu where id_menu_item between 1 and 9;
 INSERT INTO menu (id_menu, id_menu_item, parent, texto, link, estado) VALUES(1,1,0,'Menu','#',1);

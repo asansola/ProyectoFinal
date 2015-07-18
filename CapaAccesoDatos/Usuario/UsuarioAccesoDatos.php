@@ -28,17 +28,17 @@ class UsuarioAccesoDatos extends MantenimientoBase{
 	
 	public function ConsultarRegistro($idUsuario){
 		//Variables Locales
-		$queryResult=NULL;
+	/*	$queryResult=NULL;
 		$vResultadoCursor = null;
 			
 		//Inicializar el control de Errores
 		parent::setHayError(False);
 		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_Q_Usuario_Registro('$idUsuario',@DescripcionError);";
+		$vSql = "CALL sp_Q_Plato_Registro('$idPlato',@DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
 		//Retornar el objeto
-		return $vResultadoCursor;
+		return $vResultadoCursor;*/
 	
 	}
 	
