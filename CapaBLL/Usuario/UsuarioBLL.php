@@ -52,9 +52,10 @@ class UsuarioBLL extends LogicaNegocioMantenimientoBase{
 		return $this->oUsuario->Consultar($oUsuario);
 	}
 	
-	public function ConsultarRegistro($id){  //consulta por id de usuario
+	public function ConsultarRegistro($id){  //consulta por id de usuario con descripciones
 		return $this->oUsuario->ConsultarRegistro($id);
 	}
+	
 
 	public function Verificar($id,$clave){ //consulta por id y clave
 		return $this->oUsuario->Verificar($id,$clave);

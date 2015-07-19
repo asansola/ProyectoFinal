@@ -4,6 +4,89 @@
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Plato`(pNombre VARCHAR(30), pPrecio DOUBLE, pFoto VARCHAR(40), 
+                                 pIdTipoPlato INT(11), INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vUltimoRegistro INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_I_Plato]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET vUltimoRegistro= 0;
+   SET pMensajeError = "";
+   
+   -- Verificar llaves Foráneas
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM tipo_plato
+   WHERE id_tipo_plato = pIdTipoPlato;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el código del tipo de plato. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+
+	-- Seleccionar el último registro de la tabla parametros para hacer la inserción. 
+	SELECT ultimoValor INTO vUltimoRegistro   
+	FROM parametros
+	WHERE tabla='plato';
+	
+	
+	
+   -- Verificar que el Estudiante NO exista
+   SET vCantidad_Registros = 0;
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM plato
+   WHERE id_plato = vUltimoRegistro;	
+   
+   IF (vCantidad_Registros > 0) THEN
+      SET pMensajeError = CONCAT('El plato YA existe en el catálogo. ', cNombre_Logica);
+  	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;   
+   
+   -- Insertar en la tabla de Estudiantes
+   INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) 
+   VALUES (vUltimoRegistro, pNombre, pPrecio, pFoto, pIdTipoPlato);
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se pudo insertar el registro. ', cNombre_Logica);   
+   ELSE
+
+	  UPDATE parametros SET ultimoValor= ultimoValor+1 WHERE tabla='plato';
+      COMMIT;
+   END IF;
+   
+END$$
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Receta_Plato`(pIdPlato INT, INOUT pMensajeError VARCHAR(2000))
 BEGIN
      

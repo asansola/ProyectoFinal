@@ -184,7 +184,7 @@ tabla varchar(50) primary key not null,
 descripcion varchar(50),
 ultimoValor int
 );
-
+ 
 
 
 

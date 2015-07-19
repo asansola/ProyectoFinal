@@ -257,5 +257,35 @@
 			//$this->conexion->close();
 			
 		}
+		
+		/**
+		 * Ejecutar Sentencias SQL tipo Select o invocaci�n de
+		 * Procedimientos Almacenados (Store Procedures) hacia la fuente de datos
+		 * @param String $pSQL Select/Store Procedure a ejecutar
+		 * @return resource|NULL
+		 */
+		public function EjecutarSQL($pSQL) {
+			try{
+				$fila='';
+				$this->resultado = $this->conexion->query($pSQL);
+				if($this->resultado!=FALSE){
+					$num_resultados=$this->resultado->num_rows;
+					if($num_resultados){
+						for( $i=0; $i<$num_resultados; $i++ )
+						{
+							$fila[$i] = mysqli_fetch_array ($this->resultado,MYSQLI_NUM);
+						}
+					}
+					$this->resultado->free();
+				}
+				$this->conexion->close();
+				return $fila;
+		
+			}catch (Exception $vError) {
+				//Actualizar el estado del error
+				$this->ActualizarEstadoError($vError);
+				return null;
+			}
+		}
 	}
 ?>

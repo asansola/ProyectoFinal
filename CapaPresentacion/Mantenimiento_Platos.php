@@ -7,13 +7,13 @@ $title = "Mantenimiento de Platos";
 if (isset($_SESSION['registrado'])) {
 	if ($_SESSION['registrado']=='true'){//$_GET['success']=='true') {
 	 $message="<div class='alert alert-success fade in'><button type='button' class='close close-alert' 
-	 		data-dismiss='alert' aria-hidden='true'>×</button>Registro actualizado correctamente.</div>"; 
+	 		data-dismiss='alert' aria-hidden='true'>×</button>Registro ingresado correctamente.</div>"; 
 	 	unset($_SESSION['registrado']);
 		echo $message;
 		
 	}else{
 		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert' 
-				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado.</div>";
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no ingresado.</div>";
 		unset($_SESSION['registrado']);
 		echo $message;
 		
