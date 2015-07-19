@@ -1,20 +1,17 @@
 <?php
-
 include ("IncluirClases.php");
+
+
 //si hace click sobre un registro llene el form modal con datos
 if (isset ( $_GET ['id'] )) {
-	
-	$id = $_GET ['id'];
 
-	$Usuario = new UsuarioBLL();
-	$vUsuario= $Usuario-> ConsultarRegistro($id);
+	$id = $_GET ['id'];
 }
 
-
-//si hizo click en el envio
+	
 if (isset ( $_POST ['submit'] )) {
-	//captura de datos	
-	$id = $_POST ['idHidden'];
+		
+	$id = $_POST ['id'];
 	$nombre = $_POST ['nombre'];
 	$apellidos = $_POST ['apellidos'];
 	$clave = $_POST ['clave'];
@@ -33,6 +30,8 @@ if (isset ( $_POST ['submit'] )) {
 	
 	$usuarioBLL= new UsuarioBLL();
 	
+	//$usuarioExistente=$usuarioBLL->ConsultarRegistro($id);
+
 	//valida passwords
 	if($clave!=$clave2){
 		$_SESSION ['registrado'] = 'f1';
@@ -42,45 +41,46 @@ if (isset ( $_POST ['submit'] )) {
 			$_SESSION ['registrado'] = 'f';
 		}
 		else{
-			//si no hay error hay q hacer la modificacion
-			$usuarioBLL->Modificar($usuarioE);
-			
-			$_SESSION ['registrado'] = 't';
+			//if($usuarioExistente == ""){
+				//si no hay error inserta nuevo valor
+				$usuarioBLL->Agregar($usuarioE);
+				$_SESSION ['registrado'] = 't1';	
+			//}
+			//else{
+			//	$_SESSION ['registrado'] = 'f2';
+			//}		
 		}
 	}
 	//sea cual sea el caso lo retorna a mantenimientos
 	header ( "location:../Mantenimiento_Usuarios.php" );
-
 }
-	
+
 ?>
 
-
-<form method="post" action="Usuarios/editU.php" role="form" data-toggle="validator">
+<form method="post" action="Usuarios/insertU.php" role="form" data-toggle="validator">
 	<div class="modal-body">
 		
 			<div class='form-group'>
 					<label for='id'>ID Usuario:</label>
-					<input class='form-control' name='id' type='text' id='id' value="<?php echo $vUsuario[0][0];?>" disabled>
-					<input type='hidden' name='idHidden' id='idHidden' value="<?php echo $vUsuario[0][0];?>">
+					<input class='form-control' name='id' type='text' id='id' placeholder='solo números' required pattern="[0-9]{1,}" >
 			</div>
 			
 			<div class='form-group'>
 				
 					<label for='nombre'>Nombre:</label>
-					<input class='form-control' name='nombre' type='text' value="<?php echo $vUsuario[0][1];?>" id='nombre' placeholder='solo letras' required pattern="[A-Za-z ñáéíóú]*">
+					<input class='form-control' name='nombre' type='text' id='nombre' placeholder='solo letras' required pattern="[A-Za-z ñáéíóú]*">
 			</div>
 			<div class='form-group'>
 					<label for='precio'>Apellidos:</label>
-					<input class='form-control' name='apellidos' type='text' value="<?php echo $vUsuario[0][2];?>" id='apellidos' pattern="[A-Za-z ñáéíóú ]*">
+					<input class='form-control' name='apellidos' type='text' value=" " id='apellidos' pattern="[A-Za-z ñáéíóú ]*">
 			</div>
 			<div class='form-group'>
 					<label for='clave'>Clave:</label>
-					<input class='form-control' name='clave' type='password' value="<?php echo $vUsuario[0][3];?>" id='clave' placeholder='6 a 12 caracteres' required pattern="[A-Za-z0-9]{6,12}"/>
+					<input class='form-control' name='clave' type='password'  id='clave' placeholder='6 a 12 caracteres' required pattern="[A-Za-z0-9]{6,12}"/>
 			</div>
 				<div class='form-group'>
 					<label for='clave2'>Verificar Clave:</label>
-					<input class='form-control' name='clave2' type='password' value="<?php echo $vUsuario[0][3];?>" id='clave2' placeholder='6 a 12 caracteres' required pattern="[A-Za-z0-9]{6,12}"/>
+					<input class='form-control' name='clave2' type='password'  id='clave2' placeholder='6 a 12 caracteres' required pattern="[A-Za-z0-9]{6,12}"/>
 						<!-- validar que ambas claves sean iguales en el mismo form -->
 						
 			</div>
@@ -148,13 +148,12 @@ if (isset ( $_POST ['submit'] )) {
 							</select>			
 									
 			</div>
-		
 			
 	</div>
 	
 	<div class="modal-footer">
 		<input type="submit" class="btn btn-primary" name="submit"
-			value="Actualizar Datos" />&nbsp;
+			value="Agregar Usuario" />&nbsp;
 		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 	</div>
 </form>	

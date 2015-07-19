@@ -5,6 +5,37 @@ $title = "Mantenimiento de Usuarios";
 $usuario = new UsuarioBLL();
 $listaUsuario= $usuario->Listar ();
 
+if (isset($_SESSION['registrado'])) {
+	if ($_SESSION['registrado']=='t'){
+	 $message="<div class='alert alert-success fade in'><button type='button' class='close close-alert'
+	 		data-dismiss='alert' aria-hidden='true'>×</button>Registro actualizado correctamente</div>";
+		echo $message;
+	}
+	if ($_SESSION['registrado']=='t1'){
+		$message="<div class='alert alert-success fade in'><button type='button' class='close close-alert'
+	 		data-dismiss='alert' aria-hidden='true'>×</button>Registro agregado correctamente</div>";
+		echo $message;
+	}
+	if($_SESSION['registrado']=='f'){
+		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado</div>";
+		echo $message;
+	}
+	if($_SESSION['registrado']=='f1'){
+		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: las claves no coinciden</div>";
+		echo $message;
+	}
+	if($_SESSION['registrado']=='f2'){
+		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el usuario ya existe</div>";
+		echo $message;
+	}
+	//var_dump($_SESSION['temp']);
+	unset($_SESSION['registrado']);
+}
+
+
 $content = "<br>
 <div><h2>Mantenimiento de Usuarios</h2></div>
 <div class='container'>
@@ -19,7 +50,7 @@ $content = "<br>
 <div class='tab-pane active' id='Listado'>
   				<br/>
 				
-  					<p><button type='button' class='btn btn-success'><span class='glyphicon glyphicon-plus'></span> Nuevo Usuario</button></p>
+  					<p><a class='btn btn-success' data-toggle='modal' data-target='#mantenimientoModal' data-action='I' data-url='Usuarios/insertU.php' data-id=''><i class='glyphicon glyphicon-plus'></i> Nuevo Usuario</a></p>
   						<br/>
   						<div class='table-responsive'>
   					<table class='table table-hover'>
@@ -28,7 +59,7 @@ $content = "<br>
     						<th class='text-center'>Identificación</th>
     						<th class='text-center'>Nombre</th>
     						<th class='text-center'>Apellidos</th>
-    						<th class='text-center'>Clave</th> 
+    						<!-- <th class='text-center'>Clave</th>  --> 
     						<th class='text-center'>Horario</th>
 							<th class='text-center'>Rol</th>
 							<th class='text-center'>Acción</th>
@@ -40,7 +71,7 @@ $content = "<br>
     						<td class='text-center'>$usuario[0]</td>
     						<td class='text-center'>$usuario[1]</td>
     						<td class='text-center'>$usuario[2]</td>
-    						<td class='text-center'>$usuario[3]</td>  
+    						<!-- <td class='text-center'>$usuario[3]</td> -->  
     						<td class='text-center'>$usuario[4]</td>
     						<td class='text-center'>$usuario[5]</td>
     						<td class='text-center'>
@@ -71,10 +102,10 @@ $content = "<br>
 				            <div class='modal-content'>
 				                <div class='modal-header'>
 				                    <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
-				                    <h4 class='modal-title' id='memberModalLabel'>Editar</h4>
+				                    <h4 class='modal-title' id='memberModalLabel'>Mantenimiento</h4>
 				                </div>
+									<div id='loading-indicator'><img src='img/ajax-loader.gif' id='gif' /></div>
 				                <div class='ct'>
-				              
 				                </div>
 				
 				            </div>

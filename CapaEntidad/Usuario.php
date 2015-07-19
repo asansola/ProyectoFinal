@@ -36,7 +36,7 @@ class Usuario /*extends EntidadBase*/{
 	public function getApellidos(){
 		return $this->apellidos;
 	}
-	public function getIdhoraio(){
+	public function getIdhorario(){
 		return $this->idhorario;
 	}
 	public function getIdrol(){

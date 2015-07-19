@@ -23,7 +23,6 @@ INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(10,'Frut
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(11,'Surtido de carnes',11500,'',5);
 
 
-
 INSERT INTO proveedor(id_proveedor, nombre, telefono, direccion) VALUES(1,'Carnes Zamora','2222-2644','San José');
 INSERT INTO proveedor(id_proveedor, nombre, telefono, direccion) VALUES(2,'Verduras M&R','2222-1515','San José');
 INSERT INTO proveedor(id_proveedor, nombre, telefono, direccion) VALUES(3,'Distribuidora La Paz','2442-2644','Cartago');

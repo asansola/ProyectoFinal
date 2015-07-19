@@ -12,19 +12,66 @@ class UsuarioAccesoDatos extends MantenimientoBase{
 	}
 
 	public function Agregar($oUsuario){
-
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+			
+		//Invocar el Procedimiento Almacenado
+		$descripcionError='';
+		$vSql = "CALL sp_I_Usuario (" . $oUsuario ->getId() . ", '" . $oUsuario->getClave() . "', '" . $oUsuario->getNombre() . "', '" . $oUsuario->getApellidos() . "', " . $oUsuario->getIdhorario() . ", " . $oUsuario->getIdrol() . ", @DescripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
+			
+		//Leer la variable de salida del error
+		if(FactoriaDAO::getConexionBaseDatos()->getHayError()){
+			parent::setHayError(True);
+			parent::setDescripcionError(FactoriaDAO::getConexionBaseDatos()->getDescripcionError());
+		}
+		
+		//Retornar True si no hay errores
+		return !parent::getHayError();
+		
 	}
 
 	public function Modificar($oUsuario){
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+		
 			
+		//Invocar el Procedimiento Almacenado
+		$vSql = "CALL sp_U_Usuario (" . $oUsuario ->getId() . ", '" . $oUsuario->getClave() . "', '" . $oUsuario->getNombre() . "', '" . $oUsuario->getApellidos() . "', " . $oUsuario->getIdhorario() . ", " . $oUsuario->getIdrol() . ", @DescripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
+		
+		//Leer la variable de salida del error
+		if(FactoriaDAO::getConexionBaseDatos()->getHayError()){
+			parent::setHayError(True);
+			parent::setDescripcionError(FactoriaDAO::getConexionBaseDatos()->getDescripcionError());
+		}
+			
+		//Retornar True si no hay errores
+		return !parent::getHayError();
 	}
 
 	public function Eliminar($oUsuario){
-
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+			
+		//Invocar el Procedimiento Almacenado
+		$vSql = "CALL sp_D_Usuario (" . $oUsuario ->getId() . ", @descripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
+		
+		//Leer la variable de salida del error
+		if(FactoriaDAO::getConexionBaseDatos()->getHayError()){
+			parent::setHayError(True);
+			parent::setDescripcionError(FactoriaDAO::getConexionBaseDatos()->getDescripcionError());
+		}
+			
+		//Retornar True si no hay errores
+		return !parent::getHayError();
 	}
 	
-	public function Consultar($oUsuario){
-	}
+	public function Consultar($oUsuario){}
 	
 	public function ConsultarRegistro($idUsuario){
 		//Variables Locales
@@ -42,7 +89,6 @@ class UsuarioAccesoDatos extends MantenimientoBase{
 	
 	}
 	
-
 	public function Verificar($id, $clave){
 		//Variables Locales
 		$queryResult=NULL;
