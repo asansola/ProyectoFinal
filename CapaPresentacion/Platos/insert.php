@@ -38,7 +38,7 @@ if (isset ( $_GET ['action'] )) {
 		$PlatoBll->Agregar($PlatoEntidad);
 		
 		//comprueba si no hubieron errores al guardar la informacion.
-		session_start ();
+		//session_start ();
 		if ($PlatoBll->getHayError ()) {
 			
 			$_SESSION ['registrado'] = 'false';

@@ -18,7 +18,7 @@ class PlatoAccesoDatos extends MantenimientoBase{
 			
 		//Invocar el Procedimiento Almacenado
 		$descripcionError='';
-		$vSql = "CALL sp_I_Plato (" . $oEstudiante->getCarnet() . ", '" . $oEstudiante->getCod_Carrera() . "', '" . $oEstudiante->getNombre() . "', 'admin', @DescripcionError);";
+		$vSql = "CALL sp_I_Plato ('" . $oPlato->__get('nombre') . "', " . $oPlato->__get('precio') . ", '" . $oPlato->__get('imagen') . "', ".$oPlato->__get('id_tipo_plato').", @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
 			
