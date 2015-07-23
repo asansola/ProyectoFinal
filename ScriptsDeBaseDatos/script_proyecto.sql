@@ -120,7 +120,7 @@ primary key(id_mesa)
 DROP TABLE IF EXISTS estado_pedido;
 Create table estado_pedido(
 id_estado_pedido int not null,
-descripcion varchar(30), -- nulo,ordenado,pagado
+descripcion varchar(30), -- inciado,preocesado,pagado, nulo
 primary key(id_estado_pedido)
 );
 
