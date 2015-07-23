@@ -49,12 +49,12 @@ if (isset ( $_POST ['submit'] )) {
 	if ($PlatoBll->getHayError ()) {
 		// echo "error ".$PlatoBll->getDescripcionError();
 		$_SESSION ['registrado'] = 'false';
-		header ( 'Location: http://localhost:80/ProyectoFinal/CapaPresentacion/Mantenimiento_Platos.php' );
 	} else {
 		
 		$_SESSION ['registrado'] = 'true';
-		header ( 'Location: http://localhost:80/ProyectoFinal/CapaPresentacion/Mantenimiento_Platos.php' );
 	}
+	
+	header ( 'Location: ../Mantenimiento_Platos.php' );
 }
 
 ?>
