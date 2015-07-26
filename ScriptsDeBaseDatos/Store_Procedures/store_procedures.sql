@@ -751,3 +751,170 @@ WHERE
    
 END$$
 
+
+-- --------------------------------------------------------------------------------
+-- ********************************************
+--  PROCEDIMIENTOS PARA PEDIDOS
+-- ********************************************
+-- --------------------------------------------------------------------------------
+
+-- --------------------------------------------------------------------------------
+-- Note: Iniciar un pedido
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Pedido`(pIdSalonero INT,pIdMesa INT, INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_I_Pedido]';
+   DECLARE num_factura INT;
+   
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   SET num_factura = (select ultimoValor from parametros where tabla='pedido_factura');
+   
+  -- Verificar llaves Foráneas
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM usuario
+   WHERE id_usuario = pIdSalonero;
+
+ IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el salonero. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+   SET vCantidad_Registros = 0;
+   
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM mesa
+   WHERE id_mesa=pIdMesa;
+
+ IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe la mesa seleccionada. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+   -- Insertar en la tabla de Pedido
+   INSERT INTO pedido_factura(id_pedido,id_salonero,id_mesa,fecha,id_estado_pedido)
+   VALUES (num_factura, pIdSalonero, pIdMesa, CURDATE(), 1);
+   
+   -- actualizar la tabla parametros
+   UPDATE parametros set ultimoValor = ultimoValor+1 where tabla='pedido_factura';
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se pudo insertar el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
+
+
+-- --------------------------------------------------------------------------------
+-- Note: Finalizar un pedido(Orden Cerrada)
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_U_Pedido`(pIdMesa INT, pTotalPedido decimal, pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_U_Pedido]';
+   DECLARE num_factura INT;
+   DECLARE id_sal INT;
+   
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   SET num_factura = (select id_pedido from pedido_factura where id_mesa=pIdMesa and id_estado_pedido=1);
+   Set id_sal=(select id_salonero from pedido_factura where id_pedido=num_factura);
+   
+  -- Verificar llaves Foráneas
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM usuario
+   WHERE id_usuario = pIdSalonero;
+
+ IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el salonero. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+   SET vCantidad_Registros = 0;
+   
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM mesa
+   WHERE id_mesa=pIdMesa;
+
+ IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe la mesa seleccionada. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+SELECT COUNT(1) INTO vCantidad_Registros 
+FROM pedido_factura
+WHERE id_pedido = num_factura;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('El numero de pedido no existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+   -- Actualizar en la tabla de Pedido
+   UPDATE  pedido_factura set total_pedido=pTotalPedido, id_estado_pedido=2 where id_pedido=num_factura;
+   
+   -- se inserta en la tabla de comisiones el % de la venta
+   INSERT into comision_salonero(id_salonero,id_pedido,comision) values (id_sal,num_factura,(pTotalPedido*1.1));
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se pudo insertar el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
+-- --------------------------------------------------------------------------------
+-- ********************************************
+-- Note:FIN de PROCEDIMIENTOS PARA PEDIDOS
+-- ********************************************
+-- --------------------------------------------------------------------------------

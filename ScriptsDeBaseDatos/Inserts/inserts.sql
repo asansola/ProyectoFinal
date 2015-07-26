@@ -49,23 +49,24 @@ INSERT INTO proveedor(id_proveedor, nombre, telefono, direccion) VALUES(5,'Caden
 
 
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(1,'Jamón','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(2,'Cebolla','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(3,'Chile','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(4,'Camarón','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(5,'Frijoles','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(6,'Arroz','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(7,'Pollo','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(8,'Carne de res','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(9,'Coca Cola','Ml',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(10,'Ginger Ale','Ml',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(11,'Frutas en lata','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(12,'Helados Fresa','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(13,'Helado Vainilla','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(14,'Atún','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(15,'Mantequilla','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(16,'Ajo','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(17,'Pimienta','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(18,'Tortillas tostadas','Gramos',100);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(2,'Cebolla','Gramos',1);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(3,'Chile','Gramos',1);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(4,'Camarón','Gramos',20);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(5,'Frijoles','Gramos',3);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(6,'Arroz','Gramos',2);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(7,'Pollo','Gramos',4);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(8,'Carne de res','Gramos',5);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(9,'Coca Cola','Litro',800);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(10,'Ginger Ale','Litro',850);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(11,'Frutas en lata','Gramos',6);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(12,'Helados Fresa','Gramos',4);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(13,'Helado Vainilla','Gramos',4);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(14,'Atún','Gramos',3);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(15,'Mantequilla','Gramos',2);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(16,'Ajo','Gramos',1);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(17,'Pimienta','Gramos',1);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(18,'Tortillas tostadas','Gramos',1);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(19,'Fresco de Cas','Litro',600);
 
 
 
@@ -102,8 +103,52 @@ INSERT INTO receta (id_plato, id_ingrediente, descripcion, cantidad_ingrediente)
 INSERT INTO receta (id_plato, id_ingrediente, descripcion, cantidad_ingrediente) VALUES(5,16,'-5 gramos de ajo',5);
 INSERT INTO receta (id_plato, id_ingrediente, descripcion, cantidad_ingrediente) VALUES(5,17,'-20 gramos de pimienta',20);
 
+INSERT INTO receta (id_plato, id_ingrediente, descripcion, cantidad_ingrediente) VALUES(6,9,'-1 Litro en Botella',1);
+INSERT INTO receta (id_plato, id_ingrediente, descripcion, cantidad_ingrediente) VALUES(8,10,'-1 Litro en Botella',1);
+INSERT INTO receta (id_plato, id_ingrediente, descripcion, cantidad_ingrediente) VALUES(7,19,'-1 Litro en Botella',1);
 
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(1,1,1,20000); -- equivalente a 20kg de jamon o 20000 gramos
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(2,2,2,20000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(3,2,3,20000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(4,1,4,10000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(5,5,5,20000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(6,5,6,20000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(7,1,7,5000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(8,5,8,10000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(9,5,9,100);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(10,5,10,100);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(11,5,11,6000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(12,5,12,6000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(13,5,13,20000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(14,5,14,10000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(15,5,15,8000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(16,3,16,20000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(17,5,17,20000);
+INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(18,3,18,10000);
+
+INSERT INTO mesa(id_mesa,descripcion) VALUES(1,'Barra');
+INSERT INTO mesa(id_mesa,descripcion) VALUES(2,'Mesa para 2 personas');
+INSERT INTO mesa(id_mesa,descripcion) VALUES(3,'Mesa para 2 personas');
+INSERT INTO mesa(id_mesa,descripcion) VALUES(4,'Mesa para 4 personas');
+INSERT INTO mesa(id_mesa,descripcion) VALUES(5,'Mesa para 4 personas');
+INSERT INTO mesa(id_mesa,descripcion) VALUES(6,'Mesa para 6 personas');
+INSERT INTO mesa(id_mesa,descripcion) VALUES(7,'Mesa para 6 personas');
+INSERT INTO mesa(id_mesa,descripcion) VALUES(8,'Mesa para 12 personas');
+
+
+  -- estados de una carrito de compras
+INSERT INTO estado_pedido(id_estado_pedido,descripcion) VALUES(1,'abierto');
+INSERT INTO estado_pedido(id_estado_pedido,descripcion) VALUES(2,'cerrado');
+-- INSERT INTO estado_pedido(id_estado_pedido,descripcion) VALUES(3,'pagado');
+
+ -- estdados de una linea del carrito de compras
+INSERT INTO estado_detalle(id_estado_detalle,descripcion) VALUES(1,'solicitado'); 
+INSERT INTO estado_detalle(id_estado_detalle,descripcion) VALUES(2,'ordenando');
+INSERT INTO estado_detalle(id_estado_detalle,descripcion) VALUES(3,'servido');
+
+-- inicializar los controls de las tablas
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('plato','Tabla de platos','0');
+INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('pedido_factura','Tabla Pedidos',1);
 
 
 

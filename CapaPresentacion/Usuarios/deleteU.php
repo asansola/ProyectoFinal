@@ -64,19 +64,19 @@ if (isset ( $_POST ['submit'] )) {
 			<div class='form-group'>
 				
 					<label for='nombre'>Nombre:</label>
-					<input class='form-control' name='nombre' type='text' value="<?php echo $vUsuario[0][1];?>" id='nombre' placeholder='solo letras' required pattern="[A-Za-z ñáéíóú]*">
+					<input class='form-control' name='nombre' type='text' value="<?php echo $vUsuario[0][1];?>" id='nombre' placeholder='solo letras' required pattern="[A-Za-z ñáéíóú]*" disabled>
 			</div>
 			<div class='form-group'>
 					<label for='precio'>Apellidos:</label>
-					<input class='form-control' name='apellidos' type='text' value="<?php echo $vUsuario[0][2];?>" id='apellidos' >
+					<input class='form-control' name='apellidos' type='text' value="<?php echo $vUsuario[0][2];?>" id='apellidos' disabled>
 			</div>
 			<div class='form-group'>
 					<label for='clave'>Clave:</label>
-					<input class='form-control' name='clave' type='password' value="<?php echo $vUsuario[0][3];?>" id='clave' placeholder='6 a 12 caracteres' />
+					<input class='form-control' name='clave' type='password' value="<?php echo $vUsuario[0][3];?>" id='clave' placeholder='6 a 12 caracteres' disabled/>
 			</div>
 				<div class='form-group'>
 					<label for='clave2'>Verificar Clave:</label>
-					<input class='form-control' name='clave2' type='password' value="<?php echo $vUsuario[0][3];?>" id='clave2' placeholder='6 a 12 caracteres' />
+					<input class='form-control' name='clave2' type='password' value="<?php echo $vUsuario[0][3];?>" id='clave2' placeholder='6 a 12 caracteres' disabled/>
 						<!-- validar que ambas claves sean iguales en el mismo form -->
 						
 			</div>
@@ -101,7 +101,7 @@ if (isset ( $_POST ['submit'] )) {
 											
 								}
 								?>
-								<select id='horario' name='horario' class='selectpicker'  required='true'>
+								<select id='horario' name='horario' class='selectpicker'  required='true' disabled>
 								<?php
 								foreach ( $result as $each ) {
 									$selected = ($each['id_horario'] === $vUsuario[0][6]) ? ' selected="selected"' : '';
@@ -133,7 +133,7 @@ if (isset ( $_POST ['submit'] )) {
 											
 								}
 								?>
-								<select id='tipoUsuario' name='tipoUsuario' class='selectpicker'  required='true'>
+								<select id='tipoUsuario' name='tipoUsuario' class='selectpicker'  required='true' disabled>
 								<?php
 								foreach ( $result as $each ) {
 									$selected = ($each['id_rol'] === $vUsuario[0][7]) ? ' selected="selected"' : '';
