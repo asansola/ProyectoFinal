@@ -38,7 +38,7 @@ INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(8,'Ginge
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(9,'Flan de coco',1500,'',4);
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(10,'Frutas con helado',1500,'',4);
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(11,'Surtido de carnes',11500,'',5);
-
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(12,'Chifrijo',2500,'chifrijo.jpg',1);
 
 
 INSERT INTO proveedor(id_proveedor, nombre, telefono, direccion) VALUES(1,'Carnes Zamora','2222-2644','San José');

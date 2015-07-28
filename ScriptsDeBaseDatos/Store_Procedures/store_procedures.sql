@@ -790,9 +790,12 @@ BEGIN
    SET num_factura = (select ultimoValor from parametros where tabla='pedido_factura');
    
   -- Verificar llaves Foráneas
-   SELECT COUNT(1) INTO vCantidad_Registros 
-   FROM usuario
-   WHERE id_usuario = pIdSalonero;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    usuario
+WHERE
+    id_usuario = pIdSalonero;
 
  IF (vCantidad_Registros <= 0) THEN
       SET pMensajeError = CONCAT('No existe el salonero. ', cNombre_Logica);
@@ -802,9 +805,12 @@ BEGIN
    
    SET vCantidad_Registros = 0;
    
-   SELECT COUNT(1) INTO vCantidad_Registros 
-   FROM mesa
-   WHERE id_mesa=pIdMesa;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    mesa
+WHERE
+    id_mesa = pIdMesa;
 
  IF (vCantidad_Registros <= 0) THEN
       SET pMensajeError = CONCAT('No existe la mesa seleccionada. ', cNombre_Logica);
@@ -816,8 +822,7 @@ BEGIN
    INSERT INTO pedido_factura(id_pedido,id_salonero,id_mesa,fecha,id_estado_pedido)
    VALUES (num_factura, pIdSalonero, pIdMesa, CURDATE(), 1);
    
-   -- actualizar la tabla parametros
-   UPDATE parametros set ultimoValor = ultimoValor+1 where tabla='pedido_factura';
+  
    
    SET vError = (SELECT @error_count);
    
@@ -825,6 +830,8 @@ BEGIN
       ROLLBACK;
       SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se pudo insertar el registro. ', cNombre_Logica);   
    ELSE
+		 -- actualizar la tabla parametros
+   UPDATE parametros set ultimoValor = ultimoValor+1 where tabla='pedido_factura';
       COMMIT;
    END IF;
    
@@ -918,3 +925,37 @@ END$$
 -- Note:FIN de PROCEDIMIENTOS PARA PEDIDOS
 -- ********************************************
 -- --------------------------------------------------------------------------------
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Ultimo_Valor_Parametros`(pNombreTabla VARCHAR(50), INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Ultimo_Valor_Parametros]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    ultimoValor
+FROM
+     parametros
+WHERE
+    tabla=pNombreTabla;
+   
+END$$
+
+
+

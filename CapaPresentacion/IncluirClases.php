@@ -42,4 +42,11 @@ require_once("../CapaAccesoDatos/Receta/RecetaAccesoDatos.php");
 require_once("../CapaBLL/Receta/RecetaBLL.php");
 
 
+require_once("../CapaEntidad/PedidoFactura.php");
+require_once("../CapaAccesoDatos/Pedido/PedidoFacturaAccesoDatos.php");
+require_once("../CapaBLL/Pedido/PedidoFacturaBLL.php");
+
+require_once ("Carrito.php");
+
+
 ?>
