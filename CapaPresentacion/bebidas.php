@@ -32,7 +32,7 @@ foreach ( $vPlatos as $plato ) {
 	$content .= "<img src='img/$plato[3]' alt=''  >";
 	$content .= "<div class='caption'>";
 	$content .= "<h3>$plato[1]</h3>";
-	
+	$content .= "<p><span class='label label-success'>Valor: ¢$plato[2]</span></p>";
 	$content .= "<p>";
 	// $url= strtolower($plato[1]).".php";//pasa el nombre a minusculas.
 	// $url= preg_replace('/\s+/', '_', $url);//sustituye el espacio en blanco del nombre por guion bajo
@@ -45,7 +45,9 @@ foreach ( $vPlatos as $plato ) {
 			$ingredienteReceta .= $ingrediente [0] . '<br/>';
 		}
 	}
-	$content .= " <a href='' class='btn btn-primary'>A&ntildeadir al pedido <i class='glyphicon glyphicon-shopping-cart'></i></a><br><a href='#' title='$plato[1]' 
+	
+	$url="pedido.php?action=add&id=$plato[0]&cantidad=1&nombre=$plato[1]";
+	$content .= "<a href=$url class='btn btn-primary'>A&ntildeadir al pedido <i class='glyphicon glyphicon-shopping-cart'></i></a><br><a href='' title='$plato[1]' 
 			data-toggle='popover' role='button'  data-trigger='focus' data-placement='top' data-content='$ingredienteReceta'>Detalles</a>";
 	$content .= "</p>";
 	$content .= "</div>";

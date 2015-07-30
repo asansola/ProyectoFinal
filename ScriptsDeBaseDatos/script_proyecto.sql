@@ -155,6 +155,7 @@ id_detalle int not null,
 id_pedido int not null,
 id_plato int not null,
 cantidad int not null,
+precio double,
 total_linea double,  -- cantidad * precio plato
 id_estado_detalle int not null,
 primary key(id_detalle,id_pedido),

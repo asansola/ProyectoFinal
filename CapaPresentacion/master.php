@@ -36,81 +36,91 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container ">
 
-			<!-- Brand and toggle get grouped for better mobile display -->   <!-- Agrega el objetivo para agreagr el menu en dispositivos mobiles -->
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<!-- Agrega el objetivo para agreagr el menu en dispositivos mobiles -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"   
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 					aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand "  href="index.php" >Inicio <i
+				<a class="navbar-brand " href="index.php">Inicio <i
 					class="glyphicon glyphicon-home"></i></a>
 			</div>
-			
+
 			<!-- Menu principal -->
 			<!-- /.navbar-collapse -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav ">
-				<li class="dropdown"><a href="#" class="dropdown-toggle" 
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">Menu <i class="glyphicon glyphicon-cutlery"></i> </a>
-					<ul class="dropdown-menu ">
-						<li ><a href="entradas.php" >Entradas</a></li>
-						<li><a href="platos_fuertes.php" >Platos Fuertes</a></li>
-						<li><a href="bebidas.php" >Bebidas</a></li>
-						<li><a href="postres.php">Postres</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="platos_especiales.php" >Platos Especiales</a></li>
-					</ul></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle" 
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">Pedidos <i class="glyphicon glyphicon-shopping-cart"></i></a>
-					<ul class="dropdown-menu ">
-						<li ><a href="pedido.php" >Orden</a></li>
-						<?php if(isset($_SESSION['rol'])){?>  <!-- Si es admin o salonero que muestre los links -->
-						<li role="separator" class="divider"></li>
-						<li ><a href="" >Modificar Pedido</a></li>
-						<li ><a href="" >Eliminar Pedido</a></li><?php }?>
-					</ul></li>
-				<?php 
-				if(isset($_SESSION['rol'])){
-				$rol=$_SESSION['rol'];
-				
-					if($rol==1){?>   <!-- Si es administrador muestre los links -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle" 
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav ">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Mantenimientos <i class="glyphicon glyphicon-wrench"></i> </a>
+						aria-expanded="false">Menu <i class="glyphicon glyphicon-cutlery"></i>
+					</a>
+						<ul class="dropdown-menu ">
+							<li><a href="entradas.php">Entradas</a></li>
+							<li><a href="platos_fuertes.php">Platos Fuertes</a></li>
+							<li><a href="bebidas.php">Bebidas</a></li>
+							<li><a href="postres.php">Postres</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="platos_especiales.php">Platos Especiales</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Pedido <i
+							class="glyphicon glyphicon-shopping-cart"></i></a>
+						<ul class="dropdown-menu ">
+							<li><a href="pedido.php">Orden</a></li>
+						<?php if(isset($_SESSION['rol'])){?>  <!-- Si es admin o salonero que muestre los links -->
+							<li role="separator" class="divider"></li>
+							<li><a href="">Modificar Pedido</a></li>
+							<li><a href="">Eliminar Pedido</a></li><?php }?>
+					</ul></li>
+				<?php
+				if (isset ( $_SESSION ['rol'] )) {
+					$rol = $_SESSION ['rol'];
+					
+					if ($rol == 1) {
+						?>   <!-- Si es administrador muestre los links -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Mantenimientos <i class="glyphicon glyphicon-wrench"></i>
+					</a>
 						<ul class="dropdown-menu ">
 							<li ><a href="Mantenimiento_Usuarios.php" >Usuarios</a></li>
 							<li ><a href="" >Provedores</a></li>
-							<li ><a href="Mantenimiento_Platos.php" >Platos</a></li>
 							<li ><a href="" >Inventario Insumos</a></li>
-							<li ><a href="Mantenimiento_Mesas.php" >Mesas</a></li>
+							<li><a href="Mantenimiento_Platos.php">Platos</a></li>
+							<li><a href="">Mesas</a></li>
 						</ul></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle" 
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Reportes <i class="glyphicon glyphicon-list-alt"></i></a>
+						aria-expanded="false">Reportes <i
+							class="glyphicon glyphicon-list-alt"></i></a>
 						<ul class="dropdown-menu ">
-							<li ><a href="" >Facturas</a></li>
-							<li ><a href="" >Comisiones Saloneros</a></li>
+							<li><a href="">Facturas</a></li>
+							<li><a href="">Comisiones Saloneros</a></li>
 						</ul></li>
-					<?php }
-					}?>
-				<li><a href="ayuda.php" >Ayuda <i class="glyphicon glyphicon-wrench"></i></a></li>
-				
-				
-			</ul>
-	
-			<!--Login-->
-			<!--  navbar-right --> 
+					<?php
+					}
+				}
+				?>
+				<li><a href="ayuda.php">Ayuda <i class="glyphicon glyphicon-wrench"></i></a></li>
+
+
+				</ul>
+
+				<!--Login-->
+				<!--  navbar-right --> 
 			<?php include ('Login.php');?>
 
 
-		</div>  <!-- /.navbar-collapse -->
-		</div> <!-- /.container -->
+		</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
 	</nav>
 	<div class="container">
 		<div class="row">
@@ -121,33 +131,34 @@
 			</div>
 		</div>
 	</div>
-	
 
+
+
+	<div class="container"><?php	echo($content);?></div>
 	<div class="container ">
 
-
-		<div><?php	echo($content);?></div>
-
-
-
-		<footer>
-			<div class="row">
-				<div class="col-lg-12">
-					<p>Derechos Reservados &copy; <?php echo date("Y")?></p>
-				</div>
+		<div class="navbar navbar-default navbar-fixed-bottom">
+			<div class="container">
+				<span id="top-link-block" class="hidden"> <a href="#top"
+					class="well well-sm"
+					onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+						<i class="glyphicon glyphicon-chevron-up"></i> Volver arriba
+				</a>
+				</span>
+				<!-- /top-link-block -->
+				<p class="navbar-text pull-right">
+					© <?php echo date('Y')?> - Todos los derechos reservados.
+				</p>
 			</div>
-		</footer>
+		</div>
+
 
 	</div>
+
+
 	<!-- /.container -->
-	
-	<span id="top-link-block" class="hidden"> <a href="#top"
-		class="well well-sm"
-		onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
-			<i class="glyphicon glyphicon-chevron-up"></i> Volver arriba
-	</a>
-	</span>
-	<!-- /top-link-block -->
+
+
 
 	<!-- jQuery -->
 	<script src="js/jquery.js"></script>
