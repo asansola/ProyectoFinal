@@ -41,5 +41,9 @@ require_once("../CapaEntidad/Receta.php");
 require_once("../CapaAccesoDatos/Receta/RecetaAccesoDatos.php");
 require_once("../CapaBLL/Receta/RecetaBLL.php");
 
+require_once("../CapaEntidad/Mesa.php");
+require_once("../CapaAccesoDatos/Mesa/MesaAccesoDatos.php");
+require_once("../CapaBLL/Mesa/MesaBLL.php");
+
 
 ?>

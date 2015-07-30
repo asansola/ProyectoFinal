@@ -31,20 +31,22 @@ if (isset ( $_POST ['submit'] )) {
 	$usuarioBLL= new UsuarioBLL();
 	
 	//$usuarioExistente=$usuarioBLL->ConsultarRegistro($id);
-
+	
 	//valida passwords
 	if($clave!=$clave2){
 		$_SESSION ['registrado'] = 'f1';
 	}
 	else{
+		$usuarioBLL->Agregar($usuarioE);
+		
 		if($usuarioBLL->getHayError() ){ 
-			$_SESSION ['registrado'] = 'f';
+			$_SESSION ['registrado'] = 'f2';
 		}
 		else{
 			//if($usuarioExistente == ""){
 				//si no hay error inserta nuevo valor
-				$usuarioBLL->Agregar($usuarioE);
-				$_SESSION ['registrado'] = 't1';	
+				
+			$_SESSION ['registrado'] = 't1';	
 			//}
 			//else{
 			//	$_SESSION ['registrado'] = 'f2';

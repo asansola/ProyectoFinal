@@ -68,11 +68,11 @@ if (isset ( $_POST ['submit'] )) {
 			<div class='form-group'>
 				
 					<label for='nombre'>Nombre:</label>
-					<input class='form-control' name='nombre' type='text' value="<?php echo $vUsuario[0][1];?>" id='nombre' placeholder='solo letras' required pattern="[A-Za-z ñáéíóú]*">
+					<input class='form-control' name='nombre' type='text' value="<?php echo $vUsuario[0][1];?>" id='nombre' placeholder='solo letras' required pattern="[A-Za-z ñáéíóú]*" title="el nombre solo debe contener letras">
 			</div>
 			<div class='form-group'>
 					<label for='precio'>Apellidos:</label>
-					<input class='form-control' name='apellidos' type='text' value="<?php echo $vUsuario[0][2];?>" id='apellidos' pattern="[A-Za-z ñáéíóú ]*">
+					<input class='form-control' name='apellidos' type='text' value="<?php echo $vUsuario[0][2];?>" id='apellidos' pattern="[A-Za-z ñáéíóú ]*" title="los apellidos solo debe contener letras">
 			</div>
 			<div class='form-group'>
 					<label for='clave'>Clave:</label>

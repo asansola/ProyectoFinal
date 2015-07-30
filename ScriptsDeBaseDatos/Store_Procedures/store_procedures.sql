@@ -1,5 +1,246 @@
 -- --------------------------------------------------------------------------------
 -- Routine DDL
+-- Note: LISTAR TODAS LAE MESAS DEL RESTAURANTE
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Mesa_Listar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Mesa_Listar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_mesa, descripcion
+	FROM
+    mesa;
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: CONSULTA REGISTRO MESA POR ID
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Mesa_Registro`(pIdMesa INT, INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Mesa_Registro]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_mesa, descripcion
+	FROM mesa
+	WHERE
+	id_mesa=pIdMesa;
+   
+END$$
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: ACTUALIZAR MESA
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_U_Mesa`(pIdMesa INT, pDescripcion varchar(30), INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_U_Mesa]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   
+
+   -- Verificar que el la mesa exista
+   SET vCantidad_Registros = 0;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    mesa
+WHERE
+    id_mesa = pIdMesa;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('La mesa no existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+ 
+   
+  -- Ejecutar la actualizacion
+	UPDATE Mesa 
+SET 	
+    descripcion = pDescripcion
+WHERE
+    id_mesa = pIdMesa;
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actualizó el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- INSERT DE MESA
+-- --------------------------------------------------------------------------------
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Mesa`( pIdmesa int, pDescripcion varchar(30), INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_I_Mesa]';
+    
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   
+   -- Verificar que la MSEA NO exista
+	SELECT COUNT(1) INTO vCantidad_Registros 
+    FROM mesa
+	WHERE id_mesa = pIdmesa;
+   
+   IF (vCantidad_Registros > 0) THEN
+      SET pMensajeError = CONCAT('La mesa YA existe en el catálogo. ', cNombre_Logica);
+  	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;   
+   
+   -- Insertar en la tabla de Usuario
+   INSERT INTO mesa(id_mesa,descripcion) 
+   VALUES (pIdmesa,pDescripcion);
+
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se pudo insertar el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- DELETE DE MESA
+-- --------------------------------------------------------------------------------
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_D_Mesa`(pIdMesa INT, INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_D_Mesa]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   
+   -- Verificar que la Mesa exista
+      SET vCantidad_Registros = 0;
+	SELECT COUNT(1) INTO vCantidad_Registros 
+    FROM mesa
+	WHERE id_mesa = pIdMesa;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('La mesa NO existe en el catálogo. ', cNombre_Logica);
+  	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF; 
+   
+   -- Actualizar en la tabla de Mesas
+   DELETE FROM mesa
+   WHERE id_mesa = pIdMesa;
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actulizó el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
 -- Note: comments before and after the routine body will not be stored by the server
 -- --------------------------------------------------------------------------------
 DELIMITER $$

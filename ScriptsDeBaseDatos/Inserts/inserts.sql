@@ -48,9 +48,9 @@ INSERT INTO proveedor(id_proveedor, nombre, telefono, direccion) VALUES(4,'Pasta
 INSERT INTO proveedor(id_proveedor, nombre, telefono, direccion) VALUES(5,'Cadena Alajuelense','2222-2644','Alajuela');
 
 
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(1,'Jamón','Gramos',100);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(2,'Cebolla','Gramos',1);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(3,'Chile','Gramos',1);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(1,'Jamón','Gramos',3);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(2,'Cebolla','Gramos',2);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(3,'Chile','Gramos',2);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(4,'Camarón','Gramos',20);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(5,'Frijoles','Gramos',3);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(6,'Arroz','Gramos',2);
@@ -67,7 +67,6 @@ INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(17,'Pimienta','Gramos',1);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(18,'Tortillas tostadas','Gramos',1);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(19,'Fresco de Cas','Litro',600);
-
 
 
 INSERT INTO receta (id_plato, id_ingrediente, descripcion, cantidad_ingrediente) VALUES(1,14,'-150 gramos de atún ahumado',150);
@@ -132,7 +131,7 @@ INSERT INTO mesa(id_mesa,descripcion) VALUES(3,'Mesa para 2 personas');
 INSERT INTO mesa(id_mesa,descripcion) VALUES(4,'Mesa para 4 personas');
 INSERT INTO mesa(id_mesa,descripcion) VALUES(5,'Mesa para 4 personas');
 INSERT INTO mesa(id_mesa,descripcion) VALUES(6,'Mesa para 6 personas');
-INSERT INTO mesa(id_mesa,descripcion) VALUES(7,'Mesa para 6 personas');
+INSERT INTO mesa(id_mesa,descripcion) VALUES(7,'Mesa para 8 personas');
 INSERT INTO mesa(id_mesa,descripcion) VALUES(8,'Mesa para 12 personas');
 
 
@@ -147,7 +146,7 @@ INSERT INTO estado_detalle(id_estado_detalle,descripcion) VALUES(2,'ordenando');
 INSERT INTO estado_detalle(id_estado_detalle,descripcion) VALUES(3,'servido');
 
 -- inicializar los controls de las tablas
-INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('plato','Tabla de platos','0');
+INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('plato','Tabla de platos',12);
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('pedido_factura','Tabla Pedidos',1);
 
 
