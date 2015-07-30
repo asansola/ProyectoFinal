@@ -93,7 +93,7 @@
 							<li ><a href="" >Provedores</a></li>
 							<li ><a href="" >Inventario Insumos</a></li>
 							<li><a href="Mantenimiento_Platos.php">Platos</a></li>
-							<li><a href="">Mesas</a></li>
+							<li><a href="Mantenimiento_Mesas.php">Mesas</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
