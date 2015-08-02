@@ -2,6 +2,8 @@
 -- Routine DDL
 -- Note: LISTAR TODAS LAE MESAS DEL RESTAURANTE
 -- --------------------------------------------------------------------------------
+use restaurantephp;
+
 DELIMITER $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Mesa_Listar`(INOUT pMensajeError VARCHAR(2000))
@@ -26,6 +28,66 @@ SELECT
     mesa,usuario
     where
     usuario.id_usuario = mesa.id_salonero and usuario.id_rol=2;
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: Contar Registros
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Mesa_Contar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Mesa_Contar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT count(*)
+	FROM
+    mesa,usuario
+    where
+    usuario.id_usuario = mesa.id_salonero and usuario.id_rol=2;
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: LISTAR TODAS LAE MESAS DEL RESTAURANTE paginacion
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Mesa_Listar_Limite`(limiteInicio int ,limiteCantidad int ,INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Mesa_Listar_Limite]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_mesa, descripcion, id_salonero, nombre, apellidos
+	FROM
+    mesa,usuario
+    where
+    usuario.id_usuario = mesa.id_salonero and usuario.id_rol=2 order by id_mesa asc
+	limit limiteInicio, limiteCantidad;
 END$$
 
 -- --------------------------------------------------------------------------------

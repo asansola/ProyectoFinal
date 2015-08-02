@@ -64,5 +64,13 @@ class MesaBLL extends LogicaNegocioMantenimientoBase{
 	public function Listar(){
 		return $this->oMesa->Listar();
 	}
+	
+	public function ListarLimite($limiteInicio, $limiteCantidad){
+		return $this->oMesa->ListarLimite($limiteInicio, $limiteCantidad);
+	}
+	
+	public function Contar(){
+		return $this->oMesa->Contar();
+	}
 
 }
