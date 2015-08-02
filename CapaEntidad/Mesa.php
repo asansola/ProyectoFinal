@@ -3,7 +3,7 @@ class Mesa /*extends EntidadBase*/{
 	
 	private $id;
 	private $descripcion;
-	
+	private $idSalonero;
 	
 	public function __construct(){
 	
@@ -29,6 +29,10 @@ class Mesa /*extends EntidadBase*/{
 		return $this->descripcion;
 	}
 	
+	public function getIdSalonero(){
+		return $this->idSalonero;
+	}
+	
 	/**
 	 * Metodos set
 	 */
@@ -37,6 +41,10 @@ class Mesa /*extends EntidadBase*/{
 	}
 	public function setDescripcion($pDescripcion){
 		$this->descripcion= $pDescripcion;
+	}
+	
+	public function setIdSalonero($pIdSalonero){
+		$this->idSalonero= $pIdSalonero;
 	}
 	
 }

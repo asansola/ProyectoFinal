@@ -21,9 +21,11 @@ BEGIN
    
    -- Ejecutar la Consulta
 SELECT 
-    id_mesa, descripcion
+    id_mesa, descripcion, id_salonero, nombre, apellidos
 	FROM
-    mesa;
+    mesa,usuario
+    where
+    usuario.id_usuario = mesa.id_salonero and usuario.id_rol=2;
 END$$
 
 -- --------------------------------------------------------------------------------
@@ -49,10 +51,10 @@ BEGIN
    
    -- Ejecutar la Consulta
 SELECT 
-    id_mesa, descripcion
-	FROM mesa
+    id_mesa, descripcion, nombre, apellidos, id_usuario
+	FROM mesa,usuario
 	WHERE
-	id_mesa=pIdMesa;
+	id_mesa=pIdMesa and usuario.id_usuario=mesa.id_salonero;
    
 END$$
 
@@ -63,7 +65,7 @@ END$$
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_U_Mesa`(pIdMesa INT, pDescripcion varchar(30), INOUT pMensajeError VARCHAR(2000))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_U_Mesa`(pIdMesa INT, pDescripcion varchar(30), pIdUsuario int, INOUT pMensajeError VARCHAR(2000))
 bloquePrincipal:
 BEGIN
      
@@ -88,6 +90,16 @@ BEGIN
    SET vCantidad_Registros = 0;
    SET pMensajeError = "";
    
+   -- Verificar llaves Foráneas
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM usuario
+   WHERE id_usuario = pIdUsuario;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el código del usuario. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
 
    -- Verificar que el la mesa exista
    SET vCantidad_Registros = 0;
@@ -108,7 +120,8 @@ WHERE
   -- Ejecutar la actualizacion
 	UPDATE Mesa 
 SET 	
-    descripcion = pDescripcion
+    descripcion = pDescripcion, 
+    id_salonero = pIdUsuario
 WHERE
     id_mesa = pIdMesa;
    
@@ -129,7 +142,7 @@ END$$
 -- --------------------------------------------------------------------------------
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Mesa`( pIdmesa int, pDescripcion varchar(30), INOUT pMensajeError VARCHAR(2000))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Mesa`( pIdmesa int, pDescripcion varchar(30), pIdUsuario int, INOUT pMensajeError VARCHAR(2000))
 bloquePrincipal:
 BEGIN
      
@@ -154,6 +167,19 @@ BEGIN
    SET vCantidad_Registros = 0;
    SET pMensajeError = "";
    
+   -- Verificar llaves Foráneas
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM usuario
+   WHERE id_usuario = pIdUsuario;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el código del salonero. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+    SET vCantidad_Registros = 0;
+    
    -- Verificar que la MSEA NO exista
 	SELECT COUNT(1) INTO vCantidad_Registros 
     FROM mesa
@@ -165,9 +191,9 @@ BEGIN
 	  LEAVE bloquePrincipal;
    END IF;   
    
-   -- Insertar en la tabla de Usuario
-   INSERT INTO mesa(id_mesa,descripcion) 
-   VALUES (pIdmesa,pDescripcion);
+   -- Insertar en la tabla de Mesa
+   INSERT INTO mesa(id_mesa,descripcion,id_salonero) 
+   VALUES (pIdmesa,pDescripcion,pIdUsuario);
 
    
    SET vError = (SELECT @error_count);
@@ -613,6 +639,36 @@ SELECT
    
 END$$
 
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: LISTAR LOs Usuarios por Rol
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Usuario_Listar_Rol`(pRol int, INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Usuario_Listar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_usuario, nombre, apellidos
+	FROM
+    usuario
+	WHERE
+    usuario.id_rol=pRol;
+    
+END$$
 
 -- --------------------------------------------------------------------------------
 -- Routine DDL

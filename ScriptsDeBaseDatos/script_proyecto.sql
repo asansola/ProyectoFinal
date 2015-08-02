@@ -113,8 +113,11 @@ CONSTRAINT id_ingrediente2_fk FOREIGN KEY (id_ingrediente) REFERENCES ingredient
 DROP TABLE IF EXISTS mesa;
 Create table mesa(
 id_mesa int not null,
-descripcion varchar(30),  -- tamano de la mesa
-primary key(id_mesa)
+descripcion varchar(30),
+id_salonero int not null,  -- tamano de la mesa
+primary key(id_mesa),
+key(id_salonero),
+constraint id_salonero9_fk foreign key(id_salonero) references usuario(id_usuario)
 );
 
 DROP TABLE IF EXISTS estado_pedido;

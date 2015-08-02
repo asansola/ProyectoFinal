@@ -17,7 +17,7 @@ class MesaAccesoDatos extends MantenimientoBase{
 			
 		//Invocar el Procedimiento Almacenado
 		$descripcionError='';
-		$vSql = "CALL sp_I_Mesa (" . $oMesa ->getId() . ", '" . $oMesa->getDescripcion() . "', @DescripcionError);";
+		$vSql = "CALL sp_I_Mesa (" . $oMesa ->getId() . ", '" . $oMesa->getDescripcion() . "'," . $oMesa ->getIdSalonero() . ", @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
 			
@@ -38,7 +38,7 @@ class MesaAccesoDatos extends MantenimientoBase{
 		
 			
 		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_U_Mesa (" . $oMesa ->getId() . ", '" . $oMesa->getDescripcion() . "', @DescripcionError);";
+		$vSql = "CALL sp_U_Mesa (" . $oMesa ->getId() . ", '" . $oMesa->getDescripcion() . "'," . $oMesa ->getIdSalonero() . ", @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
 		

@@ -16,7 +16,7 @@ insert into horario(id_horario,descripcion) values(400,'No Aplica');
 
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(123,123,'Administrador','P',400,1);
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(456,456,'Salonero','Prueba',100,2);
-insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(789,789,'Juan','Solano',400,1);
+insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(789,789,'Juan','Solano',400,2);
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(147,'147','Pedro','Valerio Ulate',400,1);
 
 
@@ -125,14 +125,14 @@ INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VA
 INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(17,5,17,20000);
 INSERT INTO inventario(id_inventario, id_proveedor, id_ingrediente, cantidad) VALUES(18,3,18,10000);
 
-INSERT INTO mesa(id_mesa,descripcion) VALUES(1,'Barra');
-INSERT INTO mesa(id_mesa,descripcion) VALUES(2,'Mesa para 2 personas');
-INSERT INTO mesa(id_mesa,descripcion) VALUES(3,'Mesa para 2 personas');
-INSERT INTO mesa(id_mesa,descripcion) VALUES(4,'Mesa para 4 personas');
-INSERT INTO mesa(id_mesa,descripcion) VALUES(5,'Mesa para 4 personas');
-INSERT INTO mesa(id_mesa,descripcion) VALUES(6,'Mesa para 6 personas');
-INSERT INTO mesa(id_mesa,descripcion) VALUES(7,'Mesa para 8 personas');
-INSERT INTO mesa(id_mesa,descripcion) VALUES(8,'Mesa para 12 personas');
+INSERT INTO mesa(id_mesa,descripcion,id_salonero) VALUES(1,'Barra',456);
+INSERT INTO mesa(id_mesa,descripcion,id_salonero) VALUES(2,'Mesa para 2 personas',456);
+INSERT INTO mesa(id_mesa,descripcion,id_salonero) VALUES(3,'Mesa para 2 personas',456);
+INSERT INTO mesa(id_mesa,descripcion,id_salonero) VALUES(4,'Mesa para 4 personas',789);
+INSERT INTO mesa(id_mesa,descripcion,id_salonero) VALUES(5,'Mesa para 4 personas',456);
+INSERT INTO mesa(id_mesa,descripcion,id_salonero) VALUES(6,'Mesa para 6 personas',456);
+INSERT INTO mesa(id_mesa,descripcion,id_salonero) VALUES(7,'Mesa para 8 personas',789);
+INSERT INTO mesa(id_mesa,descripcion,id_salonero) VALUES(8,'Mesa para 12 personas',789);
 
 
   -- estados de una carrito de compras

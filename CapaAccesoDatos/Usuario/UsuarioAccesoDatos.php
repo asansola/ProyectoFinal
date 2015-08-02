@@ -123,6 +123,23 @@ class UsuarioAccesoDatos extends MantenimientoBase{
 		return $vResultadoCursor;
 	}
 	
+	public function ListarRol($rol){
+		//Variables Locales
+		$vResultadoCursor = null;
+		$queryResult=NULL;
+			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+			
+		//Invocar el Procedimiento Almacenado
+		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
+		$vSql = "CALL sp_Q_Usuario_Listar_Rol(".$rol.",@descripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+	
+		return $vResultadoCursor;
+	}
+	
 
 }
 ?>

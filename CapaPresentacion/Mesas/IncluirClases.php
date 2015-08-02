@@ -20,5 +20,7 @@ require_once("../../CapaEntidad/Mesa.php");
 require_once("../../CapaAccesoDatos/Mesa/MesaAccesoDatos.php");
 require_once("../../CapaBLL/Mesa/MesaBLL.php");
 
-
+require_once("../../CapaEntidad/Usuario.php");
+require_once("../../CapaAccesoDatos/Usuario/UsuarioAccesoDatos.php");
+require_once("../../CapaBLL/Usuario/UsuarioBLL.php");
 ?>

@@ -31,7 +31,8 @@ if (isset($_SESSION['registrado'])) {
 				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: la mesa ya existe</div>";
 		echo $message;
 	}
-	//var_dump($_SESSION['temp']);
+	
+//	var_dump($_SESSION['v']);
 	unset($_SESSION['registrado']);
 }
 
@@ -58,14 +59,18 @@ $content = "<br>
     						<tr>
     						<th class='text-center'>Número Mesa</th>
     						<th class='text-center'>Descripción General</th>
-    				
-    						</tr>
+							<th class='text-center'>Salonero Asignado</th>
+							
+    					
+							</tr>
     						</thead>
     						<tbody>";
 							foreach ( $listaMesa as $mesa) {
 								$content .= "<tr>
     						<td class='text-center'>$mesa[0]</td>
     						<td class='text-center'>$mesa[1]</td>
+    						<td class='text-center'>$mesa[3]</td>
+    						<td class='text-center'>$mesa[4]</td>
     						<td class='text-center'>
     						
     						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Mesas/editM.php' data-id='$mesa[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>

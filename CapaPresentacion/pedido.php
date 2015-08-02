@@ -96,7 +96,7 @@ if ($carrito->get_content () === null) {
 	
 	<td data-th='Precio' class='text-center'>¢$producto[precio]</td>
 	<td data-th='Cantidad'>
-	<input type='number' class='form-control text-center' value='$producto[cantidad]'>
+	<input type='number' class='form-control text-center' value='$producto[cantidad]' min='1'>
 	</td>
 	<td data-th='Subtotal' class='text-center'>¢$producto[total]</td>
 	<td class='actions' data-th=''>
