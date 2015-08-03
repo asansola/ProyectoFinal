@@ -1,10 +1,10 @@
 <?php
 include ("Seguridad.php");
 include ("IncluirClases.php");
-$title = "Mantenimiento de Mesas";
-$mesa = new MesaBLL();
+$title = "Mantenimiento de Proveedores";
+$Proveedor = new ProveedorBLL();
 
-$resultado = $mesa->contar();
+$resultado = $Proveedor->contar();
 // Número de Filas total
 $totalFilas = $resultado[0][0];
 // Número de resultados que desea mostrar por página
@@ -36,7 +36,7 @@ if($numeroPagina == 1){
 //var_dump($limiteCantidad);
 
 //lista las mesas restringidas por los limites
-$listaMesa= $mesa->ListarLimite($limiteInicio, $limiteCantidad);
+$listaProveedor= $Proveedor->ListarLimite($limiteInicio, $limiteCantidad);
 
 // Esto muestra al usuario
 //el número total de páginas
@@ -96,7 +96,7 @@ if (isset($_SESSION['registrado'])) {
 	}
 	if($_SESSION['registrado']=='f2'){
 		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
-				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: la mesa ya existe</div>";
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el proveedor ya existe</div>";
 		echo $message;
 	}
 	
@@ -106,11 +106,11 @@ if (isset($_SESSION['registrado'])) {
 
 
 $content = "<br>
-<div><h2>Mantenimiento de Mesas</h2></div>
+<div><h2>Mantenimiento de Proveedores</h2></div>
 <div class='container'>
 <!-- Nav tabs -->
 <ul class='nav nav-tabs' role='tablist'>
-<li class='active'><a href='#Listado' role='tab' data-toggle='tab'>Mesas</a></li>
+<li class='active'><a href='#Listado' role='tab' data-toggle='tab'>Proveedores</a></li>
 	
 </ul>
 
@@ -119,30 +119,31 @@ $content = "<br>
 <div class='tab-pane active' id='Listado'>
   				<br/>
 				
-  					<p><a class='btn btn-success' data-toggle='modal' data-target='#mantenimientoModal' data-action='I' data-url='Mesas/insertM.php' data-id=''><i class='glyphicon glyphicon-plus'></i> Nueva Mesa</a></p>
+  					<p><a class='btn btn-success' data-toggle='modal' data-target='#mantenimientoModal' data-action='I' data-url='Proveedores/insertP.php' data-id=''><i class='glyphicon glyphicon-plus'></i> Nuevo Proveedor</a></p>
   						<br/>
   						<div class='table-responsive'>
   					<table class='table table-hover'>
     						<thead>
     						<tr>
-    						<th class='text-center'>Número Mesa</th>
-    						<th class='text-center'>Descripción General</th>
-							<th class='text-center'>Salonero Asignado</th>
+    				<!--	<th class='text-center'>Número Registro</th>  -->
+    						<th class='text-center'>Nombre </th>
+							<th class='text-center'>Teléfono</th>
+							<th class='text-center'>Dirección</th>
 							
     					
 							</tr>
     						</thead>
     						<tbody>";
-							foreach ( $listaMesa as $mesa) {
+							foreach ( $listaProveedor as $proveedor) {
 								$content .= "<tr>
-    						<td class='text-center'>$mesa[0]</td>
-    						<td class='text-center'>$mesa[1]</td>
-    						<td class='text-center'>$mesa[3]</td>
-    						<td class='text-center'>$mesa[4]</td>
+    				<!--	<td class='text-center'>$proveedor[0]</td>  -->
+    						<td class='text-center'>$proveedor[1]</td>
+    						<td class='text-center'>$proveedor[2]</td>
+    						<td class='text-center'>$proveedor[3]</td>
     						<td class='text-center'>
     						
-    						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Mesas/editM.php' data-id='$mesa[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>
-    						<a class='btn btn-danger' data-toggle='modal' data-target='#mantenimientoModal' data-action='D' data-url='Mesas/deleteM.php' data-id='$mesa[0]'><i class='glyphicon glyphicon-edit'></i> Eliminar</a>
+    						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Proveedores/editP.php' data-id='$proveedor[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>
+    						<a class='btn btn-danger' data-toggle='modal' data-target='#mantenimientoModal' data-action='D' data-url='Proveedores/deleteP.php' data-id='$proveedor[0]'><i class='glyphicon glyphicon-edit'></i> Eliminar</a>
     							
     										</td>
     											</tr>";

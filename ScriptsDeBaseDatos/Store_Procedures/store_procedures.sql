@@ -1,9 +1,292 @@
+
+use restaurantephp;
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: Contar Registros Provedor
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Proveedor_Contar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Proveedor_Contar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT count(*)
+	FROM
+    proveedor;
+    
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: LISTAR TODAS Los proveedores limite
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Proveedor_Listar_Limite`(limiteInicio int ,limiteCantidad int ,INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Proveedor_Listar_Limite]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_proveedor, nombre,telefono,direccion
+	FROM
+    proveedor
+	order by nombre asc
+	limit limiteInicio, limiteCantidad;
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: CONSULTA REGISTRO proveedor POR ID
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Proveedor_Registro`(pIdProveedor INT, INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Proveedor_Registro]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_proveedor, nombre,telefono,direccion
+	FROM
+    proveedor
+    where
+    id_proveedor=pIdProveedor;
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: ACTUALIZAR Proveedor
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_U_Proveedor`(pIdProveedor INT, pNombre varchar(30), pTelefono varchar(60), pDireccion varchar(60), INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_U_Proveedor]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   
+   -- Verificar que el proeveedor exista
+   SET vCantidad_Registros = 0;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    proveedor
+WHERE
+    id_proveedor = pIdProveedor;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('El proveedor no existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+ 
+   
+  -- Ejecutar la actualizacion
+	UPDATE proveedor 
+SET 	
+    nombre = pNombre, 
+    telefono = pTelefono,
+    direccion = pDireccion
+WHERE
+    id_proveedor = pIdProveedor;
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actualizó el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: INSERTAR Proveedor
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Proveedor`(pNombre varchar(30), pTelefono varchar(60), pDireccion varchar(60), INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_I_Proveedor]';
+   DECLARE idProveedor INT;
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   set idProveedor= (select ultimoValor from parametros where tabla='proveedor')+1;
+   
+   -- Verificar que el proeveedor no exista
+   SET vCantidad_Registros = 0;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    proveedor
+WHERE
+    id_proveedor = idProveedor;
+   
+   IF (vCantidad_Registros > 0) THEN
+      SET pMensajeError = CONCAT('El proveedor Ya existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+ 
+   
+  -- Ejecutar la actualizacion
+	Insert into proveedor(id_proveedor,nombre,telefono,direccion)
+    values (idProveedor,pNombre,pTelefono,pDireccion);
+    
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actualizó el registro. ', cNombre_Logica);   
+   ELSE
+      	 -- actualizar la tabla parametros
+		UPDATE parametros set ultimoValor = ultimoValor+1 where tabla='proveedor';
+      COMMIT;
+   END IF;
+   
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: BORRAR Proveedor
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_D_Proveedor`(pIdProveedor int, INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_D_Proveedor]';
+ 
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   
+   -- Verificar que el proveedor exista
+   SET vCantidad_Registros = 0;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    proveedor
+WHERE
+    id_proveedor = pIdProveedor;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('El proveedor No existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+ 
+   
+  -- Ejecutar la actualizacion
+	DELETE FROM proveedor
+	WHERE id_proveedor = pIdProveedor;
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actualizó el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
+
 -- --------------------------------------------------------------------------------
 -- Routine DDL
 -- Note: LISTAR TODAS LAE MESAS DEL RESTAURANTE
 -- --------------------------------------------------------------------------------
-use restaurantephp;
-
 DELIMITER $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Mesa_Listar`(INOUT pMensajeError VARCHAR(2000))

@@ -73,5 +73,10 @@
 		 * Listar todos los datos de la entidad
 		 */
 		abstract protected function Listar();
+		
+		/**
+		 * Contar todos los datos de la entidad
+		 */
+	
 	}
 ?>

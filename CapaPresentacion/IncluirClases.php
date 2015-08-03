@@ -45,6 +45,9 @@ require_once("../CapaEntidad/Mesa.php");
 require_once("../CapaAccesoDatos/Mesa/MesaAccesoDatos.php");
 require_once("../CapaBLL/Mesa/MesaBLL.php");
 
+require_once("../CapaEntidad/Proveedor.php");
+require_once("../CapaAccesoDatos/Proveedor/ProveedorAccesoDatos.php");
+require_once("../CapaBLL/Proveedor/ProveedorBLL.php");
 
 require_once("../CapaEntidad/PedidoFactura.php");
 require_once("../CapaAccesoDatos/Pedido/PedidoFacturaAccesoDatos.php");

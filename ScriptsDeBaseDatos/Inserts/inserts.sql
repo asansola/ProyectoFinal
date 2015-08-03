@@ -14,7 +14,7 @@ insert into horario(id_horario,descripcion) values(200,'Tarde');
 insert into horario(id_horario,descripcion) values(300,'Noche');
 insert into horario(id_horario,descripcion) values(400,'No Aplica');
 
-insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(123,123,'Administrador','P',400,1);
+insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(123,123,'Administrador','Prueba',400,1);
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(456,456,'Salonero','Prueba',100,2);
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(789,789,'Juan','Solano',400,2);
 insert into usuario(id_usuario,clave,nombre,apellidos,id_horario,id_rol) values(147,'147','Pedro','Valerio Ulate',400,1);
@@ -148,6 +148,7 @@ INSERT INTO estado_detalle(id_estado_detalle,descripcion) VALUES(3,'servido');
 -- inicializar los controls de las tablas
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('plato','Tabla de platos',12);
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('pedido_factura','Tabla Pedidos',1);
+INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('proveedor','Tabla Proveedores',5);
 
 
 

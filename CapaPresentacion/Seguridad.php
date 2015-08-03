@@ -17,7 +17,7 @@
 		$rol=$_SESSION['rol'];
 		
 		if($rol!=1 && (basename($_SERVER['PHP_SELF']) == "mantenimiento_platos.php") || (basename($_SERVER['PHP_SELF']) == "mantenimiento_usuarios.php") 
-			|| (basename($_SERVER['PHP_SELF']) == "mantenimiento_mesas.php") )
+			|| (basename($_SERVER['PHP_SELF']) == "mantenimiento_mesas.php") || (basename($_SERVER['PHP_SELF']) == "mantenimiento_proveedores.php") )
 		{
 			$mensaje="No tiene privilegios para esta sección";
 			echo "<script>";
