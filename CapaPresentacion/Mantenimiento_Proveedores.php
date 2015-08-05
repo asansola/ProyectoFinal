@@ -4,7 +4,7 @@ include ("IncluirClases.php");
 $title = "Mantenimiento de Proveedores";
 $Proveedor = new ProveedorBLL();
 
-$resultado = $Proveedor->contar();
+$resultado = $Proveedor->Contar();
 // Número de Filas total
 $totalFilas = $resultado[0][0];
 // Número de resultados que desea mostrar por página
@@ -134,6 +134,9 @@ $content = "<br>
 							</tr>
     						</thead>
     						<tbody>";
+
+						if (!empty($listaProveedor)) {
+							
 							foreach ( $listaProveedor as $proveedor) {
 								$content .= "<tr>
     				<!--	<td class='text-center'>$proveedor[0]</td>  -->
@@ -148,7 +151,7 @@ $content = "<br>
     										</td>
     											</tr>";
 									}
-
+						
 						$content .= "</tbody>
     									</table>
     										</div>
@@ -172,10 +175,10 @@ $content = "<br>
 				
 				            </div>
 				        </div>
-				    </div>
+				    </div>";
+				}		
 						
-						
-					";
+					
 
 include 'master.php';
 ?>

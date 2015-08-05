@@ -135,6 +135,7 @@
 
 
 	<div class="container"><?php	echo($content);?></div>
+	</br></br></br>
 	<div class="container ">
 
 		<div class="navbar navbar-default navbar-fixed-bottom">
