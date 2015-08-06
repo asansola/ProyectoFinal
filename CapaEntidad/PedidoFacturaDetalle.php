@@ -1,5 +1,5 @@
 <?php
-class PedidoFactura {
+class PedidoFacturaDetalle {
 	
 	private $id_detalle;
 	private $id_pedido;

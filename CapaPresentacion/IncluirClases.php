@@ -53,6 +53,12 @@ require_once("../CapaEntidad/PedidoFactura.php");
 require_once("../CapaAccesoDatos/Pedido/PedidoFacturaAccesoDatos.php");
 require_once("../CapaBLL/Pedido/PedidoFacturaBLL.php");
 
+require_once("../CapaEntidad/PedidoFacturaDetalle.php");
+require_once("../CapaAccesoDatos/Pedido/PedidoFacturaDetalleAccesoDatos.php");
+require_once("../CapaBLL/Pedido/PedidoFacturaDetalleBLL.php");
+
+
+
 require_once ("Carrito.php");
 
 

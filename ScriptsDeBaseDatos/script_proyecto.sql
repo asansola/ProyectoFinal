@@ -138,23 +138,20 @@ primary key(id_estado_detalle)
 DROP TABLE IF EXISTS pedido_factura;
 CREATE table pedido_factura(
 id_pedido int not null,
-id_salonero int not null,
 id_mesa int not null,
 fecha date,
 id_estado_pedido int not null,
 total_pedido decimal,
 primary key(id_pedido),
-key (id_salonero),
 key (id_mesa),
 key (id_estado_pedido),
-CONSTRAINT id_salonero_fk FOREIGN KEY (id_salonero) REFERENCES usuario (id_usuario),
 CONSTRAINT id_mesa_fk FOREIGN KEY (id_mesa) REFERENCES mesa (id_mesa),
 CONSTRAINT id_estado_pedido_fk FOREIGN KEY (id_estado_pedido) REFERENCES estado_pedido (id_estado_pedido)
 );
 
 DROP TABLE IF EXISTS detalle_pedido_factura;
 CREATE TABLE detalle_pedido_factura(
-id_detalle int not null,
+id_detalle int  AUTO_INCREMENT,
 id_pedido int not null,
 id_plato int not null,
 cantidad int not null,

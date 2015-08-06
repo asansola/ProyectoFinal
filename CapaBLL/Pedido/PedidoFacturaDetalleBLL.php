@@ -3,7 +3,7 @@
 class PedidoFacturaDetalleBLL extends LogicaNegocioMantenimientoBase{
 
 	/**
-	 * Variable tipo PlatoBLL
+	 * Variable tipo PedidoFacturaDetalleBLL
 	 * @var PedidoFacturaDetalleBLL
 	 */
 	private $oPedidoFacturaDetalle = null;
@@ -64,8 +64,8 @@ class PedidoFacturaDetalleBLL extends LogicaNegocioMantenimientoBase{
 		return $this->oPedidoFacturaDetalle->Consultar($oPedidoFacturaDetalle);
 	}
 	
-	public function ConsultarRegistro($idLinea){
-		return $this->oPedidoFacturaDetalle->ConsultarRegistro($idLinea);
+	public function ConsultarRegistro($id_pedido){
+		return $this->oPedidoFacturaDetalle->ConsultarRegistro($id_pedido);
 	}
 
 	public function Listar(){
@@ -75,5 +75,8 @@ class PedidoFacturaDetalleBLL extends LogicaNegocioMantenimientoBase{
 	public function Verificar($id, $clave){
 	
 	}
+	
+	
+	
 
 }

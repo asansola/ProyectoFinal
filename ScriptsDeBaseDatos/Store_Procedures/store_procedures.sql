@@ -1,5 +1,71 @@
 
 use restaurantephp;
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Linea_Detalle`(pIdPedido INT,pIdPlato INT, pCantidad INT, pPrecio DOUBLE, pTotalLinea DOUBLE, pEstadoLinea INT ,  INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_I_Pedido]';
+ --  DECLARE num_factura INT;
+   
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+  -- SET num_factura = (select ultimoValor from parametros where tabla='pedido_factura');
+   
+  -- Verificar llaves Foráneas
+  
+   SET vCantidad_Registros = 0;
+   
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    plato
+WHERE
+    id_plato = pIdPlato;
+
+ IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe este plato. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+
+-- Insertar en la tabla de detalle pedido
+   INSERT INTO detalle_pedido_factura(id_pedido,id_plato, cantidad, precio, total_linea, id_estado_detalle)
+   VALUES (pIdPedido, pIdPlato, pCantidad, pPrecio, pTotalLinea, pEstadoLinea);
+   
+  
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se pudo insertar el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
 -- --------------------------------------------------------------------------------
 -- Routine DDL
 -- Note: Contar Registros Provedor
@@ -1403,8 +1469,13 @@ END$$
 -- --------------------------------------------------------------------------------
 -- Note: Iniciar un pedido
 -- --------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Pedido`(pIdSalonero INT,pIdMesa INT, INOUT pMensajeError VARCHAR(2000))
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Pedido`(pIdMesa INT,  INOUT pMensajeError VARCHAR(2000))
 bloquePrincipal:
 BEGIN
      
@@ -1432,19 +1503,7 @@ BEGIN
    SET num_factura = (select ultimoValor from parametros where tabla='pedido_factura');
    
   -- Verificar llaves Foráneas
-SELECT 
-    COUNT(1)
-INTO vCantidad_Registros FROM
-    usuario
-WHERE
-    id_usuario = pIdSalonero;
-
- IF (vCantidad_Registros <= 0) THEN
-      SET pMensajeError = CONCAT('No existe el salonero. ', cNombre_Logica);
-	  ROLLBACK;
-	  LEAVE bloquePrincipal;
-   END IF;
-   
+  
    SET vCantidad_Registros = 0;
    
 SELECT 
@@ -1461,10 +1520,14 @@ WHERE
    END IF;
    
    -- Insertar en la tabla de Pedido
-   INSERT INTO pedido_factura(id_pedido,id_salonero,id_mesa,fecha,id_estado_pedido)
-   VALUES (num_factura, pIdSalonero, pIdMesa, CURDATE(), 1);
+   INSERT INTO pedido_factura(id_pedido,id_mesa,fecha,id_estado_pedido)
+   VALUES (num_factura, pIdMesa, CURDATE(), 1);
    
-  
+   SELECT id_pedido, m.descripcion, u.nombre, fecha, ep.descripcion 
+  -- INTO pIdPedido, pDescripcionMesa, pNombreSalonero, pFecha, pEstadoPedido
+   FROM   pedido_factura p, mesa m, usuario u, estado_pedido ep
+   WHERE p.id_pedido=num_factura AND p.id_mesa= m.id_mesa AND m.id_salonero= u.id_usuario
+			AND p.id_estado_pedido= ep.id_estado_pedido;
    
    SET vError = (SELECT @error_count);
    
@@ -1473,13 +1536,44 @@ WHERE
       SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se pudo insertar el registro. ', cNombre_Logica);   
    ELSE
 		 -- actualizar la tabla parametros
-   UPDATE parametros set ultimoValor = ultimoValor+1 where tabla='pedido_factura';
+	  UPDATE parametros set ultimoValor = ultimoValor+1 where tabla='pedido_factura';
       COMMIT;
    END IF;
    
 END$$
 
 
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Lineas_Detalle`(pIdPedido INT, INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Mesa_Registro]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_detalle, id_plato, id_estado_detalle
+	FROM detalle_pedido_factura
+	WHERE
+	id_pedido=pIdPedido;
+   
+END$$
 -- --------------------------------------------------------------------------------
 -- Note: Finalizar un pedido(Orden Cerrada)
 -- --------------------------------------------------------------------------------
