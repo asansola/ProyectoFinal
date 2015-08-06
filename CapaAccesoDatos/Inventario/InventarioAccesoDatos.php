@@ -1,6 +1,6 @@
 <?php
 
-class ProveedorAccesoDatos extends MantenimientoBase{
+class InventarioAccesoDatos extends MantenimientoBase{
 
 	/**
 	 * Constructor de la clase
@@ -11,13 +11,13 @@ class ProveedorAccesoDatos extends MantenimientoBase{
 		FactoriaDAO::setTipoBaseDatos("MySQL");
 	}
 
-	public function Agregar($oProveedor){
+	public function Agregar($oInventario){
 		//Inicializar el control de Errores
 		parent::setHayError(False);
 			
 		//Invocar el Procedimiento Almacenado
 		$descripcionError='';
-		$vSql = "CALL sp_I_Proveedor ('" . $oProveedor->getNombre() . "', '" . $oProveedor->getTelefono() . "', '" . $oProveedor->getDireccion() . "', @DescripcionError);";
+		$vSql = "CALL sp_I_Inventario ( " . $oInventario->getProvedor() . "," . $oInventario ->getIngrediente() . "," . $oInventario ->getCantidad() . ", @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
 			
@@ -32,13 +32,13 @@ class ProveedorAccesoDatos extends MantenimientoBase{
 		
 	}
 
-	public function Modificar($oProveedor){
+	public function Modificar($oInventario){
 		//Inicializar el control de Errores
 		parent::setHayError(False);
 		
 			
 		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_U_Proveedor (" . $oProveedor ->getId() . ", '" . $oProveedor->getNombre() . "', '" . $oProveedor->getTelefono() . "', '" . $oProveedor->getDireccion() . "', @DescripcionError);";
+		$vSql = "CALL sp_U_Inventario (" . $oInventario ->getId() . ", " . $oInventario->getProvedor() . "," . $oInventario ->getIngrediente() . "," . $oInventario ->getCantidad() . ", @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
 		
@@ -52,28 +52,13 @@ class ProveedorAccesoDatos extends MantenimientoBase{
 		return !parent::getHayError();
 	}
 
-	public function Eliminar($oProveedor){
-		//Inicializar el control de Errores
-		parent::setHayError(False);
-			
-		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_D_Proveedor (" . $oProveedor ->getId() . ", @descripcionError);";
-		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
-		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
-		
-		//Leer la variable de salida del error
-		if(FactoriaDAO::getConexionBaseDatos()->getHayError()){
-			parent::setHayError(True);
-			parent::setDescripcionError(FactoriaDAO::getConexionBaseDatos()->getDescripcionError());
-		}
-			
-		//Retornar True si no hay errores
-		return !parent::getHayError();
-	}
+	public function Eliminar($oMesa){}
 	
-	public function Consultar($oProveedor){}
+	public function Consultar($oUsuario){}
+
+	public function Verificar($id, $clave){}
 	
-	public function ConsultarRegistro($idProveedor){
+	public function ConsultarRegistro($id){
 		//Variables Locales
 		$queryResult=NULL;
 		$vResultadoCursor = null;
@@ -81,32 +66,15 @@ class ProveedorAccesoDatos extends MantenimientoBase{
 		//Inicializar el control de Errores
 		parent::setHayError(False);
 		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_Q_Proveedor_Registro('$idProveedor',@DescripcionError);";
+		$vSql = "CALL sp_Q_Inventario_Registro('$id',@DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
 		//Retornar el objeto
 		return $vResultadoCursor;
-	
 	}
-	
-	public function Verificar($id, $clave){}	
 
-	public function Listar(){
-		//Variables Locales
-		$vResultadoCursor = null;
-		$queryResult=NULL;
-			
-		//Inicializar el control de Errores
-		parent::setHayError(False);
-			
-		//Invocar el Procedimiento Almacenado
-		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
-		$vSql = "CALL sp_Q_Proveedor_Listar(@descripcionError);";
-		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
-		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
-		
-		return $vResultadoCursor;
-	}
+
+	public function Listar(){}
 	
 	public function ListarLimite($limiteInicio, $limiteCantidad){
 		//Variables Locales
@@ -118,7 +86,7 @@ class ProveedorAccesoDatos extends MantenimientoBase{
 			
 		//Invocar el Procedimiento Almacenado
 		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
-		$vSql = "CALL sp_Q_Proveedor_Listar_Limite('$limiteInicio','$limiteCantidad',@descripcionError);";
+		$vSql = "CALL sp_Q_Inventario_Listar_Limite('$limiteInicio','$limiteCantidad',@descripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
 	
@@ -135,13 +103,12 @@ class ProveedorAccesoDatos extends MantenimientoBase{
 			
 		//Invocar el Procedimiento Almacenado
 		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
-		$vSql = "CALL sp_Q_Proveedor_Contar(@descripcionError);";
+		$vSql = "CALL sp_Q_Inventario_Contar(@descripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
 	
 		return $vResultadoCursor;
 	}
-	
 
 }
 ?>

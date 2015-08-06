@@ -1,10 +1,10 @@
 <?php
 include ("Seguridad.php");
 include ("IncluirClases.php");
-$title = "Mantenimiento de Mesas";
-$mesa = new MesaBLL();
+$title = "Inventario de Insumos";
+$inventario = new InventarioBLL();
 
-$resultado = $mesa->contar();
+$resultado = $inventario->contar();
 // Número de Filas total
 $totalFilas = $resultado[0][0];
 // Número de resultados que desea mostrar por página
@@ -36,7 +36,7 @@ if($numeroPagina == 1){
 //var_dump($limiteCantidad);
 
 //lista las mesas restringidas por los limites
-$listaMesa= $mesa->ListarLimite($limiteInicio, $limiteCantidad);
+$listaInventario = $inventario->ListarLimite($limiteInicio, $limiteCantidad);
 
 // Esto muestra al usuario
 //el número total de páginas
@@ -91,7 +91,7 @@ if (isset($_SESSION['registrado'])) {
 	}
 	if($_SESSION['registrado']=='f1'){
 		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
-				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: las claves no coinciden</div>";
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el ingrediente del proveedor ya existe</div>";
 		echo $message;
 	}
 	if($_SESSION['registrado']=='f2'){
@@ -100,17 +100,16 @@ if (isset($_SESSION['registrado'])) {
 		echo $message;
 	}
 	
-//	var_dump($_SESSION['v']);
 	unset($_SESSION['registrado']);
 }
-
+//var_dump($_SESSION['v']);
 
 $content = "<br>
-<div><h2>Mantenimiento de Mesas</h2></div>
+<div><h2>Inventario de Insumos</h2></div>
 <div class='container'>
 <!-- Nav tabs -->
 <ul class='nav nav-tabs' role='tablist'>
-<li class='active'><a href='#Listado' role='tab' data-toggle='tab'>Mesas</a></li>
+<li class='active'><a href='#Listado' role='tab' data-toggle='tab'>Insumos</a></li>
 	
 </ul>
 
@@ -119,31 +118,32 @@ $content = "<br>
 <div class='tab-pane active' id='Listado'>
   				<br/>
 				
-  					<p><a class='btn btn-success' data-toggle='modal' data-target='#mantenimientoModal' data-action='I' data-url='Mesas/insertM.php' data-id=''><i class='glyphicon glyphicon-plus'></i> Nueva Mesa</a></p>
+  					<p><a class='btn btn-success' data-toggle='modal' data-target='#mantenimientoModal' data-action='I' data-url='Inventario/insertI.php' data-id=''><i class='glyphicon glyphicon-plus'></i> Nuevo Insumo</a></p>
   						<br/>
   						<div class='table-responsive'>
   					<table class='table table-hover'>
     						<thead>
     						<tr>
-    						<th class='text-center'>Número Mesa</th>
-    						<th class='text-center'>Descripción General</th>
-							<th class='text-center'>Salonero Asignado</th>
+    						<th class='text-center'>Nombre Ingrediente</th>
+    						<th class='text-center'>Cantidad en Inventario</th>
+							<th class='text-center'>Unidad Medida</th>
+							<th class='text-center'>Proveedor</th>
 							
     					
 							</tr>
     						</thead>
     						<tbody>";
-							if($listaMesa !=""){
-							foreach ( $listaMesa as $mesa) {
+							if($listaInventario !=""){
+							foreach ( $listaInventario as $insumo) {
 								$content .= "<tr>
-    						<td class='text-center'>$mesa[0]</td>
-    						<td class='text-center'>$mesa[1]</td>
-    						<td class='text-center'>$mesa[3]</td>
-    						<td class='text-center'>$mesa[4]</td>
+    						<td class='text-center'>$insumo[5]</td>
+    						
+							<td class='text-center'>$insumo[3]</td>  
+    						<td class='text-center'>$insumo[6]</td>
+    						<td class='text-center'>$insumo[4]</td>
     						<td class='text-center'>
     						
-    						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Mesas/editM.php' data-id='$mesa[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>
-    						<a class='btn btn-danger' data-toggle='modal' data-target='#mantenimientoModal' data-action='D' data-url='Mesas/deleteM.php' data-id='$mesa[0]'><i class='glyphicon glyphicon-edit'></i> Eliminar</a>
+    						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Inventario/editI.php' data-id='$insumo[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>
     							
     										</td>
     											</tr>";

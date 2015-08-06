@@ -91,7 +91,7 @@ if (isset($_SESSION['registrado'])) {
 	}
 	if($_SESSION['registrado']=='f1'){
 		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
-				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: las claves no coinciden</div>";
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el proveedor se encuentra activo</div>";
 		echo $message;
 	}
 	if($_SESSION['registrado']=='f2'){
@@ -100,7 +100,7 @@ if (isset($_SESSION['registrado'])) {
 		echo $message;
 	}
 	
-//	var_dump($_SESSION['v']);
+	//var_dump($_SESSION['v']);
 	unset($_SESSION['registrado']);
 }
 
@@ -134,6 +134,7 @@ $content = "<br>
 							</tr>
     						</thead>
     						<tbody>";
+							if($listaProveedor !=""){
 							foreach ( $listaProveedor as $proveedor) {
 								$content .= "<tr>
     				<!--	<td class='text-center'>$proveedor[0]</td>  -->
@@ -147,7 +148,8 @@ $content = "<br>
     							
     										</td>
     											</tr>";
-									}
+								}
+							}
 
 						$content .= "</tbody>
     									</table>

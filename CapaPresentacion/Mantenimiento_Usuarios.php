@@ -66,6 +66,7 @@ $content = "<br>
     						</tr>
     						</thead>
     						<tbody>";
+							if($listaUsuario !=""){
 							foreach ( $listaUsuario as $usuario) {
 								$content .= "<tr>
     						<td class='text-center'>$usuario[0]</td>
@@ -82,6 +83,7 @@ $content = "<br>
     										</td>
     											</tr>";
 									}
+							}
 
 						$content .= "</tbody>
     											</table>

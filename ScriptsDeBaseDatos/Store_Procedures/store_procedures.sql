@@ -1,5 +1,314 @@
 
 use restaurantephp;
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: LISTAR TODAS LAE ingredientes
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Ingrediente_Listar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Ingrediente_Listar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_ingrediente,descripcion,unidad_medida,precio_unidad
+	FROM
+    ingrediente order by descripcion asc;
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: Contar Registros INVENTARIO
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Inventario_Contar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Inventario_Contar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT count(*)
+	FROM
+    inventario;
+    
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: LISTAR inventario con limite
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Inventario_Listar_Limite`(limiteInicio int ,limiteCantidad int ,INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Inventario_Listar_Limite]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    inventario.id_inventario, inventario.id_proveedor, inventario.id_ingrediente, inventario.cantidad, proveedor.nombre, ingrediente.descripcion, ingrediente.unidad_medida
+	FROM
+    proveedor,inventario,ingrediente
+    where
+    inventario.id_proveedor = proveedor.id_proveedor and inventario.id_ingrediente = ingrediente.id_ingrediente
+	order by ingrediente.descripcion asc
+	limit limiteInicio, limiteCantidad;
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: CONSULTA REGISTRO inventario POR ID
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Inventario_Registro`(pIdInventario INT, INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Inventario_Registro]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    inventario.id_inventario, inventario.id_proveedor, inventario.id_ingrediente, inventario.cantidad, proveedor.nombre, ingrediente.descripcion, ingrediente.unidad_medida
+	FROM
+    proveedor,inventario,ingrediente
+    where
+    inventario.id_proveedor = proveedor.id_proveedor and inventario.id_ingrediente = ingrediente.id_ingrediente and inventario.id_inventario=pIdInventario;
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: ACTUALIZAR Inventario
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_U_Inventario`(pIdInventario INT, pIdProveedor int, pIdIngrediente int, pCantidad int, INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_U_Inventario]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   
+   -- Verificar llaves Foráneas
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM proveedor
+   WHERE id_proveedor = pIdProveedor;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el código del Proveedor. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+	  SET vCantidad_Registros = 0;
+      
+       SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM ingrediente
+   WHERE id_ingrediente = pIdIngrediente;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el código del Ingrediente. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+
+   -- Verificar que el id de invenatrio no exista
+   SET vCantidad_Registros = 0;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    inventario
+WHERE
+    id_inventario = pIdInventario;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('El id de inventario no existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+ 
+   
+  -- Ejecutar la actualizacion
+	UPDATE inventario 
+SET 	
+    cantidad = pCantidad
+WHERE
+    id_inventario = pIdInventario;
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actualizó el registro. ', cNombre_Logica);   
+   ELSE
+      COMMIT;
+   END IF;
+   
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: Insertar nuevo Inventario
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_I_Inventario`(pIdProveedor int, pIdIngrediente int, pCantidad int, INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_I_Inventario]';
+   declare idInventario int;
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   set idInventario= (select ultimoValor from parametros where tabla='inventario')+1;
+   
+   -- Verificar llaves Foráneas
+   SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM proveedor
+   WHERE id_proveedor = pIdProveedor;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el código del Proveedor. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+	  SET vCantidad_Registros = 0;
+      
+       SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM ingrediente
+   WHERE id_ingrediente = pIdIngrediente;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('No existe el código del Ingrediente. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+
+   -- Verificar que el id de inventario no exista
+   SET vCantidad_Registros = 0;
+SELECT 
+    COUNT(1)
+INTO vCantidad_Registros FROM
+    inventario
+WHERE
+    id_inventario = idInventario;
+   
+   IF (vCantidad_Registros > 0) THEN
+      SET pMensajeError = CONCAT('El id de inventario Ya existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+ 
+ -- verificar que la combinacion de proveedor e ingrediente no se repita
+ 	  SET vCantidad_Registros = 0;
+      
+       SELECT COUNT(1) INTO vCantidad_Registros 
+   FROM inventario
+   WHERE id_proveedor = pIdProveedor and id_ingrediente = pIdIngrediente;
+   
+   IF (vCantidad_Registros > 0) THEN
+      SET pMensajeError = CONCAT('Este ingrediente/proveedor YA existe. ', cNombre_Logica);
+	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF;
+   
+  -- Ejecutar la inserccion
+	Insert into inventario(id_inventario,id_proveedor,id_ingrediente,cantidad) 	
+    values(idInventario,pIdProveedor,pIdIngrediente,pCantidad);
+
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actualizó el registro. ', cNombre_Logica);   
+   ELSE
+	-- Por ultimo actualiza la tabla de parametros, para el siguiente consecutivo
+      UPDATE parametros set ultimoValor = ultimoValor+1 where tabla='inventario';
+      COMMIT;
+   END IF;
+   
+END$$
+
 -- --------------------------------------------------------------------------------
 -- Routine DDL
 -- Note: Contar Registros Provedor
@@ -56,6 +365,35 @@ SELECT
     proveedor
 	order by nombre asc
 	limit limiteInicio, limiteCantidad;
+END$$
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: LISTAR TODAS los proveedores
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Proveedor_Listar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Proveedor_Listar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT 
+    id_proveedor, nombre,telefono,direccion
+	FROM
+    proveedor;
 END$$
 
 -- --------------------------------------------------------------------------------
@@ -221,13 +559,14 @@ WHERE
    
 END$$
 
+
 -- --------------------------------------------------------------------------------
 -- Routine DDL
--- Note: BORRAR Proveedor
+-- DELETE DE PROVEEDOR
 -- --------------------------------------------------------------------------------
-DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_D_Proveedor`(pIdProveedor int, INOUT pMensajeError VARCHAR(2000))
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_D_Proveedor`(pIdProveedor INT, INOUT pMensajeError VARCHAR(2000))
 bloquePrincipal:
 BEGIN
      
@@ -235,7 +574,7 @@ BEGIN
    DECLARE vCantidad_Registros INT;
    DECLARE vError INT;
    DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_D_Proveedor]';
- 
+
    -- Declaración de bloque con Handler para manejo de SQLException
    DECLARE EXIT HANDLER FOR SQLEXCEPTION
    Handler_SqlException:
@@ -252,31 +591,27 @@ BEGIN
    SET vCantidad_Registros = 0;
    SET pMensajeError = "";
    
-   -- Verificar que el proveedor exista
-   SET vCantidad_Registros = 0;
-SELECT 
-    COUNT(1)
-INTO vCantidad_Registros FROM
-    proveedor
-WHERE
-    id_proveedor = pIdProveedor;
+   -- Verificar que la Mesa exista
+      SET vCantidad_Registros = 0;
+	SELECT COUNT(1) INTO vCantidad_Registros 
+    FROM proveedor
+	WHERE id_proveedor = pIdProveedor;
    
    IF (vCantidad_Registros <= 0) THEN
-      SET pMensajeError = CONCAT('El proveedor No existe. ', cNombre_Logica);
-	  ROLLBACK;
+      SET pMensajeError = CONCAT('La Proveedor NO existe en el catálogo. ', cNombre_Logica);
+  	  ROLLBACK;
 	  LEAVE bloquePrincipal;
-   END IF;
- 
+   END IF; 
    
-  -- Ejecutar la actualizacion
-	DELETE FROM proveedor
-	WHERE id_proveedor = pIdProveedor;
+   -- Actualizar en la tabla de Mesas
+   DELETE FROM proveedor
+   WHERE id_proveedor = pIdProveedor;
    
    SET vError = (SELECT @error_count);
    
    IF (vError > 0) THEN
       ROLLBACK;
-      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actualizó el registro. ', cNombre_Logica);   
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actulizó el registro. ', cNombre_Logica);   
    ELSE
       COMMIT;
    END IF;
@@ -556,7 +891,6 @@ END$$
 -- Routine DDL
 -- DELETE DE MESA
 -- --------------------------------------------------------------------------------
-
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_D_Mesa`(pIdMesa INT, INOUT pMensajeError VARCHAR(2000))
 bloquePrincipal:
@@ -609,6 +943,7 @@ BEGIN
    END IF;
    
 END$$
+
 
 -- --------------------------------------------------------------------------------
 -- Routine DDL

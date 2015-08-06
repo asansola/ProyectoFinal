@@ -53,6 +53,7 @@ $content = "<br>
     						</tr>
     						</thead>
     						<tbody>";
+							if($vPlatos !=""){
 							foreach ( $vPlatos as $plato ) {
 								$content .= "<tr>
     						<td class='text-center'>$plato[0]</td>
@@ -68,6 +69,7 @@ $content = "<br>
     										</td>
     											</tr>";
 									}
+							}
 
 						$content .= "</tbody>
     											</table>

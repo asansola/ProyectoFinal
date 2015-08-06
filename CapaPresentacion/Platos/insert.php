@@ -85,13 +85,15 @@ if (isset ( $_GET ['action'] )) {
 										$result = array ();
 										$result [$count] = array (
 												"id_tipo_plato" => '',
-												"descripcion" => '-Seleccione una opción-' 
+												"descripcion" => '-Seleccione una opción-' ,
+												"unidad_medida" => '' 
 										);
 										
 										foreach ( $vTipoPlatos as $row ) {
 											$result [++ $count] = array (
 													"id_tipo_plato" => $row [0],
-													"descripcion" => $row [1] 
+													"descripcion" => $row [1],
+													"unidad_medida" => $row [3], 
 											);
 										}
 										?>
