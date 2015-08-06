@@ -9,6 +9,7 @@ class PedidoFacturaDetalleAccesoDatos extends MantenimientoBase {
 		parent::__construct ();
 		FactoriaDAO::setTipoBaseDatos ( "MySQL" );
 	}
+	
 	public function Agregar($oLineaDetalle) {
 		// Inicializar el control de Errores
 		parent::setHayError ( False );
@@ -19,13 +20,13 @@ class PedidoFacturaDetalleAccesoDatos extends MantenimientoBase {
 				 ," . $oLineaDetalle->__get ( 'cantidad' ) . "," . $oLineaDetalle->__get ( 'precio' ) . "," . $oLineaDetalle->__get ( 'total_linea' ) . ",
 				 		 " . $oLineaDetalle->__get ( 'id_estado_detalle' ) . ", @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos ()->AbrirConexion ();
-		FactoriaDAO::getConexionBaseDatos ()->EjecutarSQLError ( $vSql );
+	     FactoriaDAO::getConexionBaseDatos ()->EjecutarSQLError( $vSql );
 		
 		// Leer la variable de salida del error
-		if (FactoriaDAO::getConexionBaseDatos ()->getHayError ()) {
+		 if (FactoriaDAO::getConexionBaseDatos ()->getHayError ()) {
 			parent::setHayError ( True );
 			parent::setDescripcionError ( FactoriaDAO::getConexionBaseDatos ()->getDescripcionError () );
-		}
+		} 
 		
 		// Retornar True si no hay errores
 		return ! parent::getHayError ();

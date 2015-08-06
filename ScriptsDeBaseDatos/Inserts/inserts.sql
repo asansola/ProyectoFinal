@@ -148,6 +148,7 @@ INSERT INTO estado_detalle(id_estado_detalle,descripcion) VALUES(3,'servido');
 -- inicializar los controls de las tablas
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('plato','Tabla de platos',12);
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('pedido_factura','Tabla Pedidos',1);
+INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('pedido_detalle_factura','Tabla Detalle Pedido',1);
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('proveedor','Tabla Proveedores',5);
 
 

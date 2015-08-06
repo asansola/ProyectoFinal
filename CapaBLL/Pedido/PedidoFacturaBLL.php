@@ -80,5 +80,10 @@ class PedidoFacturaBLL extends LogicaNegocioMantenimientoBase{
 		return  $this->oPedidoFactura->ultimoValorTabla($nombreTabla);
 	}
 	
+	public function TotalPedido($id_pedido){
+		return  $this->oPedidoFactura->TotalPedido($id_pedido);
+	}
+	
+	
 
 }

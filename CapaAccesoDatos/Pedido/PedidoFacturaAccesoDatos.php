@@ -140,6 +140,23 @@ class PedidoFacturaAccesoDatos extends MantenimientoBase{
 		
 		return $vResultadoCursor;
 	}
+	
+	public function TotalPedido($id_pedido){
+		//Variables Locales
+		$vResultadoCursor = null;
+		$queryResult=NULL;
+			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+			
+		//Invocar el Procedimiento Almacenado
+		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
+		$vSql = "CALL sp_Q_Total_Pedido('$id_pedido',@descripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+		
+		return $vResultadoCursor;
+	}
 
 
 
