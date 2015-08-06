@@ -4,7 +4,7 @@ include ("IncluirClases.php");
 $title = "Mantenimiento de Mesas";
 $mesa = new MesaBLL();
 
-$resultado = $mesa->contar();
+$resultado = $mesa->Contar();
 // Número de Filas total
 $totalFilas = $resultado[0][0];
 // Número de resultados que desea mostrar por página

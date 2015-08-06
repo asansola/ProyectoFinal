@@ -69,8 +69,10 @@
 						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Pedido <i
-							class="glyphicon glyphicon-shopping-cart"></i></a>
+						aria-expanded="false">Pedido  <i
+							class="glyphicon glyphicon-shopping-cart"></i> <span class="badge"><?php if (isset($_SESSION['carrito'])) {
+								$cantidad= $_SESSION ['carrito'] ["articulos_total"];
+							} if (empty($cantidad)){$cantidad=0;} echo $cantidad; ?></span></a>
 						<ul class="dropdown-menu ">
 							<li><a href="pedido.php">Orden</a></li>
 						<?php if(isset($_SESSION['rol'])){?>  <!-- Si es admin o salonero que muestre los links -->
@@ -135,6 +137,7 @@
 
 
 	<div class="container"><?php	echo($content);?></div>
+	<br><br><br>
 	<div class="container ">
 
 		<div class="navbar navbar-default navbar-fixed-bottom">
@@ -166,5 +169,6 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
 
-
 </body>
+
+</html>

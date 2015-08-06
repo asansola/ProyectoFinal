@@ -18,18 +18,18 @@ class PedidoFacturaAccesoDatos extends MantenimientoBase{
 			
 		//Invocar el Procedimiento Almacenado
 		$descripcionError='';
-		$vSql = "CALL sp_I_Pedido ('" . $oPlato->__get('nombre') . "', " . $oPlato->__get('precio') . ", '" . $oPlato->__get('imagen') . "', ".$oPlato->__get('id_tipo_plato').", @DescripcionError);";
+		$vSql = "CALL sp_I_Pedido (2, @DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
-		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
+		$resultado= FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
 			
 		//Leer la variable de salida del error
-		if(FactoriaDAO::getConexionBaseDatos()->getHayError()){
+		/* if(FactoriaDAO::getConexionBaseDatos()->getHayError()){
 			parent::setHayError(True);
 			parent::setDescripcionError(FactoriaDAO::getConexionBaseDatos()->getDescripcionError());
-		}
+		} */
 		
 		//Retornar True si no hay errores
-		return !parent::getHayError();
+		return $resultado;//!parent::getHayError();
 	}
 
 	public function Modificar($Pedido){
@@ -37,7 +37,7 @@ class PedidoFacturaAccesoDatos extends MantenimientoBase{
 		parent::setHayError(False);
 			
 		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_U_Pedido (" . $oPlato->__get('id_plato') . ", '" . $oPlato->__get('nombre') . "', " . $oPlato->__get('precio') . ", '" . $oPlato->__get('imagen') . "', " . $oPlato->__get('id_tipo_plato') . ", @DescripcionError);";
+		$vSql = "CALL sp_U_Pedido (@DescripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
 		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
 		
