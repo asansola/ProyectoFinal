@@ -4,7 +4,7 @@ include ("IncluirClases.php");
 $title = "Inventario de Insumos";
 $inventario = new InventarioBLL();
 
-$resultado = $inventario->contar();
+$resultado = $inventario->Contar();
 // Número de Filas total
 $totalFilas = $resultado[0][0];
 // Número de resultados que desea mostrar por página
