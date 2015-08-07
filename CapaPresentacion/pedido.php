@@ -9,10 +9,10 @@ $lineaDetalleEntidad = new PedidoFacturaDetalle ();
 
 if (isset ( $_GET ['id'] ) && isset ( $_GET ['action'] )) {
 	$accion = $_GET ['action'];
-	
+
 	switch ($accion) {
 		case 'add' :
-			
+
 			$platoBLL = new PlatoBLL ();
 			$id = $_GET ['id'];
 			$vPlato = $platoBLL->ConsultarRegistro ( $id );
@@ -26,45 +26,45 @@ if (isset ( $_GET ['id'] ) && isset ( $_GET ['action'] )) {
 					"nombre" => $nombre,
 					"precio" => $precio,
 					"foto" => $foto,
-					"cantidad" => $cantidad 
+					"cantidad" => $cantidad
 			);
-			
+
 			$carrito->add ( $productoAlCarro );
-			header ( 'Location: pedido.php' );
-			
+			//header ( 'Location: pedido.php' );
+
 			break;
-		
+
 		case 'delete' :
 			$unique_id = $_GET ['id'];
 			$carrito->remove_producto ( $unique_id );
 			// header ( 'Location: pedido.php' );
-			
+
 			break;
-		
+
 		case 'update' :
 			$unique_id = $_GET ['id'];
 			$cantidad = $_GET ['cantidad'];
 			$carrito->update_cantidad ( $unique_id, $cantidad );
 			// header ( 'Location: pedido.php' );
-			
+
 			break;
-		
+
 		case 'ordenar' :
 			$id_plato = $_GET ['id'];
 			$unique_id = $_GET ['unique_id'];
 			$cantidad = $_GET ['cantidad'];
 			$subtotal = $_GET ['subtotal'];
 			$precio = $_GET ['precio'];
-			
+
 			if (! isset ( $_SESSION ['pedido'] )) {
-				
+
 				$pedido = $pedidoFacturaBLL->Agregar ( $pedidoFacturaEntidad );
 				$_SESSION ['pedido'] = $pedido;
-				
+
 			}
-				
+
 				$pedido = $_SESSION ['pedido'];
-				
+
 				$lineaDetalleEntidad->__set ( 'id_pedido', $pedido [0] [0] );
 				$lineaDetalleEntidad->__set ( 'id_plato', $id_plato );
 				$lineaDetalleEntidad->__set ( 'cantidad', $cantidad );
@@ -72,16 +72,16 @@ if (isset ( $_GET ['id'] ) && isset ( $_GET ['action'] )) {
 				$lineaDetalleEntidad->__set ( 'total_linea', $subtotal );
 				$lineaDetalleEntidad->__set ( 'id_estado_detalle', 2 );
 				$lineaDetallePedidoFacturaBLL->Agregar( $lineaDetalleEntidad );
-				
+
 				$totalPedido= $pedidoFacturaBLL->TotalPedido($pedido [0] [0]);
 				$_SESSION ['pedido']['total']= $totalPedido[0][0];
 				$carrito->remove_producto($unique_id);
-			
-			
-		
-			
+
+
+
+
 			break;
-		
+
 		default :
 			;
 			break;
@@ -103,15 +103,15 @@ if (isset ( $_SESSION ['pedido'] )) {
 	}else{
 		$totalPedido =0;
 	}
-	
-	
+
+
 	$content .= "
 	<br><br><br>
 	 <button type='button' class='btn btn-success btn-block' data-toggle='collapse' data-target='#demo'>
       <span class='glyphicon glyphicon-book'></span> Mostrar Factura
     </button>
   	<div id='demo' class='collapse'>
-    
+
  	<br>
 	<div class='row'>
 	<div class='panel panel-default'>
@@ -129,7 +129,7 @@ if (isset ( $_SESSION ['pedido'] )) {
 	</div>
 
 	<div class='row text-center'><h4></h4></div>
-	
+
 	</div>";
 }
 if ($carrito->get_content () === null) {
@@ -137,21 +137,21 @@ if ($carrito->get_content () === null) {
 <div class='row'>" . "<div class='col-lg-12'>" . "<h2>Pedido</h2>" . "</div>" . "</div>
 <div class='row text-center'><h4>Su cesta se encuentra vacía.</h4></div
 		<div id='load'>
-	
+
 	</div>";
-} 
+}
 
 else {
-	
-	
+
+
 	$content .= " <br><br>
-			
+
 		<div class='row'>" . "<div class='col-lg-12'>" . "<h4>Detalle </h4>" . "</div>" . "</div><br/>
 		<div class='row text-center'>
-		
-				
+
+
 		<link rel='stylesheet' type='text/css' href='css/custom_styles.css'>
-		<div class='container'>		
+		<div class='container'>
 		<table id='cart' class='table table-hover table-condensed'>
 		<thead>
 		<tr>
@@ -161,7 +161,7 @@ else {
 		<th style='width:22%' class='text-center'>Subtotal</th>
 		<th style='width:20%' ></th>
 		</tr>
-		</thead>	
+		</thead>
 		<tbody>";
 	$rows = $carrito->get_content ();
 	foreach ( $rows as $producto ) {
@@ -175,18 +175,18 @@ else {
 	</div>
 	</div>
 	</td>
-	
+
 	<td data-th='Precio' class='text-center'>¢$producto[precio]</td>
 	<td data-th='Cantidad' class='nr'>
 	<input type='number' id='cantidad_carrito' name=$producto[unique_id]  class='form-control text-center cantidad_carrito' value='$producto[cantidad]' min='1'>
 	</td>
 	<td data-th='Subtotal' class='text-center'>¢$producto[total]</td>
 	<td class='actions' data-th='Acciones' >
-	 	
+
 	<button id='order'  value='id=$producto[id]&action=ordenar&subtotal=$producto[total]&precio=$producto[precio]&unique_id=$producto[unique_id]' class='order_product btn btn-success btn-sm '> Ordenar</button>
 	<button   value='id=$producto[unique_id]&action=update' class='cantidad_refresh btn btn-primary btn-sm'><i class='glyphicon glyphicon-refresh'></i></button>
 	<button   value='id=$producto[unique_id]&action=delete' class='delete_product btn btn-danger btn-sm'><i class='glyphicon glyphicon-trash'></i></button>
-	
+
 	</td>
 	</tr> ";
 	}
@@ -200,9 +200,9 @@ else {
 	</tr>
 	</tfoot>
 	</table>
-	
+
 	<a href='index.php' class='btn btn-warning navbar-left'> Continuar ordenando</a>
-	
+
 	<br/><br/><br/><br/><br/><br/>
 	</div></div>";
 }

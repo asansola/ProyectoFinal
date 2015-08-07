@@ -31,7 +31,7 @@
 </head>
 
 <body>
-
+<div class="body">
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container ">
@@ -83,7 +83,7 @@
 				<?php
 				if (isset ( $_SESSION ['rol'] )) {
 					$rol = $_SESSION ['rol'];
-					
+
 					if ($rol == 1) {
 						?>   <!-- Si es administrador muestre los links -->
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -115,7 +115,7 @@
 				</ul>
 
 				<!--Login-->
-				<!--  navbar-right --> 
+				<!--  navbar-right -->
 			<?php include ('Login.php');?>
 
 
@@ -127,7 +127,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="btn-group btn-breadcrumb">
-			
+
 					<?php include 'breadcrumps.php';?>
 						<?=breadcrumbs('','');?>
 			</div>
@@ -136,7 +136,10 @@
 
 
 
-	<div class="container"><?php	echo($content);?></div>
+	<div class="container">
+	<div id="result"></div>
+	<?php	echo($content);?>
+	</div>
 	<br><br><br>
 	<div class="container ">
 
@@ -168,7 +171,7 @@
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
-
+</div>
 </body>
 
 </html>

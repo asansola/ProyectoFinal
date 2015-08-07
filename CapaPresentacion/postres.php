@@ -6,7 +6,7 @@ if (isset ( $_GET ['id'] )) {
 	$id = $_GET ['id'];
 } else {
 	// hacer select de postres cuando se cargue del menu
-	
+
 	$tipoPlatosEntidad = new TipoPlato ();
 	$tipoPlatosEntidad->__set ( 'descripcion', $title );
 	$tipoPlatos = new TipoPlatoBLL ();
@@ -26,7 +26,7 @@ $content .= "<div class='row'>" . "<div class='col-lg-12'>" . "<h3>$title</h3>" 
 $content .= "<div class='row text-center'>";
 
 foreach ( $vPlatos as $plato ) {
-	
+
 	$content .= "<div class='col-md-3 col-sm-6 hero-feature'>";
 	$content .= "<div class='thumbnail'>";
 	$content .= "<img src='img/$plato[3]' alt=''  >";
@@ -46,8 +46,8 @@ foreach ( $vPlatos as $plato ) {
 		}
 	}
 
-	$url="pedido.php?action=add&id=$plato[0]&cantidad=1&nombre=$plato[1]";
-	$content .= " <a href='$url' class='btn btn-primary'>A&ntildeadir al pedido <i class='glyphicon glyphicon-shopping-cart'></i></a><br><a href='#' title='$plato[1]' 
+	$url="action=add&id=$plato[0]&cantidad=1&nombre=$plato[1]";
+	$content .= " <button value='$url' class='add_to_cart btn btn-primary'>A&ntildeadir al pedido <i class='glyphicon glyphicon-shopping-cart'></i></button><br><a href='#' title='$plato[1]'
 			data-toggle='popover' role='button'  data-trigger='focus' data-placement='top' data-content='$ingredienteReceta'>Detalles</a>";
 	$content .= "</p>";
 	$content .= "</div>";
