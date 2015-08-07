@@ -133,6 +133,7 @@ $content = "<br>
 							</tr>
     						</thead>
     						<tbody>";
+							if($listaMesa !=""){
 							foreach ( $listaMesa as $mesa) {
 								$content .= "<tr>
     						<td class='text-center'>$mesa[0]</td>
@@ -147,6 +148,7 @@ $content = "<br>
     										</td>
     											</tr>";
 									}
+							}
 
 						$content .= "</tbody>
     									</table>

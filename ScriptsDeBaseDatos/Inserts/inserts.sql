@@ -27,8 +27,8 @@ INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (4,'Postr
 INSERT INTO tipo_plato (id_tipo_plato, descripcion, url_imagen) VALUES (5,'Platos Especiales','platoespecial.jpg');
 
 
-INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(1,'Bocas de atun',1500,'',1);
-INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(2,'Bocas de frijoles',2500,'',1);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(1,'Bocas de atun',1500,'boca_atun.jpg',1);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(2,'Bocas de frijoles',2500,'boca_frijoles.jpg',1);
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(3,'Sopa de mariscos',4500,'',2);
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(4,'Arroz con camarones',4500,'',2);
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(5,'Pollo a la plancha',3500,'',2);
@@ -37,7 +37,7 @@ INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(7,'Fresc
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(8,'Ginger-Ale',1500,'',3);
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(9,'Flan de coco',1500,'',4);
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(10,'Frutas con helado',1500,'',4);
-INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(11,'Surtido de carnes',11500,'',5);
+INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(11,'Surtido de carnes',11500,'surtido_carnes.jpg',5);
 INSERT INTO plato(id_plato, nombre, precio, foto, id_tipo_plato) VALUES(12,'Chifrijo',2500,'chifrijo.jpg',1);
 
 
@@ -56,8 +56,8 @@ INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(6,'Arroz','Gramos',2);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(7,'Pollo','Gramos',4);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(8,'Carne de res','Gramos',5);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(9,'Coca Cola','Litro',800);
-INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(10,'Ginger Ale','Litro',850);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(9,'Coca Cola','Litros',800);
+INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(10,'Ginger Ale','Litros',850);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(11,'Frutas en lata','Gramos',6);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(12,'Helados Fresa','Gramos',4);
 INSERT INTO ingrediente(id_ingrediente, descripcion,unidad_medida, precio_unidad) VALUES(13,'Helado Vainilla','Gramos',4);
@@ -150,6 +150,7 @@ INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('plato','Tabla de
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('pedido_factura','Tabla Pedidos',1);
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('pedido_detalle_factura','Tabla Detalle Pedido',1);
 INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('proveedor','Tabla Proveedores',5);
+INSERT INTO parametros(tabla, descripcion, ultimoValor) VALUES('inventario','Tabla Inventario Insumos',18);
 
 
 

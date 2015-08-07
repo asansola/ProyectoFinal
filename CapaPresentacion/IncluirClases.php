@@ -49,6 +49,14 @@ require_once("../CapaEntidad/Proveedor.php");
 require_once("../CapaAccesoDatos/Proveedor/ProveedorAccesoDatos.php");
 require_once("../CapaBLL/Proveedor/ProveedorBLL.php");
 
+require_once("../CapaEntidad/Inventario.php");
+require_once("../CapaAccesoDatos/Inventario/InventarioAccesoDatos.php");
+require_once("../CapaBLL/Inventario/InventarioBLL.php");
+
+require_once("../CapaEntidad/Ingrediente.php");
+require_once("../CapaAccesoDatos/Inventario/IngredienteAccesoDatos.php");
+require_once("../CapaBLL/Inventario/IngredienteBLL.php");
+
 require_once("../CapaEntidad/PedidoFactura.php");
 require_once("../CapaAccesoDatos/Pedido/PedidoFacturaAccesoDatos.php");
 require_once("../CapaBLL/Pedido/PedidoFacturaBLL.php");

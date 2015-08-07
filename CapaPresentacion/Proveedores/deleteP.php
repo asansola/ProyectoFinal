@@ -32,9 +32,12 @@ if (isset ( $_POST ['submit'] )) {
 	$ProveedorBLL= new ProveedorBLL();
 	
 	$ProveedorBLL->Eliminar($proveedorE);
-
+	
+	//$_SESSION['v']=$ProveedorBLL;
+	
 	if($ProveedorBLL->getHayError() ){ 
-		$_SESSION ['registrado'] = 'f';
+		$_SESSION ['registrado'] = 'f1';
+		//$_SESSION['v']=$ProveedorBLL->getDescripcionError();
 	}
 	else{
 		//si no hay error hay q hacer la modificacion		

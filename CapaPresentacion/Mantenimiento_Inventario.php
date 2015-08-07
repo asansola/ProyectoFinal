@@ -1,10 +1,10 @@
 <?php
 include ("Seguridad.php");
 include ("IncluirClases.php");
-$title = "Mantenimiento de Proveedores";
-$Proveedor = new ProveedorBLL();
+$title = "Inventario de Insumos";
+$inventario = new InventarioBLL();
 
-$resultado = $Proveedor->Contar();
+$resultado = $inventario->contar();
 // Número de Filas total
 $totalFilas = $resultado[0][0];
 // Número de resultados que desea mostrar por página
@@ -36,7 +36,7 @@ if($numeroPagina == 1){
 //var_dump($limiteCantidad);
 
 //lista las mesas restringidas por los limites
-$listaProveedor= $Proveedor->ListarLimite($limiteInicio, $limiteCantidad);
+$listaInventario = $inventario->ListarLimite($limiteInicio, $limiteCantidad);
 
 // Esto muestra al usuario
 //el número total de páginas
@@ -91,26 +91,25 @@ if (isset($_SESSION['registrado'])) {
 	}
 	if($_SESSION['registrado']=='f1'){
 		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
-				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el proveedor se encuentra activo</div>";
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el ingrediente del proveedor ya existe</div>";
 		echo $message;
 	}
 	if($_SESSION['registrado']=='f2'){
 		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
-				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el proveedor ya existe</div>";
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: la mesa ya existe</div>";
 		echo $message;
 	}
 	
-	//var_dump($_SESSION['v']);
 	unset($_SESSION['registrado']);
 }
-
+//var_dump($_SESSION['v']);
 
 $content = "<br>
-<div><h2>Mantenimiento de Proveedores</h2></div>
+<div><h2>Inventario de Insumos</h2></div>
 <div class='container'>
 <!-- Nav tabs -->
 <ul class='nav nav-tabs' role='tablist'>
-<li class='active'><a href='#Listado' role='tab' data-toggle='tab'>Proveedores</a></li>
+<li class='active'><a href='#Listado' role='tab' data-toggle='tab'>Insumos</a></li>
 	
 </ul>
 
@@ -119,43 +118,37 @@ $content = "<br>
 <div class='tab-pane active' id='Listado'>
   				<br/>
 				
-  					<p><a class='btn btn-success' data-toggle='modal' data-target='#mantenimientoModal' data-action='I' data-url='Proveedores/insertP.php' data-id=''><i class='glyphicon glyphicon-plus'></i> Nuevo Proveedor</a></p>
+  					<p><a class='btn btn-success' data-toggle='modal' data-target='#mantenimientoModal' data-action='I' data-url='Inventario/insertI.php' data-id=''><i class='glyphicon glyphicon-plus'></i> Nuevo Insumo</a></p>
   						<br/>
   						<div class='table-responsive'>
   					<table class='table table-hover'>
     						<thead>
     						<tr>
-    				<!--	<th class='text-center'>Número Registro</th>  -->
-    						<th class='text-center'>Nombre </th>
-							<th class='text-center'>Teléfono</th>
-							<th class='text-center'>Dirección</th>
+    						<th class='text-center'>Nombre Ingrediente</th>
+    						<th class='text-center'>Cantidad en Inventario</th>
+							<th class='text-center'>Unidad Medida</th>
+							<th class='text-center'>Proveedor</th>
 							
     					
 							</tr>
     						</thead>
     						<tbody>";
-
-						if (!empty($listaProveedor)) {
-
-							foreach ( $listaProveedor as $proveedor) {
+							if($listaInventario !=""){
+							foreach ( $listaInventario as $insumo) {
 								$content .= "<tr>
-    				<!--	<td class='text-center'>$proveedor[0]</td>  -->
-    						<td class='text-center'>$proveedor[1]</td>
-    						<td class='text-center'>$proveedor[2]</td>
-    						<td class='text-center'>$proveedor[3]</td>
+    						<td class='text-center'>$insumo[5]</td>
+    						
+							<td class='text-center'>$insumo[3]</td>  
+    						<td class='text-center'>$insumo[6]</td>
+    						<td class='text-center'>$insumo[4]</td>
     						<td class='text-center'>
     						
-    						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Proveedores/editP.php' data-id='$proveedor[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>
-    						<a class='btn btn-danger' data-toggle='modal' data-target='#mantenimientoModal' data-action='D' data-url='Proveedores/deleteP.php' data-id='$proveedor[0]'><i class='glyphicon glyphicon-edit'></i> Eliminar</a>
+    						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Inventario/editI.php' data-id='$insumo[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>
     							
     										</td>
     											</tr>";
-
-								
+									}
 							}
-
-						}
-						
 
 						$content .= "</tbody>
     									</table>
@@ -180,8 +173,10 @@ $content = "<br>
 				
 				            </div>
 				        </div>
-				    </div>";		
-									
+				    </div>
+						
+						
+					";
 
 include 'master.php';
 ?>
