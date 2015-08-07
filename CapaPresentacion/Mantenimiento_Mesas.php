@@ -138,8 +138,8 @@ $content = "<br>
 								$content .= "<tr>
     						<td class='text-center'>$mesa[0]</td>
     						<td class='text-center'>$mesa[1]</td>
-    						<td class='text-center'>$mesa[3]</td>
-    						<td class='text-center'>$mesa[4]</td>
+    						<td class='text-center'>$mesa[3] $mesa[4]</td>
+    				<!--	<td class='text-center'>$mesa[4]</td>  -->
     						<td class='text-center'>
     						
     						<a class='btn btn-warning' data-toggle='modal' data-target='#mantenimientoModal' data-action='U' data-url='Mesas/editM.php' data-id='$mesa[0]'><i class='glyphicon glyphicon-edit'></i> Editar</a>
