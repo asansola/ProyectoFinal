@@ -1939,29 +1939,37 @@ END$$
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Lineas_Detalle`(pIdPedido INT, INOUT pMensajeError VARCHAR(2000))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Linea_Detalle`(pIdPedido INT, INOUT pMensajeError VARCHAR(2000))
 BEGIN
      
-   -- Declaración de variables locales
-   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Mesa_Registro]';
+   -- Declaraci�n de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'L�gica [sp_Q_Linea_Detalle]';
 
-   -- Declaración de bloque con Handler para manejo de SQLException
+   -- Declaraci�n de bloque con Handler para manejo de SQLException
    DECLARE EXIT HANDLER FOR SQLEXCEPTION
    Handler_SqlException:
    BEGIN
       ROLLBACK;
-      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+      SET pMensajeError = CONCAT('Ocurri� un error al ejecutar el procedimiento. L�gica ', cNombre_Logica);
 	  LEAVE Handler_SqlException;
    END;
    
    -- Ejecutar la Consulta
 SELECT 
-    id_detalle, id_plato, id_estado_detalle
-	FROM detalle_pedido_factura
-	WHERE
-	id_pedido=pIdPedido;
+    dp.id_detalle,
+    p.nombre,
+    dp.cantidad,
+    dp.precio,
+    dp.total_linea
+FROM
+    detalle_pedido_factura dp,
+    plato p
+WHERE
+    id_pedido = pIdPedido
+        AND p.id_plato = dp.id_plato;
    
 END$$
+
 -- --------------------------------------------------------------------------------
 -- Note: Finalizar un pedido(Orden Cerrada)
 -- --------------------------------------------------------------------------------
