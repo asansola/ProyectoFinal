@@ -44,7 +44,12 @@ if (isset ( $_GET ['id'] ) && isset ( $_GET ['action'] )) {
 		case 'update' :
 			$unique_id = $_GET ['id'];
 			$cantidad = $_GET ['cantidad'];
-			$carrito->update_cantidad ( $unique_id, $cantidad );
+			if ($cantidad===0 || empty($cantidad) || $cantidad===null) {
+				$carrito->remove_producto ( $unique_id );
+			}else{
+				$carrito->update_cantidad ( $unique_id, $cantidad );
+			}
+
 			// header ( 'Location: pedido.php' );
 
 			break;
@@ -107,8 +112,8 @@ if (isset ( $_SESSION ['pedido'] )) {
 
 	$content .= "
 	<br><br><br>
-	 <button type='button' class='btn btn-success btn-block' data-toggle='collapse' data-target='#demo'>
-      <span class='glyphicon glyphicon-book'></span> Mostrar Factura
+	 <button type='button' class='show_invoice btn btn-success btn-block' data-toggle='collapse' data-target='#demo'>
+       Mostrar Factura
     </button>
   	<div id='demo' class='collapse'>
 
@@ -159,7 +164,7 @@ else {
 		<th style='width:10%' class='text-center'>Precio</th>
 		<th style='width:8%' class='text-center'>Cantidad</th>
 		<th style='width:22%' class='text-center'>Subtotal</th>
-		<th style='width:20%' ></th>
+		<th style='width:30%' class='text-center'>Acción</th>
 		</tr>
 		</thead>
 		<tbody>";
@@ -178,14 +183,13 @@ else {
 
 	<td data-th='Precio' class='text-center'>¢$producto[precio]</td>
 	<td data-th='Cantidad' class='nr'>
-	<input type='number' id='cantidad_carrito' name=$producto[unique_id]  class='form-control text-center cantidad_carrito' value='$producto[cantidad]' min='1'>
+	<input type='number' id='$producto[unique_id]'  class='form-control text-center cantidad_carrito' value='$producto[cantidad]' min='1'>
 	</td>
 	<td data-th='Subtotal' class='text-center'>¢$producto[total]</td>
-	<td class='actions' data-th='Acciones' >
+	<td class='actions' data-th='Acciones' class='text-center' >
 
-	<button id='order'  value='id=$producto[id]&action=ordenar&subtotal=$producto[total]&precio=$producto[precio]&unique_id=$producto[unique_id]' class='order_product btn btn-success btn-sm '> Ordenar</button>
-	<button   value='id=$producto[unique_id]&action=update' class='cantidad_refresh btn btn-primary btn-sm'><i class='glyphicon glyphicon-refresh'></i></button>
-	<button   value='id=$producto[unique_id]&action=delete' class='delete_product btn btn-danger btn-sm'><i class='glyphicon glyphicon-trash'></i></button>
+	<button id='order'  value='id=$producto[id]&action=ordenar&subtotal=$producto[total]&precio=$producto[precio]&unique_id=$producto[unique_id]' class='order_product btn btn-success btn-sm '>Ordenar <i class='glyphicon glyphicon-check'></i></button>
+	<button   value='id=$producto[unique_id]&action=delete' class='delete_product btn btn-danger btn-sm'>Eliminar <i class='glyphicon glyphicon-trash'></i></button>
 
 	</td>
 	</tr> ";
@@ -201,7 +205,7 @@ else {
 	</tfoot>
 	</table>
 
-	<a href='index.php' class='btn btn-warning navbar-left'> Continuar ordenando</a>
+	<a href='index.php' class='btn btn-warning navbar-left'><i class='glyphicon glyphicon-arrow-left'></i> Continuar ordenando</a>
 
 	<br/><br/><br/><br/><br/><br/>
 	</div></div>

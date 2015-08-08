@@ -5,7 +5,7 @@ $PlatoEntidad = new Plato ();
 if (isset ( $_GET ['id'] )) {
 	$id = $_GET ['id'];
 } else {
-	// hacer select de bebidas cuando se cargue del menu
+	// hacer select de postres cuando se cargue del menu
 
 	$tipoPlatosEntidad = new TipoPlato ();
 	$tipoPlatosEntidad->__set ( 'descripcion', $title );
@@ -21,21 +21,20 @@ if (isset ( $_GET ['id'] )) {
 $PlatoEntidad->__set ( 'id_tipo_plato', $id );
 $Plato = new PlatoBLL ();
 $vPlatos = $Plato->Consultar ( $PlatoEntidad );
-$content = "<hr>";
-$content .= "<div class='row'>" . "<div class='col-lg-12'>" . "<h3>$title</h3>" . "</div>" . "</div>";
-$content .= "<div class='row text-center'>";
+$content = "<hr>
+<div class='row'><div class='col-lg-12'><h3>$title</h3></div></div>
+<div class='row text-center'>";
 
 foreach ( $vPlatos as $plato ) {
 
-	$content .= "<div class='col-md-3 col-sm-6 hero-feature'>";
-	$content .= "<div class='thumbnail'>";
-	$content .= "<img src='img/$plato[3]' alt=''  >";
-	$content .= "<div class='caption'>";
-	$content .= "<h3>$plato[1]</h3>";
-	$content .= "<p><span class='label label-success'>Valor: ¢$plato[2]</span></p>";
-	$content .= "<p>";
-	// $url= strtolower($plato[1]).".php";//pasa el nombre a minusculas.
-	// $url= preg_replace('/\s+/', '_', $url);//sustituye el espacio en blanco del nombre por guion bajo
+	$content .= "<div class='col-md-3 col-sm-6 hero-feature'>
+	<div class='thumbnail'>
+	<img src='img/$plato[3]' alt=''  >
+	<div class='caption'>
+	<h3>$plato[1]</h3>
+	<p><span class='label label-success'>Valor: ¢$plato[2]</span></p>
+	<p>";
+
 	// guarda la receta de cada plato(array) para mostrarlo.
 	$RecetaBLL = new RecetaBLL ();
 	$Receta = $RecetaBLL->ConsultarRegistro ( $plato [0] );
@@ -46,15 +45,14 @@ foreach ( $vPlatos as $plato ) {
 		}
 	}
 
-	$url="action=add&id=$plato[0]&cantidad=1&nombre=$plato[1]";
-	$content .= "<button value=$url class='add_to_cart btn btn-primary'>A&ntildeadir al pedido <i class='glyphicon glyphicon-shopping-cart'></i></button><br><a href='' title='$plato[1]'
-			data-toggle='popover' role='button'  data-trigger='focus' data-placement='top' data-content='$ingredienteReceta'>Detalles</a>";
-	$content .= "</p>";
-	$content .= "</div>";
-	$content .= "</div>";
-	$content .= "</div>";
+	$url = "action=add&id=$plato[0]&cantidad=1&nombre=$plato[1]";
+	$content .= " <button value='$url' class='add_to_cart btn btn-primary'>A&ntildeadir al pedido <i class='glyphicon glyphicon-shopping-cart'></i></button><br><button title='$plato[1]'
+			class='btn-link' data-toggle='popover' role='button'  data-trigger='focus' data-placement='top' data-content='$ingredienteReceta'>Detalles</button>";
+	$content .= "</p>
+	</div>
+	</div>
+	</div>";
 }
 
-$content .= "</div>";
-$content .= "<hr>";
+$content .= "</div> <hr>";
 include 'master.php';
