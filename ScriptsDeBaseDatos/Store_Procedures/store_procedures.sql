@@ -24,9 +24,10 @@ BEGIN
    
    -- Ejecutar la Consulta
 SELECT 
-    id_ingrediente,descripcion,unidad_medida,precio_unidad
-	FROM
-    ingrediente order by descripcion asc;
+    id_ingrediente, descripcion, unidad_medida, precio_unidad
+FROM
+    ingrediente
+order by descripcion asc;
 END$$
 
 -- --------------------------------------------------------------------------------
@@ -1935,22 +1936,22 @@ END$$
 
 -- --------------------------------------------------------------------------------
 -- Routine DDL
--- Note: comments before and after the routine body will not be stored by the server
+-- Note: consulta de lineas de detalle para factura
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Linea_Detalle`(pIdPedido INT, INOUT pMensajeError VARCHAR(2000))
 BEGIN
      
-   -- Declaraci�n de variables locales
-   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'L�gica [sp_Q_Linea_Detalle]';
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Linea_Detalle]';
 
-   -- Declaraci�n de bloque con Handler para manejo de SQLException
+   -- Declaración de bloque con Handler para manejo de SQLException
    DECLARE EXIT HANDLER FOR SQLEXCEPTION
    Handler_SqlException:
    BEGIN
       ROLLBACK;
-      SET pMensajeError = CONCAT('Ocurri� un error al ejecutar el procedimiento. L�gica ', cNombre_Logica);
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
 	  LEAVE Handler_SqlException;
    END;
    
@@ -1958,18 +1959,21 @@ BEGIN
 SELECT 
     dp.id_detalle,
     p.nombre,
+    p.foto,
     dp.cantidad,
     dp.precio,
     dp.total_linea
 FROM
     detalle_pedido_factura dp,
-    plato p
+    plato p,
+    pedido_factura pf
 WHERE
-    id_pedido = pIdPedido
-        AND p.id_plato = dp.id_plato;
+    dp.id_pedido = pf.id_pedido
+        AND p.id_plato = dp.id_plato
+        AND pf.id_pedido = pIdPedido
+ORDER BY dp.id_detalle ASC;
    
 END$$
-
 -- --------------------------------------------------------------------------------
 -- Note: Finalizar un pedido(Orden Cerrada)
 -- --------------------------------------------------------------------------------

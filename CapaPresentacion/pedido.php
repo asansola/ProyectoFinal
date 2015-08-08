@@ -76,7 +76,9 @@ if (isset ( $_GET ['id'] ) && isset ( $_GET ['action'] )) {
 				$lineaDetalleEntidad->__set ( 'precio', $precio );
 				$lineaDetalleEntidad->__set ( 'total_linea', $subtotal );
 				$lineaDetalleEntidad->__set ( 'id_estado_detalle', 2 );
+				//verificar el inventario primero y si existe, rebajar.***Modificar el store procedure.
 				$lineaDetallePedidoFacturaBLL->Agregar( $lineaDetalleEntidad );
+
 
 				$totalPedido= $pedidoFacturaBLL->TotalPedido($pedido [0] [0]);
 				$_SESSION ['pedido']['total']= $totalPedido[0][0];
@@ -105,6 +107,7 @@ if (isset ( $_SESSION ['pedido'] )) {
 	$estado = $pedido [0] [4];
 	if (isset($_SESSION ['pedido'] ['total'])) {
 		$totalPedido = $_SESSION ['pedido'] ['total'];
+		$arrayCargosFactura= $pedidoFacturaBLL->ArrayCargosFactura($totalPedido);
 	}else{
 		$totalPedido =0;
 	}
@@ -121,14 +124,22 @@ if (isset ( $_SESSION ['pedido'] )) {
 	<div class='row'>
 	<div class='panel panel-default'>
 	<div class='panel-heading'>
-	<h3 class='panel-title'>Factura no. $numeroPedido</h3>
-	</div>
-	<div class='panel-body '>
-	<h4> <span class='label label-success'>Salonero: $salonero</span> <span class='label label-success'>Mesa: $mesa</span> <span class='label label-success pull-right'>Fecha: $fecha</span></h4>
-	<h4> </h4>
-	<h4><span class='label label-success'>Estado del pedido: $estado</span></h4>  <h3><span class='label label-warning pull-right'>Total a pagar:¢ $totalPedido</span></h3>
-	<br><br>
-	<button type='button' class='btn btn-primary btn-block'>Cancelar Factura</button>
+		<div class=well label-group'>
+		<p class='nav navbar-nav pull-left'><strong>Detalle de servicio</strong></p>
+		<p class='nav navbar-nav pull-right'><strong>Detalle de la orden</strong></p>
+		<br>
+		<h4><span class='label label-default pull-right'>Subtotal <i class='glyphicon glyphicon-arrow-right'></i> ¢ $arrayCargosFactura[Subtotal] </span></h4>
+		<h4> <span class='label label-default'>Salonero <i class='glyphicon glyphicon-arrow-right'></i> $salonero</span> </h4>
+
+		<h4><span class='label label-default pull-right'>Cargos por servicios <i class='glyphicon glyphicon-arrow-right'></i> ¢ $arrayCargosFactura[CargoSalonero] </span></h4>
+		<h4> <span class='label label-default'>Mesa <i class='glyphicon glyphicon-arrow-right'></i> $mesa</span> </h4>
+
+		<h4><span class='label label-default pull-right'>Cargos por impuestos <i class='glyphicon glyphicon-arrow-right'></i> ¢ $arrayCargosFactura[ImpuestoVentas]</span></h4>
+		<h4><span class='label label-default'>Estado del pedido <i class='glyphicon glyphicon-arrow-right'></i> $estado</span></h4>
+		<h4><span class='label label-default pull-right'>Total a pagar <i class='glyphicon glyphicon-arrow-right'></i> ¢  $arrayCargosFactura[TotalPagar]</span></h4>
+		<br>
+		</div>
+	<a href='Factura.php' class='btn btn-danger btn-block'>Pagar Factura</a>
 	</div>
 	</div>
 	</div>

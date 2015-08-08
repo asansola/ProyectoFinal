@@ -26,9 +26,9 @@ class PedidoFacturaDetalleBLL extends LogicaNegocioMantenimientoBase{
 	public function __construct(){
 		//Asignar Valores por defecto a los atributos de la instancia
 		$this->hayError = False;
-			
+
 		//Crear la instancia del objeto
-		
+
 		$this->oPedidoFacturaDetalle = new PedidoFacturaDetalleAccesoDatos();
 	}
 
@@ -60,10 +60,10 @@ class PedidoFacturaDetalleBLL extends LogicaNegocioMantenimientoBase{
 		return $this->oPedidoFacturaDetalle->Eliminar($oPedidoFacturaDetalle);
 	}
 
-	public function Consultar($oPedidoFacturaDetalle){
-		return $this->oPedidoFacturaDetalle->Consultar($oPedidoFacturaDetalle);
+	public function Consultar($idPedido){
+		return $this->oPedidoFacturaDetalle->Consultar($idPedido);
 	}
-	
+
 	public function ConsultarRegistro($id_pedido){
 		return $this->oPedidoFacturaDetalle->ConsultarRegistro($id_pedido);
 	}
@@ -73,10 +73,10 @@ class PedidoFacturaDetalleBLL extends LogicaNegocioMantenimientoBase{
 	}
 
 	public function Verificar($id, $clave){
-	
+
 	}
-	
-	
-	
+
+
+
 
 }

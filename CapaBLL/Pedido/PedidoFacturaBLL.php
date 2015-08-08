@@ -26,9 +26,9 @@ class PedidoFacturaBLL extends LogicaNegocioMantenimientoBase{
 	public function __construct(){
 		//Asignar Valores por defecto a los atributos de la instancia
 		$this->hayError = False;
-			
+
 		//Crear la instancia del objeto
-		
+
 		$this->oPedidoFactura = new PedidoFacturaAccesoDatos();
 	}
 
@@ -63,7 +63,7 @@ class PedidoFacturaBLL extends LogicaNegocioMantenimientoBase{
 	public function Consultar($oPedidoFactura){
 		return $this->oPedidoFactura->Consultar($oPedidoFactura);
 	}
-	
+
 	public function ConsultarRegistro($idPedido){
 		return $this->oPedidoFactura->ConsultarRegistro($idPedido);
 	}
@@ -73,17 +73,27 @@ class PedidoFacturaBLL extends LogicaNegocioMantenimientoBase{
 	}
 
 	public function Verificar($id, $clave){
-	
+
 	}
-	
+
 	public function ultimoValorTabla($nombreTabla){
 		return  $this->oPedidoFactura->ultimoValorTabla($nombreTabla);
 	}
-	
+
 	public function TotalPedido($id_pedido){
 		return  $this->oPedidoFactura->TotalPedido($id_pedido);
 	}
-	
-	
+
+	public function ArrayCargosFactura($subtotal){
+
+		$vSubtotal=$subtotal;
+		$vImpuestoVentas= $subtotal*0.13;//definir constantes
+		$vCargoSalonero= $subtotal*0.10;
+		$vTotalPagar= $vSubtotal+$vImpuestoVentas+$vCargoSalonero;
+		$montos= array("Subtotal"=>$vSubtotal, "CargoSalonero"=>$vCargoSalonero, "ImpuestoVentas"=>$vImpuestoVentas,"TotalPagar"=>$vTotalPagar);
+		return  $montos;
+	}
+
+
 
 }

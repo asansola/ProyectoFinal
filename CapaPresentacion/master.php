@@ -46,7 +46,8 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.php">Restaurante</a>
+					<a class="navbar-brand" href="index.php">La Central<i
+						class="glyphicon glyphicon-cutlery"></i></a>
 
 				</div>
 
@@ -58,7 +59,7 @@
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li <?=echoActiveClassIfRequestMatches("index")?>><a
-									href="index.php">Inicio <i class="glyphicon glyphicon-home"></i></a></li>
+							href="index.php">Inicio <i class="glyphicon glyphicon-home"></i></a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">Menu <i class="glyphicon glyphicon-cutlery"></i>
@@ -82,7 +83,7 @@
 								class="glyphicon glyphicon-shopping-cart"></i> <span
 								class="badge"><?php
 
-if (isset ( $_SESSION ['carrito'] )) {
+								if (isset ( $_SESSION ['carrito'] )) {
 									$cantidad = $_SESSION ['carrito'] ["articulos_total"];
 								}
 								if (empty ( $cantidad )) {
@@ -170,13 +171,13 @@ if (isset ( $_SESSION ['carrito'] )) {
 							?>
 
 								<a class="btn btn-default  pull-right" href="pedido.php"> Ver su
-									orden <i class="glyphicon glyphicon-shopping-cart"></i> <span
-									class="badge"> <?php echo $cantidad;?></span>
-								</a>
+							orden <i class="glyphicon glyphicon-shopping-cart"></i> <span
+							class="badge"> <?php echo $cantidad;?></span>
+						</a>
 
 							<?php }?>
 							</div>
-			</div>
+				</div>
 			</div>
 		</div>
 
@@ -186,9 +187,7 @@ if (isset ( $_SESSION ['carrito'] )) {
 			<div id="result"></div>
 	<?php	echo($content);?>
 	</div>
-		<br>
-		<br>
-		<br>
+		<br> <br> <br>
 
 
 		<div class="nav navbar-inverse navbar-fixed-bottom" role="navigation">
