@@ -54,6 +54,38 @@
     to { transform: scale(1) rotate(360deg);}
 }
 
+
+.img-hover img {
+    -webkit-transition: all .3s ease; /* Safari and Chrome */
+    -moz-transition: all .3s ease; /* Firefox */
+    -o-transition: all .3s ease; /* IE 9 */
+    -ms-transition: all .3s ease; /* Opera */
+    transition: all .3s ease;
+}
+.img-hover img:hover {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform:translateZ(0) scale(1.90); /* Safari and Chrome */
+    -moz-transform:scale(1.90); /* Firefox */
+    -ms-transform:scale(1.90); /* IE 9 */
+    -o-transform:translatZ(0) scale(1.90); /* Opera */
+    transform:translatZ(0) scale(1.90);
+}
+  
+  
+.grayscale {
+  -webkit-filter: brightness(1.10) grayscale(100%) contrast(90%);
+  -moz-filter: brightness(1.10) grayscale(100%) contrast(90%);
+  filter: brightness(1.10) grayscale(100%); 
+}
+
+
+#footer
+{
+background-color:#c2c2c2;
+width:inherit;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 

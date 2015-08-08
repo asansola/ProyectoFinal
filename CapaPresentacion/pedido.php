@@ -167,8 +167,8 @@ else {
 	foreach ( $rows as $producto ) {
 		$content .= " <tr>
 	<td data-th='Producto'>
-	<div class='row'>
-	<div class='col-sm-2 hidden-xs' ><img src='img/$producto[foto]' alt='' class='img-responsive'/></div>
+	<div class='row '>
+	<div class='col-sm-2 hidden-xs ' ><a href='#' class='pop' ><img  id='imageresource' src='img/$producto[foto]' alt='' class='img-responsive'/></a></div>
 	<div class='col-sm-10'>
 	<h4 class='nomargin'>$producto[nombre]</h4>
 	<p>$producto[nombre]</p>
@@ -204,7 +204,28 @@ else {
 	<a href='index.php' class='btn btn-warning navbar-left'> Continuar ordenando</a>
 
 	<br/><br/><br/><br/><br/><br/>
-	</div></div>";
+	</div></div>
+
+	<div class='modal fade' id='imagemodal' tabindex='-1' role='dialog'
+	aria-labelledby='myModalLabel' aria-hidden='true'>
+	<div class='modal-dialog' data-dismiss='modal'>
+		<div class='modal-content'>
+			<div class='modal-body'>
+				<button type='button' class='close' data-dismiss='modal'>
+					<span aria-hidden='true'>&times;</span><span class='sr-only'>Volver</span>
+				</button>
+				<img src='' class='imagepreview' style='width: 100%;'>
+			</div>
+			<div class='modal-footer'>
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>
+	";
 }
 
 include ("master.php");

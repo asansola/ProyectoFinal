@@ -54,7 +54,7 @@
 			<!-- /.navbar-collapse -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav ">
+				<ul class="nav navbar-nav">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Menu <i class="glyphicon glyphicon-cutlery"></i>
@@ -141,10 +141,11 @@
 	<?php	echo($content);?>
 	</div>
 	<br><br><br>
-	<div class="container ">
 
-		<div class="navbar navbar-default navbar-fixed-bottom">
+
+		<div class="nav navbar-inverse navbar-fixed-bottom" role="navigation">
 			<div class="container">
+				<div class="navbar-text pull-right">
 				<span id="top-link-block" class="hidden"> <a href="#top"
 					class="well well-sm"
 					onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
@@ -152,14 +153,14 @@
 				</a>
 				</span>
 				<!-- /top-link-block -->
-				<p class="navbar-text pull-right">
+				<p>
 					© <?php echo date('Y')?> - Todos los derechos reservados.
 				</p>
+				</div>
 			</div>
 		</div>
 
 
-	</div>
 
 
 	<!-- /.container -->
@@ -171,6 +172,9 @@
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
+
+	<!-- Custom Core JavaScript -->
+	<script src="js/custom.js"></script>
 </div>
 </body>
 

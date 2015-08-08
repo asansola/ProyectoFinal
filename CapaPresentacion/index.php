@@ -18,22 +18,16 @@ $content .= "</ol>";
 $content .= "<!-- Wrapper for slides -->";
 $content .= "<div class='carousel-inner'>";
 $content .= "<div class='item active'>";
-$content .= "<img src='http://placehold.it/1200x315' alt='...'>";
-$content .= "<div class='carousel-caption'>";
-$content .= "<h3>Caption Text</h3>";
-$content .= "</div>";
+$content .= "<img class='img-responsive center-block' src='img/banners/banner1.jpg' alt='...'  style='width:1200px;height:260px'>";
+
 $content .= "</div>";
 $content .= "<div class='item'>";
-$content .= "<img src='http://placehold.it/1200x315' alt='...'>";
-$content .= "<div class='carousel-caption'>";
-$content .= "<h3>Caption Text</h3>";
-$content .= "</div>";
+$content .= "<img class='img-responsive center-block' src='img/banners/banner2.jpg' alt='...'  style='width:1200px;height:260px'>";
+
 $content .= "</div>";
 $content .= "<div class='item'>";
-$content .= "<img src='http://placehold.it/1200x315' alt='...'>";
-$content .= "<div class='carousel-caption'>";
-$content .= "	<h3>Caption Text</h3>";
-$content .= "</div>";
+$content .= "<img  class='img-responsive center-block'src='img/banners/banner3.jpg' alt='...'  style='width:1200px;height:260px'>";
+
 $content .= "</div>";
 $content .= "</div>";
 
@@ -54,7 +48,7 @@ $content .= "<div class='row'>" . "<div class='col-lg-12'>" . "<h3>Men&uacute;</
 $content .= "<div class='row text-center'>";
 
 foreach ( $vTipoPlatos as $tipo ) {
-	
+
 	$content .= "<div class='col-md-3 col-sm-6 hero-feature'>";
 	$content .= "<div class='thumbnail'>";
 	$content .= "<img src='img/$tipo[2]' alt=''  >";
@@ -76,10 +70,10 @@ $content .= "<hr>";
 include 'master.php';
 
 
-		
 
-    
-		
 
-	
+
+
+
+
 
