@@ -72,6 +72,14 @@ class PlatoBLL extends LogicaNegocioMantenimientoBase{
 		return $this->oPlato->Listar();
 	}
 
+	public function ListarLimite($limiteInicio, $limiteCantidad){
+		return $this->oPlato->ListarLimite($limiteInicio, $limiteCantidad);
+	}
+	
+	public function Contar(){
+		return $this->oPlato->Contar();
+	}
+	
 	public function Verificar($id, $clave){
 	
 	}

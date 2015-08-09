@@ -1,5 +1,5 @@
 <?php
-include ("Seguridad.php");
+
 include ("IncluirClases.php");
 include ("../funciones.php");
 
@@ -27,7 +27,7 @@ if (isset ( $_GET ['action'] )) {
 		}
 			
 		$PlatoEntidad = new Plato ();
-		$PlatoEntidad->__set ( 'id_plato', $id );
+		//$PlatoEntidad->__set ( 'id_plato', $id );
 		$PlatoEntidad->__set ( 'nombre', $nombre );
 		$PlatoEntidad->__set ( 'precio', $precio );
 		$PlatoEntidad->__set ( 'imagen', $nombreFichero );
@@ -41,11 +41,11 @@ if (isset ( $_GET ['action'] )) {
 		//session_start ();
 		if ($PlatoBll->getHayError ()) {
 			
-			$_SESSION ['registrado'] = 'false';
+			$_SESSION ['registrado'] = 'f1';
 			
 		} else {
 			
-			$_SESSION ['registrado'] = 'true';
+			$_SESSION ['registrado'] = 't1';
 			
 		}
 		
@@ -63,12 +63,12 @@ if (isset ( $_GET ['action'] )) {
 
 			<label for='nombre'>Nombre:</label> <input class='form-control'
 				name='nombre' type='text' 
-				id='nombre' required>
+				id='nombre' placeholder='solo letras' required pattern="[A-Za-z -ñáéíóú]*">
 		</div>
 		<div class='form-group'>
 			<label for='precio'>Precio:</label> <input class='form-control'
 				name='precio' type='text' 
-				id='precio' required>
+				id='precio' placeholder='solo números' required pattern="[0-9]{1,}">
 		</div>
 		<div class='form-group'>
 
@@ -86,14 +86,14 @@ if (isset ( $_GET ['action'] )) {
 										$result [$count] = array (
 												"id_tipo_plato" => '',
 												"descripcion" => '-Seleccione una opción-' ,
-												"unidad_medida" => '' 
+								//				"unidad_medida" => '' 
 										);
 										
 										foreach ( $vTipoPlatos as $row ) {
 											$result [++ $count] = array (
 													"id_tipo_plato" => $row [0],
 													"descripcion" => $row [1],
-													"unidad_medida" => $row [3], 
+									//				"unidad_medida" => $row [3], 
 											);
 										}
 										?>

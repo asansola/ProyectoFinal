@@ -140,6 +140,38 @@ class UsuarioAccesoDatos extends MantenimientoBase{
 		return $vResultadoCursor;
 	}
 	
-
+	public function ListarLimite($limiteInicio, $limiteCantidad){
+		//Variables Locales
+		$vResultadoCursor = null;
+		$queryResult=NULL;
+			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+			
+		//Invocar el Procedimiento Almacenado
+		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
+		$vSql = "CALL sp_Q_Usuario_Listar_Limite('$limiteInicio','$limiteCantidad',@descripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+	
+		return $vResultadoCursor;
+	}
+	
+	public function Contar(){
+		//Variables Locales
+		$vResultadoCursor = null;
+		$queryResult=NULL;
+			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+			
+		//Invocar el Procedimiento Almacenado
+		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
+		$vSql = "CALL sp_Q_Usuario_Contar(@descripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+	
+		return $vResultadoCursor;
+	}
 }
 ?>

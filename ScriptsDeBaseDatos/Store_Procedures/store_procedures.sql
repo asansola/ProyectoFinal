@@ -1065,6 +1065,68 @@ BEGIN
    
 END$$
 
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: Contar Registros Platos
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Plato_Contar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Plato_Contar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT count(*)
+	FROM
+    plato;
+    
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: LISTAR platos con limite
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Plato_Listar_Limite`(limiteInicio int ,limiteCantidad int ,INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Plato_Listar_Limite]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+   	SELECT 
+    id_plato, nombre, precio, foto, Descripcion, t.id_tipo_plato
+FROM
+    tipo_plato t,
+    plato p
+WHERE
+    t.id_tipo_plato = p.id_tipo_plato order by p.id_tipo_plato asc
+	limit limiteInicio, limiteCantidad;
+END$$
+
+
 -- --------------------------------------------------------------------------------
 -- Routine DDL
 -- Note: comments before and after the routine body will not be stored by the server
@@ -1110,12 +1172,10 @@ BEGIN
 	  LEAVE bloquePrincipal;
    END IF;
    
-
 	-- Seleccionar el último registro de la tabla parametros para hacer la inserción. 
 	SELECT ultimoValor INTO vUltimoRegistro   
 	FROM parametros
 	WHERE tabla='plato';
-	
 	
 	
    -- Verificar que el Estudiante NO exista
@@ -1142,6 +1202,64 @@ BEGIN
    ELSE
 
 	  UPDATE parametros SET ultimoValor= ultimoValor+1 WHERE tabla='plato';
+      COMMIT;
+   END IF;
+   
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- DELETE DE PLATO
+-- --------------------------------------------------------------------------------
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_D_Plato`(pIdPlato INT, INOUT pMensajeError VARCHAR(2000))
+bloquePrincipal:
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE vCantidad_Registros INT;
+   DECLARE vError INT;
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_D_Plato]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END; 
+
+   -- Declaración de inicio de Transacción - @@autocommit = 0
+   START TRANSACTION;
+   
+   -- Asignaciones de valores a variables locales
+   SET vCantidad_Registros = 0;
+   SET pMensajeError = "";
+   
+   -- Verificar que el plato exista
+      SET vCantidad_Registros = 0;
+	SELECT COUNT(1) INTO vCantidad_Registros 
+    FROM plato
+	WHERE id_plato = pIdPlato;
+   
+   IF (vCantidad_Registros <= 0) THEN
+      SET pMensajeError = CONCAT('El plato NO existe en el catálogo. ', cNombre_Logica);
+  	  ROLLBACK;
+	  LEAVE bloquePrincipal;
+   END IF; 
+   
+   -- Actualizar en la tabla de plato
+   DELETE FROM plato
+   WHERE id_plato = pIdPlato;
+   
+   SET vError = (SELECT @error_count);
+   
+   IF (vError > 0) THEN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. No se actulizó el registro. ', cNombre_Logica);   
+   ELSE
       COMMIT;
    END IF;
    
@@ -1406,6 +1524,65 @@ FROM
    
 END$$
 
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: Contar Registros USUARIOS
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Usuario_Contar`(INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Usuario_Contar]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+SELECT count(*)
+	FROM
+    usuario;
+    
+END$$
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: LISTAR usuarios con limite
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Q_Usuario_Listar_Limite`(limiteInicio int ,limiteCantidad int ,INOUT pMensajeError VARCHAR(2000))
+BEGIN
+     
+   -- Declaración de variables locales
+   DECLARE cNombre_Logica VARCHAR(30) DEFAULT 'Lógica [sp_Q_Usuario_Listar_Limite]';
+
+   -- Declaración de bloque con Handler para manejo de SQLException
+   DECLARE EXIT HANDLER FOR SQLEXCEPTION
+   Handler_SqlException:
+   BEGIN
+      ROLLBACK;
+      SET pMensajeError = CONCAT('Ocurrió un error al ejecutar el procedimiento. Lógica ', cNombre_Logica);
+	  LEAVE Handler_SqlException;
+   END;
+   
+   -- Ejecutar la Consulta
+ SELECT 
+    id_usuario, nombre, apellidos, clave, horario.descripcion, rol.descripcion, usuario.id_horario, usuario.id_rol, horario.id_horario, rol.id_rol
+	FROM
+    usuario,horario,rol
+	WHERE
+    horario.id_horario = usuario.id_horario and 
+    rol.id_rol = usuario.id_rol order by apellidos asc
+	limit limiteInicio, limiteCantidad;
+END$$
 
 -- --------------------------------------------------------------------------------
 -- Routine DDL

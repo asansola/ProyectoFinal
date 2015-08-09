@@ -15,33 +15,40 @@ if (isset ( $_GET ['id'] )) {
 if (isset ( $_POST ['submit'] )) {
 	//captura de datos	
 	$id = $_POST ['idHidden'];
-	$nombre = $_POST ['nombre'];
+	/*$nombre = $_POST ['nombre'];
 	$apellidos = $_POST ['apellidos'];
 	$clave = $_POST ['clave'];
 	$clave2 = $_POST ['clave2'];
 	$horario = $_POST ['horario'];
-	$tipoUsuario = $_POST ['tipoUsuario'];
+	$tipoUsuario = $_POST ['tipoUsuario'];*/
 	
 	$usuarioE = new Usuario();
 	
 	$usuarioE->setId($id);
-	$usuarioE->setNombre($nombre);
+	/*$usuarioE->setNombre($nombre);
 	$usuarioE->setApellidos($apellidos);
 	$usuarioE->setClave($clave);
 	$usuarioE->setIdhorario($horario);
-	$usuarioE->setIdrol($tipoUsuario);
+	$usuarioE->setIdrol($tipoUsuario);*/
 	
 	$usuarioBLL= new UsuarioBLL();
 	
-
-	if($usuarioBLL->getHayError() ){ 
-			$_SESSION ['registrado'] = 'f';
+	if($id!=$_SESSION['id'])
+	{
+		$usuarioBLL->Eliminar($usuarioE);
+		
+		if($usuarioBLL->getHayError() ){ 
+				$_SESSION ['registrado'] = 'f';
+		}
+		else{
+			//si no hay error hay q hacer la modificacion
+		
+	
+			$_SESSION ['registrado'] = 't';
+		}
 	}
 	else{
-		//si no hay error hay q hacer la modificacion
-		$usuarioBLL->Eliminar($usuarioE);
-
-		$_SESSION ['registrado'] = 't';
+		$_SESSION ['registrado'] = 'f3';
 	}
 	
 	//sea cual sea el caso lo retorna a mantenimientos

@@ -68,5 +68,13 @@ class UsuarioBLL extends LogicaNegocioMantenimientoBase{
 	public function ListarRol($rol){
 		return $this->oUsuario->ListarRol($rol);
 	}
+	
+	public function ListarLimite($limiteInicio, $limiteCantidad){
+		return $this->oUsuario->ListarLimite($limiteInicio, $limiteCantidad);
+	}
+	
+	public function Contar(){
+		return $this->oUsuario->Contar();
+	}
 
 }

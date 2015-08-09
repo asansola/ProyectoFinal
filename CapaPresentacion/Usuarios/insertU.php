@@ -78,11 +78,11 @@ if (isset ( $_POST ['submit'] )) {
 			</div>
 			<div class='form-group'>
 					<label for='clave'>Clave:</label>
-					<input class='form-control' name='clave' type='password'  id='clave' placeholder='6 a 12 caracteres' required pattern="[A-Za-z0-9]{6,12}"/>
+					<input class='form-control' name='clave' type='password'  id='clave' placeholder='6 a 12 caracteres' required pattern="[A-Za-z0-9]{6,12}" title="6 a 12 caracteres"/>
 			</div>
 				<div class='form-group'>
 					<label for='clave2'>Verificar Clave:</label>
-					<input class='form-control' name='clave2' type='password'  id='clave2' placeholder='6 a 12 caracteres' required pattern="[A-Za-z0-9]{6,12}"/>
+					<input class='form-control' name='clave2' type='password'  id='clave2' placeholder='6 a 12 caracteres' required pattern="[A-Za-z0-9]{6,12}" title="6 a 12 caracteres"/>
 						<!-- validar que ambas claves sean iguales en el mismo form -->
 						
 			</div>

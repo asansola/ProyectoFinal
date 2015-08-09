@@ -56,9 +56,9 @@ class PlatoAccesoDatos extends MantenimientoBase{
 		parent::setHayError(False);
 			
 		//Invocar el Procedimiento Almacenado
-		$vSql = "CALL sp_D_Plato (" . $oPlato->__get(TipoPlato). ", @descripcionError);";
+		$vSql = "CALL sp_D_Plato (" . $oPlato->__get('id_plato'). ", @descripcionError);";
 		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
-		FactoriaDAO::getConexionBaseDatos()->EjecutarSQL_DML($vSql);
+		FactoriaDAO::getConexionBaseDatos()->EjecutarSQLError($vSql);
 		
 		//Leer la variable de salida del error
 		if(FactoriaDAO::getConexionBaseDatos()->getHayError()){
@@ -102,7 +102,41 @@ class PlatoAccesoDatos extends MantenimientoBase{
 	
 	}
 	
-
+	public function Contar(){
+		//Variables Locales
+		$vResultadoCursor = null;
+		$queryResult=NULL;
+			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+			
+		//Invocar el Procedimiento Almacenado
+		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
+		$vSql = "CALL sp_Q_Plato_Contar(@descripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+	
+		return $vResultadoCursor;
+	}
+	
+	public function ListarLimite($limiteInicio, $limiteCantidad){
+		//Variables Locales
+		$vResultadoCursor = null;
+		$queryResult=NULL;
+			
+		//Inicializar el control de Errores
+		parent::setHayError(False);
+			
+		//Invocar el Procedimiento Almacenado
+		//Se manda 0 en par�metro ya que se desea leer todas las tuplas
+		$vSql = "CALL sp_Q_Plato_Listar_Limite('$limiteInicio','$limiteCantidad',@descripcionError);";
+		FactoriaDAO::getConexionBaseDatos()->AbrirConexion();
+		$vResultadoCursor = FactoriaDAO::getConexionBaseDatos()->EjecutarSQLIndices($vSql);
+	
+		return $vResultadoCursor;
+	}
+	
+	
 	public function Listar(){
 		//Variables Locales
 		$vResultadoCursor = null;

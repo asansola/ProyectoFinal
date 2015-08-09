@@ -2,8 +2,76 @@
 include ("Seguridad.php");
 include ("IncluirClases.php");
 $title = "Mantenimiento de Usuarios";
-$usuario = new UsuarioBLL();
-$listaUsuario= $usuario->Listar ();
+$usuario = new  UsuarioBLL();
+
+$resultado = $usuario->Contar();
+// Número de Filas total
+$totalFilas = $resultado[0][0];
+// Número de resultados que desea mostrar por página
+$filas_pagina = 6;
+// Indica el número de página de la última pagina
+$ultima = ceil($totalFilas/$filas_pagina);
+// Verificar que la última no sea inferior a 1
+if($ultima < 1){ $ultima = 1; }
+// Estable el $numeroPagina = 1;
+$numeroPagina=1;
+// Obtiene el número de página de GET (URL)
+if(isset($_GET['pn'])){ $numeroPagina = preg_replace('#[^0-9]#', '', $_GET['pn']); }
+// Verificar el número de página no sea menor a 1 o más que la $ultima pagina
+if ($numeroPagina < 1) { $numeroPagina = 1; } else if ($numeroPagina > $ultima) { $numeroPagina = $ultima; }
+// This sets the range of rows to query for the chosen $numeroPagina
+// Establece el rango de filas pa la consulta determinado por el $numeroPagina
+//LIMIT: parámetros->  el primero indica el número del primer registro a retornar, el segundo, el número máximo de registros a retornar.
+$registroNum=($numeroPagina );
+if ($numeroPagina != 1) $registroNum=($numeroPagina -1) * $filas_pagina;
+
+$limiteInicio=$registroNum;
+$limiteCantidad=$filas_pagina;
+
+//si pagina es la primera para q cuente el primer registro
+if($numeroPagina == 1){
+	$limiteInicio=$registroNum-1;
+}
+//var_dump($limiteInicio);
+//var_dump($limiteCantidad);
+
+//lista las mesas restringidas por los limites
+$listaUsuario= $usuario->ListarLimite($limiteInicio, $limiteCantidad);
+
+// Esto muestra al usuario
+//el número total de páginas
+//$textline1 = "Estudiantes (<b>$totalFilas</b>)";
+//En que página se encuentra
+$textline2 = "Página <b>$numeroPagina</b> de <b>$ultima</b>";
+//Control de Paginacion: Anterior y Siguiente
+$ctrlsPaginacion = '';
+// Si hay más de una página
+if($ultima != 1){
+	/* 1ero comprobar si esta en la primera pagina
+	* Si es menor que 1 no es necesario un link a la página anterior o la primera página.
+	* Si es mayor a 1 se generan los enlaces de la primera página y, a la página anterior. */
+	if ($numeroPagina > 1) {
+	$previous = $numeroPagina - 1; $ctrlsPaginacion .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'">&laquo; Anterior</a>&nbsp; &nbsp; ';
+ 		// Links de número de enlaces que deben aparecer a la izquierda del número de página actual
+		for($i = $numeroPagina-4; $i < $numeroPagina; $i++){
+			if($i > 0){
+			$ctrlsPaginacion .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$i.'">'.$i.'</a> &nbsp; ';
+			}
+		}
+	}
+
+//El número de la página actual, pero sin que sea un enlace
+	$ctrlsPaginacion .= ''.$numeroPagina.' &nbsp; ';
+	// Links de número de enlaces que deben aparecer a la derecha del número de la página actual
+	for($i = $numeroPagina+1; $i <= $ultima; $i++){
+	$ctrlsPaginacion .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$i.'">'.$i.'</a> &nbsp; ';
+		if($i >= $numeroPagina+4){ break; }
+	}
+	// Esto hace lo mismo que el anterior, verifica si estamos en la última página, y luego genera el link de Siguiente
+	if ($numeroPagina != $ultima) {
+		$next = $numeroPagina + 1; $ctrlsPaginacion .= ' &nbsp; &nbsp;<a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Siguiente &raquo;</a>';
+	}
+}
 
 if (isset($_SESSION['registrado'])) {
 	if ($_SESSION['registrado']=='t'){
@@ -18,7 +86,7 @@ if (isset($_SESSION['registrado'])) {
 	}
 	if($_SESSION['registrado']=='f'){
 		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
-				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado</div>";
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el salonero tiene mesa(s) asignada(s)</div>";
 		echo $message;
 	}
 	if($_SESSION['registrado']=='f1'){
@@ -28,13 +96,19 @@ if (isset($_SESSION['registrado'])) {
 	}
 	if($_SESSION['registrado']=='f2'){
 		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
-				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el usuario ya existe</div>";
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no agregado: el usuario ya existe</div>";
 		echo $message;
 	}
-	//var_dump($_SESSION['temp']);
+	if($_SESSION['registrado']=='f3'){
+		$message="<div class='alert alert-danger fade in'><button type='button' class='close close-alert'
+				data-dismiss='alert' aria-hidden='true'>×</button>Registro no actualizado: el usuario se encuentra activo</div>";
+		echo $message;
+	}
+
 	unset($_SESSION['registrado']);
 }
 
+//var_dump($_SESSION['id']);
 
 $content = "<br>
 <div><h2>Mantenimiento de Usuarios</h2></div>
@@ -57,8 +131,8 @@ $content = "<br>
     						<thead>
     						<tr>
     						<th class='text-center'>Identificación</th>
-    						<th class='text-center'>Nombre</th>
-    						<th class='text-center'>Apellidos</th>
+    						<th class='text-center'>Nombre Completo</th>
+    						<!-- <th class='text-center'>Apellidos</th>  -->
     						<!-- <th class='text-center'>Clave</th>  --> 
     						<th class='text-center'>Horario</th>
 							<th class='text-center'>Rol</th>
@@ -70,8 +144,8 @@ $content = "<br>
 							foreach ( $listaUsuario as $usuario) {
 								$content .= "<tr>
     						<td class='text-center'>$usuario[0]</td>
-    						<td class='text-center'>$usuario[1]</td>
-    						<td class='text-center'>$usuario[2]</td>
+    						<td class='text-center'>$usuario[1] $usuario[2] </td>
+    						<!-- <td class='text-center'>$usuario[2]</td> -->
     						<!-- <td class='text-center'>$usuario[3]</td> -->  
     						<td class='text-center'>$usuario[4]</td>
     						<td class='text-center'>$usuario[5]</td>
@@ -84,20 +158,15 @@ $content = "<br>
     											</tr>";
 									}
 							}
-
-						$content .= "</tbody>
-    											</table>
-    											</div>
-    											<ul class='pagination'>
-  					<li class='disabled'><a href='#'>&laquo;</a></li>
-  					<li class='active'><a href='#'>1</a></li>
-  					<li><a href='#'>2</a></li>
-  					<li><a href='#'>3</a></li>
-  					<li><a href='#'>4</a></li>
-  					<li><a href='#'>5</a></li>
-  					<li><a href='#'>&raquo;</a></li>
-  					</ul>
-  					</div>
+							$content .= "</tbody>
+							</table>
+							</div>
+							<ul class='pagination'>
+							<div class='pagination'>$ctrlsPaginacion</div>
+							
+							</ul>
+							</div>
+							<p style='text-align: center;'>$textline2</p>
 					
 					<div class='modal fade' id='mantenimientoModal' tabindex='-1' role='dialog' aria-labelledby='memberModalLabel' aria-hidden='true'>
 				        <div class='modal-dialog'>

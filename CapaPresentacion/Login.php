@@ -13,6 +13,7 @@
 
 			$_SESSION['usuario'] = $usuarioActual[0][2] . " " . $usuarioActual[0][3]; //Mostar nombre y apellidos
 			$_SESSION['rol'] = $usuarioActual[0][5]; //Rol para definir los menus a mostrar
+			$_SESSION['id'] =$usuarioActual[0][1]; //identicador del usuario actual
 			$mensaje = 'Bienvenido ' . $_SESSION['usuario'];
 		
 			echo "<script>";
